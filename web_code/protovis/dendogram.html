@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Protovis Dendrogram</title>
+    <script type="text/javascript" src="../protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="../../data/clusters.js"></script>
+  </head>
+  <body style="padding:20px"><div>
+    <script type="text/javascript+protovis">
+        var vis = new pv.Panel()
+            .width(500)
+            .height(2200)
+            .left(100)
+            .right(160)
+            .top(10)
+            .bottom(10);
+
+        var layout = vis.add(pv.Layout.Cluster)
+            .nodes(pv.dom(clusters)
+                .root("My LinkedIn")
+                .sort(function(a, b) pv.naturalOrder(a.nodeName, b.nodeName))
+                .nodes())
+            .group(true)
+            .orient("left");
+
+        layout.link.add(pv.Line)
+            .strokeStyle("#ccc")
+            .lineWidth(1)
+            .antialias(false);
+
+        layout.node.add(pv.Dot)
+            .fillStyle(function(n) n.firstChild ? "#aec7e8" : "#ff7f0e");
+
+        layout.label.add(pv.Label);
+
+        vis.render();
+    </script>
+  </body>
+</html>

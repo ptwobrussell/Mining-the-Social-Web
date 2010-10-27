@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Protovis Arc Graph Example</title>
+    <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="../data/graph.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript+protovis">
+        var vis = new pv.Panel()
+            .width(1800)
+            .height(1000)
+            .bottom(600)
+            ;
+
+        var arc = vis.add(pv.Layout.Arc)
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .sort(function(a, b) a.group == b.group
+                ? b.linkDegree - a.linkDegree
+                : b.group - a.group)
+            ;
+
+        arc.link.add(pv.Line);
+
+        arc.node.add(pv.Dot)
+            .size(function(d) d.linkDegree + 4)
+            .fillStyle(pv.Colors.category20().by(function(d) d.group))
+            .strokeStyle(function() this.fillStyle().darker())
+            .title(function(d) d.nodeName)
+            .event("click", function(d) window.open(d.nodeUrl))
+            ;
+
+        arc.label.add(pv.Label);
+
+        vis.render();
+    </script>
+  </body>
+</html>

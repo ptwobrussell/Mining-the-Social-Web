@@ -1,0 +1,50 @@
+<html>
+    <!-- A straightforward adaptation of the word-cumulus-goog-vis tag cloud from 
+         http://code.google.com/p/word-cumulus-goog-vis/wiki/UserGuide 
+
+         This file is used as a template and a simple JSON data structure is injected into it
+         to provide the data for the tag cloud
+    -->
+  <head>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://word-cumulus-goog-vis.googlecode.com/svn/trunk/wordcumulus.js"></script>
+    <script type="text/javascript" src="http://word-cumulus-goog-vis.googlecode.com/svn/trunk/swfobject.js"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1");
+
+      // Set callback to run when API is loaded
+      google.setOnLoadCallback(drawVisualization);
+
+
+    // Called when the Visualization API is loaded.
+    function drawVisualization() {
+
+        // Create and populate a data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Tag');
+        data.addColumn('string', 'URL');
+        data.addColumn('number', 'Font size');
+
+        //Define an array of 3-part tuples below
+        //We're substituting them in via Python so there's a placeholder
+        var json_data = %s;
+
+        data.addRows(json_data.length);
+        for (var i = 0; i < json_data.length; i++) {
+            data.setCell(i, 0, json_data[i][0]); // Tag
+            data.setCell(i, 1, json_data[i][1]); // URL for tag
+            data.setCell(i, 2, 2+2.5*json_data[i][2]); // Font size for tag
+        }
+
+        // Instantiate our table object.
+        var vis = new gviz_word_cumulus.WordCumulus(document.getElementById('tc'));
+
+        // Draw our table with the data we created locally.
+        vis.draw(data, {text_color: '#00ff00', speed: 50, width:600, height:600});
+       }
+   </script>
+  </head>
+  <body>
+    <div id="tc"></div>
+  </body>
+</html>

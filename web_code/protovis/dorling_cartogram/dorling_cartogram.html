@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>Protovis Dorling Cartogram of Your Colleagues</title>
+    <script type="text/javascript" src="../protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="centroid.js"></script>
+    <script type="text/javascript" src="us_lowres.js"></script>
+    <script type="text/javascript" src="us_borders.js"></script>
+
+    <script type="text/javascript" src="cartogram_data.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript+protovis">
+
+        /////////////////////////////////////////////////////////////////        
+        // Parameters and functions to manipulate the shapes in the 
+        // visualization as defined by 
+        /////////////////////////////////////////////////////////////////        
+
+        var i = 0,
+            w = 810,
+            h = 400,
+            mapMargin = 30;
+
+        var scale = pv.Geo.scale()
+            .domain({lng: -128, lat: 24}, {lng: -64, lat: 50})
+            .range({x: mapMargin, y: mapMargin}, {x: w-mapMargin, y: h-mapMargin});
+
+        var nodes = [],
+            codeToNode = [],
+            links = [];
+
+        var freqToRad = function(f) {
+            return Math.sqrt(f)*10; 
+        };
+
+        us_lowres.forEach(function(c) {
+          c.code = c.code.toUpperCase();
+          c.center = centroid(c.borders[0]);
+        });
+        us_lowres.forEach(function(s) {
+          if (_data[s.code]) {
+            var x = scale(s.center).x,
+                y = scale(s.center).y,
+                n = {x: x, y: y, p: {x: x, y: y}, r: freqToRad(_data[s.code].value), code:s.code};
+            nodes.push(n);
+            codeToNode[s.code] = n;
+          }
+        });
+        us_lowres.forEach(function(s) {
+          if (_data[s.code]) {
+            var borders = us_borders[s.code];
+            borders.forEach(function(b) {
+              if (codeToNode[s.code] && codeToNode[b] && s.code < b) {
+                var nodeA = codeToNode[s.code];
+                var nodeB = codeToNode[b];
+                links.push({sourceNode:nodeA, targetNode:nodeB, length:(nodeA.r + nodeB.r + 2)});
+              }
+            });
+          }
+        });
+        
+        ////////////////////////////////////////////////////////
+        // The visualization
+        ////////////////////////////////////////////////////////
+        var vis = new pv.Panel()
+            .width(w)
+            .height(h)
+            .top(50)
+            .bottom(30);
+
+        vis.add(pv.Dot)
+            .data(nodes)
+            .left(function(d) d.x)
+            .top(function(d) d.y)
+            .radius(function(d) d.r)
+            .fillStyle("#999") // color could represent something meaningful
+            .strokeStyle(null)
+            .title(function(d) d.code + ": " + _data[d.code].value)
+           .add(pv.Label)
+            .text(function(d) d.code)
+            .textStyle("#eee")
+            .font(function(d) "bold " + (4*Math.log(d.r)).toFixed(0) + "px sans-serif")
+            .textAlign("center")
+            .textBaseline("middle");
+
+
+        ////////////////////////////////////////////////////////
+        // Machinery to prevent shapes from overlapping
+        ////////////////////////////////////////////////////////
+        var collisionConstraint = pv.Constraint.collision(function(d) d.r + 1),
+            positionConstraint = pv.Constraint.position(function(d) d.p),
+            linkConstraint = pv.Force.spring(100).links(links);
+
+        var sim = pv.simulation(nodes)
+            .constraint(collisionConstraint)
+            .constraint(positionConstraint)
+            .constraint(linkConstraint)
+            .force(pv.Force.drag());
+       
+        var ease = setInterval(function() {
+          if (i++ > 140) {
+            clearInterval(ease);
+            ease = null;
+          }
+          sim.step();
+          positionConstraint.alpha(Math.pow(.7, i + 2) + .03);
+          linkConstraint.damping(Math.pow(.7, i + 2) + .03);
+          vis.render();
+        }, 42);
+
+    </script>
+  </body>
+</html>

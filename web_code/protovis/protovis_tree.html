@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Node-Link Tree</title>
+    <script type="text/javascript" src="../protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="../../data/clusters.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript+protovis">
+        var vis = new pv.Panel()
+            .width(1500)
+            .height(1500)
+            .left(75)
+            .right(-75)
+            .top(-30)
+            .bottom(-80);
+
+        var tree = vis.add(pv.Layout.Tree)
+            .nodes(pv.dom(clusters).root("My LinkedIn").nodes())
+            .depth(200)
+            .breadth(15)
+            .orient("radial");
+
+        tree.link.add(pv.Line);
+
+        tree.node.add(pv.Dot)
+            .fillStyle(function(n) n.firstChild ? "#aec7e8" : "#ff7f0e");
+
+        tree.label.add(pv.Label);
+
+        vis.render();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>RGraph of Mutual Friends</title>
+
+    <!-- CSS Files -->
+    <link type="text/css" href="rgraph.css" rel="stylesheet" />
+
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+
+    <!-- JIT Library File -->
+    <script language="javascript" type="text/javascript" src="../jit.js"></script>
+
+    <!-- Data - this points to where it would be written out by python code -->
+    <script language="javascript" type="text/javascript" src="../../../python_code/out/facebook.rgraph.js"></script>
+
+    <!-- JIT code to process the data -->
+    <script language="javascript" type="text/javascript" src="rgraph.js"></script>
+</head>
+
+<body onload="init();">
+
+    <div id="center-container">
+        <div id="infovis"></div>    
+    </div>
+
+    <div id="inner-details">
+        <h3 id="normalized_popularity_heading"></h3>
+        <div id="normalized_popularity"></div>
+
+        <h3 id="connections_heading"></h3>
+        <div id="connections"></div>
+    </div>
+
+</body>
+</html>

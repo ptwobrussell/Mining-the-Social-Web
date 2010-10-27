@@ -1,0 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+		"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>Facebook OAuth Helper</title>
+
+    <script type="text/javascript">
+        var access_token = window.location.hash.substring("access_token=".length+1).split("&")[0];
+        document.write("<div>Type the following identifier into the prompt in your terminal: <strong><span>" + access_token + "</span></strong>");
+    </script>
+</head>
+<body>
+</body>
+</html>

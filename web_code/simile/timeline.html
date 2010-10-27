@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>SIMILE Timeline Visualization</title>
+    <script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true" type="text/javascript"></script>
+
+    <script>
+        function onLoad() {
+            var eventSource = new Timeline.DefaultEventSource(0);
+            var theme = Timeline.ClassicTheme.create();
+            theme.event.bubble.width = 350;
+            theme.event.bubble.height = 300;
+
+            //XXX: could detect and dynamically set orientation of timeline
+
+            var d = Timeline.DateTime.parseGregorianDateTime("2002") 
+            var bandInfos = [
+                Timeline.createBandInfo({
+                    width:          "70%", 
+                    intervalUnit:   Timeline.DateTime.DAY, 
+                    intervalPixels: 100,
+                    eventSource : eventSource,
+                    date : d
+                }),
+                Timeline.createBandInfo({
+                     width:          "30%", 
+                     intervalUnit:   Timeline.DateTime.MONTH, 
+                     intervalPixels: 600,
+                     eventSource : eventSource,
+                     date : d,
+                     overview : true
+                 })
+            ];
+            bandInfos[1].syncWith = 0;
+            bandInfos[1].highlight = true; 
+
+            var tl = Timeline.create(document.getElementById("tl"), bandInfos);
+            //XXX: could parse out string parameter for the data file to load?
+            // stop browser caching of data during testing...
+            tl.loadJSON("./simile_data.js?"+ (new Date().getTime()), function(json, url) {
+                eventSource.loadJSON(json, url);
+            });
+        }
+    </script>
+</head>
+<body onload="onLoad();">
+    <div id="body">
+        <div id="tl" class="timeline-default" style="height: 600px;">
+    </div>
+</body>
+</html>

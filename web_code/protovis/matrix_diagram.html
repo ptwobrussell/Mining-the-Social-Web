@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Protovis Matrix Diagram Example</title>
+    <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="../data/graph.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript+protovis">
+
+        var maxLinkValue = Math.max.apply(Math, graph.links.map(function(l) {return l.value}));
+        var colorBlender = pv.ramp("#eee", "black");
+
+        var color = pv.Colors.category20().by(function(d) d.group);
+
+        var vis = new pv.Panel()
+            .width(1000)
+            .height(1000)
+            .top(600)
+            .left(600);
+
+        var layout = vis.add(pv.Layout.Matrix)
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .sort(function(a, b) b.group - a.group);
+
+        layout.link.add(pv.Bar)
+            .fillStyle(function(l) colorBlender(l.linkValue/maxLinkValue))
+            .antialias(false)
+            .title(function(l) l.linkValue)
+            .lineWidth(1);
+
+        layout.label.add(pv.Label)
+            .event("click", function(d) window.open(d.nodeUrl))
+
+            .textStyle(color);
+
+        vis.render();
+
+    </script>
+  </body>
+</html>

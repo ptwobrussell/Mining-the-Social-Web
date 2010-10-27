@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Facebook Query Sandbox</title>
+  </head>
+  <body>
+      <p><a href="/auth/logout">Logout</a></p>
+      <p>Run a <a href="http://developers.facebook.com/docs/api">Graph API</a> (using syntax from the official <a href="http://github.com/facebook/python-sdk/blob/master/src/facebook.py">facebook module</a>) or <a href="http://developers.facebook.com/docs/reference/fql/">FQL</a> query. </p>
+      <p>
+        <form action="/query" method="POST">
+          <input name="q" size="150" type="text" />
+          <input type="submit" value="Query" />
+        </form>
+      </p>
+
+      <p>
+        Graph API Example: <code>get_connections("me", "friends")</code><br />
+        FQL Example: <code>select uid1, uid2 from friend where uid1 = 1 and uid2 = 2</code>
+      </p>
+      
+      {% if q %}
+          <hr />
+          <p>Results for <code>{{ q }}</code><br />
+            <code><pre>{{ results }}</pre></code>
+          </p>
+      {% endif %}
+
+      <hr />
+
+      <p>Your access token is <code>{{ access_token }}</code> (<a href="/auth/login">Login</a> again when it expires)</p>
+  </body>
+</html>
