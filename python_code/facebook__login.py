@@ -88,4 +88,5 @@ def login():
 
     return access_token
 
-
+if __name__ == '__main__':
+    login()
