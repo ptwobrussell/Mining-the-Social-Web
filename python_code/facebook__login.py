@@ -11,7 +11,7 @@ def login():
 
     CLIENT_ID = '9ba88ca6f3d788b7b6075edce551f31e'
 
-    REDIRECT_URI = 'http://zaffra.com/static/~matthew/facebook_oauth_helper.html'
+    REDIRECT_URI = 'http://miningthesocialweb.appspot.com/static/facebook_oauth_helper.html'
 
     # You could customize which extended permissions are being requested on the login page
     # or by editing the list below. By default, all the ones that make sense for read access

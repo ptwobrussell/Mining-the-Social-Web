@@ -11,7 +11,7 @@ SECRET = sys.argv[2]
 # Parses out oauth_verifier parameter from window.location.href and
 # displays it for the user
 
-RETURN_URL = 'http://zaffra.com/static/~matthew/linkedin_oauth_helper.html'
+RETURN_URL = 'http://miningthesocialweb.appspot.com/static/linkedin_oauth_helper.html'
 
 
 def oauthDance(key, secret, return_url):
