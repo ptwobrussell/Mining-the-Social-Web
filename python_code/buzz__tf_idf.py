@@ -19,8 +19,8 @@ def idf(term, corpus):
                               in text.lower().split()])
 
     # tf-idf calc involves multiplying against a tf value less than 0, so it's important
-    # to return a value greater than 1 for consistent scoring. (Multiplying two values less than 1
-    # returns a value less than each of them)
+    # to return a value greater than 1 for consistent scoring. (Multiplying two values 
+    # less than 1 returns a value less than each of them)
 
     try:
         return 1.0 + log(float(len(corpus)) / num_texts_with_term)
@@ -33,9 +33,11 @@ def tf_idf(term, doc, corpus):
 
 
 corpus = \
-    {'a': 'Mr. Green killed Colonel Mustard in the study with the candlestick. Mr. Green is not a very nice fellow.',
+    {'a': 'Mr. Green killed Colonel Mustard in the study with the candlestick. \
+Mr. Green is not a very nice fellow.',
      'b': 'Professor Plumb has a green plant in his study.',
-     'c': "Miss Scarlett watered Professor Plumb's green plant while he was away from his office last week."}
+     'c': "Miss Scarlett watered Professor Plumb's green plant while he was away \
+from his office last week."}
 
 # Score queries by calculating cumulative tf_idf score for each term in query
 

@@ -55,7 +55,8 @@ def jsonifyMessage(msg):
 
 
 mbox_file_name = sys.argv[1]
-mbox = mailbox.UnixMailbox(open(mbox_file_name, 'rb'), email.message_from_file)  # Note: opening in binary mode is recommended
+# Note: opening in binary mode is recommended
+mbox = mailbox.UnixMailbox(open(mbox_file_name, 'rb'), email.message_from_file)  
 json_msgs = []
 while 1:
     msg = mbox.next()

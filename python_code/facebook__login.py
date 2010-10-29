@@ -13,11 +13,11 @@ def login():
 
     REDIRECT_URI = 'http://miningthesocialweb.appspot.com/static/facebook_oauth_helper.html'
 
-    # You could customize which extended permissions are being requested on the login page
-    # or by editing the list below. By default, all the ones that make sense for read access
-    # as described on http://developers.facebook.com/docs/authentication/ are included.
-    # (And yes, it would be probably be ridiculous to request this much access if you wanted to launch
-    # a successful production application.)
+    # You could customize which extended permissions are being requested on the login 
+    # page or by editing the list below. By default, all the ones that make sense for  
+    # read access as described on http://developers.facebook.com/docs/authentication/ 
+    # are included. (And yes, it would be probably be ridiculous to request this much 
+    # access if you wanted to launch a successful production application.)
 
     EXTENDED_PERMS = [
         'user_about_me',
@@ -84,7 +84,7 @@ def login():
     f.close()
 
     print >> sys.stderr, \
-        "Access token stored to local file in current directory as 'facebook.access_token'"
+    "Access token stored to local file in current directory as 'facebook.access_token'"
 
     return access_token
 

@@ -20,7 +20,7 @@ except IOError, e:
         Q = sys.argv[2]
     except:
         print >> sys.stderr, \
-            "Could not either find access token in 'facebook.access_token' or parse args. Logging in..."
+            "Could not either find access token in 'facebook.access_token' or parse args."
         ACCESS_TOKEN = login()
         Q = sys.argv[1]
 

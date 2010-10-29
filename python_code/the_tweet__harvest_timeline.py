@@ -17,8 +17,9 @@ def usage():
     print 'Notes:'
     print '\t* ~800 statuses are available from the home timeline.'
     print '\t* ~3200 statuses are available from the user timeline.'
-    print '\t* The public timeline is only updated once every 60 seconds and returns 20 statuses.'
-    print '\t* See the streaming API or search API for better options to collect more public tweets.'
+    print '\t* The public timeline updates once every 60 secs and returns 20 statuses.'
+    print '\t* See the streaming/search API for additional options to harvest tweets.'
+
     exit()
 
 
@@ -77,9 +78,10 @@ except couchdb.http.PreconditionFailed, e:
 
     db = server[DB]
 
-    # Try to avoid appending duplicate data into the system by only retrieving tweets newer than the ones
-    # already in the system. A trivial mapper/reducer combination allows us to pull out the max tweet id
-    # which guards against duplicates for the home and user timelines. It has no effect for the public timeline
+    # Try to avoid appending duplicate data into the system by only retrieving tweets 
+    # newer than the ones already in the system. A trivial mapper/reducer combination 
+    # allows us to pull out the max tweet id which guards against duplicates for the 
+    # home and user timelines. It has no effect for the public timeline
 
 
     def idMapper(doc):
@@ -131,8 +133,8 @@ def handleTwitterHTTPError(e, wait_period=2):
 
 # Harvest tweets for the given timeline.
 # For friend and home timelines, the unofficial limitation is about 800 statuses although
-# other documentation may state otherwise. The public timeline only returns 20 statuses and gets
-# updated every 60 seconds.
+# other documentation may state otherwise. The public timeline only returns 20 statuses 
+# and gets updated every 60 seconds.
 # See http://groups.google.com/group/twitter-development-talk/browse_thread/thread/4678df70c301be43
 # Note that the count and since_id params have no effect for the public timeline
 

@@ -42,7 +42,7 @@ min_conversation_id = min([int(i[1]) for i in conversation if i[1] is not None])
 max_conversation_id = max([int(i[1]) for i in conversation if i[1] is not None])
 
 # Pull tweets from other user using user timeline API to minimize API expenses...
-# Note: more robust error handling with the handleTwitterHTTPError function omitted for brevity
+# Note: robust error handling with the handleTwitterHTTPError function omitted for brevity
 
 # Go to http://twitter.com/apps/new to create an app and get these items
 

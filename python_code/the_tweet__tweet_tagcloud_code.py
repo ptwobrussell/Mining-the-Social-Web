@@ -83,7 +83,8 @@ entities_freqs = [(row.key, row.value) for row in
 raw_output = sorted([[escape(term), '', freq] for (term, freq) in entities_freqs
                     if freq > MIN_FREQUENCY], key=lambda x: x[2])
 
-# Implementation adapted from http://help.com/post/383276-anyone-knows-the-formula-for-font-s
+# Implementation adapted from 
+# http://help.com/post/383276-anyone-knows-the-formula-for-font-s
 
 min_freq = raw_output[0][2]
 max_freq = raw_output[-1][2]

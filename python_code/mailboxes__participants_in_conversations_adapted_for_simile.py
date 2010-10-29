@@ -53,7 +53,8 @@ try:
 finally:
     conn.close()
 
-# Find only the threads that have a message_id appearing in the list of message ids fetched from the Lucene index
+# Find only the threads that have a message_id appearing in the list of message ids 
+# fetched from the Lucene index
 
 threads_of_interest = [t for t in threads for message_id in t['message_ids']
                        if message_id in message_ids_of_interest]

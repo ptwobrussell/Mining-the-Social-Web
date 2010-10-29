@@ -28,5 +28,6 @@ view.sync(db)
 
 print 'Date\t\tCount'
 print '-' * 25
-for row in db.view('index/doc_count_by_date_time', group_level=3):  # group by year, month, day
+# group by year, month, day
+for row in db.view('index/doc_count_by_date_time', group_level=3):  
     print '%s\t\t%s' % (row.key, row.value)

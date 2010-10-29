@@ -54,7 +54,8 @@ def score_sentences(sentences, important_words):
             i += 1
         clusters.append(cluster)
 
-        # Score each cluster. The max score for any given cluster is the score for the sentence
+        # Score each cluster. The max score for any given cluster is the score 
+        # for the sentence
 
         max_cluster_score = 0
         for c in clusters:

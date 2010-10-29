@@ -9,7 +9,8 @@ GMAIL_ACCOUNT = ''  # example@gmail.com
 
 url = 'https://mail.google.com/mail/b/%s/imap/' % (GMAIL_ACCOUNT, )
 
-consumer = oauth.Consumer('anonymous', 'anonymous')  # Standard values for GMail's Xoauth
+# Standard values for GMail's Xoauth
+consumer = oauth.Consumer('anonymous', 'anonymous')  
 token = oauth.Token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 conn = imaplib.IMAP4_SSL('imap.googlemail.com')

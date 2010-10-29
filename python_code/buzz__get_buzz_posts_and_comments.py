@@ -23,8 +23,8 @@ posts_data = client.posts(type_id='@public', user_id=USER, max_results=100).data
 posts = []
 for p in posts_data:
 
-    # Fetching lots of comments for lots of posts could take a little bit of time. Thread pool code
-    # from XXX could be adapted for use here.
+    # Fetching lots of comments for lots of posts could take a little bit of time. 
+    # Thread pool code from XXX could be adapted for use here.
 
     comments = [{'name': c.actor.name, 'content': cleanHtml(c.content)} for c in
                 p.comments().data]

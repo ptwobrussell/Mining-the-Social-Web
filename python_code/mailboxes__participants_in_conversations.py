@@ -51,7 +51,8 @@ try:
 finally:
     conn.close()
 
-# Find only the threads that have a message_id appearing in the list of message ids fetched from the Lucene index
+# Find only the threads that have a message_id appearing in the list of message ids 
+# fetched from the Lucene index
 
 threads_of_interest = [t for t in threads for message_id in t['message_ids']
                        if message_id in message_ids_of_interest]
@@ -77,7 +78,8 @@ message_ids_for_threads_of_interest = [t['message_ids'] for t in
 message_ids_for_threads_of_interest = list(set([message_id for message_ids in
         message_ids_for_threads_of_interest for message_id in message_ids]))
 
-# Query CouchDB for the email addresses in various headers of interest using a bulk request
+# Query CouchDB for the email addresses in various headers of interest using a bulk 
+# request
 
 try:
     conn = httplib.HTTPConnection('localhost', 5984)
@@ -93,7 +95,8 @@ finally:
     conn.close()
 
 # Finally, with full messages of interest on hand, parse out headers of interest and
-# and compute unique sets of email addresses for each thread by decorating threads_of_interest
+# and compute unique sets of email addresses for each thread by decorating 
+# threads_of_interest
 
 for thread in threads_of_interest:
     participants = []

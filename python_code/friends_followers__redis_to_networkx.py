@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Build up a digraph where an edge exists between two users if the source node is following the destination node
+# Build up a digraph where an edge exists between two users if the source node is 
+# following the destination node
 
 import sys
 import json
@@ -38,7 +39,8 @@ for current_id in ids:
         friend_ids = list(r.smembers(getRedisIdByScreenName(current_screen_name,
                           'friend_ids')))
 
-        # filter out ids for this person if they aren't also SCREEN_NAME's friends too, which is the basis of the query
+        # filter out ids for this person if they aren't also SCREEN_NAME's friends too, 
+        # which is the basis of the query
 
         friend_ids = [fid for fid in friend_ids if fid in ids]
     except Exception, e:

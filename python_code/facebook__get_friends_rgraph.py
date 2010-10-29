@@ -14,12 +14,13 @@ except IOError, e:
 
         # If you pass in the access token from the Facebook app as a command line
         # parameter, be sure to wrap it in single quotes so that the shell
-        # doesn't interpret any characters in it. You may also need to escape the # character
+        # doesn't interpret any characters in it. You may also need to escape 
+        # the # character
 
         ACCESS_TOKEN = sys.argv[1]
     except IndexError, e:
         print >> sys.stderr, \
-            "Could not either find access token in 'facebook.access_token' or parse args. Logging in..."
+            "Could not either find access token in 'facebook.access_token' or parse args."
         ACCESS_TOKEN = login()
 
 fql = FQL(ACCESS_TOKEN)
@@ -30,10 +31,12 @@ q = \
     'select target_id from connection where source_id = me() and target_type =\'user\''
 my_friends = [str(t['target_id']) for t in fql.query(q)]
 
-# now get friendships amongst your friends. note that this api appears to return arbitrarily truncated results
-# if you pass in more than a couple hundred friends into each part of the query,
-# so we perform (num friends)/N queries and aggregate the results to try and get complete results
-# Warning: this can result in a several API calls and a lot of data returned that you'll have to process
+# now get friendships amongst your friends. note that this api appears to return 
+# arbitrarily truncated results if you pass in more than a couple hundred friends 
+# into each part of the query, so we perform (num friends)/N queries and aggregate 
+# the results to try and get complete results
+# Warning: this can result in a several API calls and a lot of data returned that 
+# you'll have to process
 
 mutual_friendships = []
 N = 50
@@ -43,7 +46,8 @@ for i in range(len(my_friends) / N + 1):
     mutual_friendships += fql.query(q)
 
 # get details about your friends, such as first and last name and create an accessible map
-# note that not every id will necessarily information so be prepared to handle those cases later
+# note that not every id will necessarily information so be prepared to handle those cases 
+# later
 
 q = 'select uid, first_name, last_name, sex from user where uid in (%s)' \
     % (','.join(my_friends), )

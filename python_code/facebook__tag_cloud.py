@@ -58,7 +58,8 @@ raw_output = sorted([[escape(term), '', freq] for (term, freq) in fdist.items()
                     if freq > MIN_FREQUENCY and term not in stop_words],
                     key=lambda x: x[2])
 
-# Implementation adapted from http://help.com/post/383276-anyone-knows-the-formula-for-font-s
+# Implementation adapted from 
+# http://help.com/post/383276-anyone-knows-the-formula-for-font-s
 
 min_freq = raw_output[0][2]
 max_freq = raw_output[-1][2]

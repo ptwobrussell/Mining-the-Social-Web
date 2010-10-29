@@ -14,12 +14,14 @@ db = server[sys.argv[1]]
 
 def dateTimeToDocMapper(doc):
 
-    # Note that you need to include imports used by your mapper inside the function definition
+    # Note that you need to include imports used by your mapper 
+    # inside the function definition
 
     from dateutil.parser import parse
     from datetime import datetime as dt
     if doc.get('Date'):
-        _date = list(dt.timetuple(parse(doc['Date']))[:-3])  # [year, month, day, hour, min, sec]
+        # [year, month, day, hour, min, sec]
+        _date = list(dt.timetuple(parse(doc['Date']))[:-3])  
         yield (_date, doc)
 
 

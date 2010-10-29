@@ -55,7 +55,8 @@ for (tweet_id, tweet_text) in tweet_ids_text:
 
     # could fetch multiple pages worth of results here via the "page" parameter
 
-    response = t.statuses.__getattr__(str(tweet_id)).retweeted_by(count=200)  # twitter module "workaround"
+    # twitter module "workaround"
+    response = t.statuses.__getattr__(str(tweet_id)).retweeted_by(count=200)  
     retweeted_by = []
     for r in response:
         retweeted_by.append(r['screen_name'])

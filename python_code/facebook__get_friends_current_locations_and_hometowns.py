@@ -19,12 +19,13 @@ except IOError, e:
 
         # If you pass in the access token from the Facebook app as a command line
         # parameter, be sure to wrap it in single quotes so that the shell
-        # doesn't interpret any characters in it. You may also need to escape the # character
+        # doesn't interpret any characters in it. You may also need to escape 
+        # the # character
 
         ACCESS_TOKEN = sys.argv[1]
     except IndexError, e:
         print >> sys.stderr, \
-            "Could not either find access token in 'facebook.access_token' or parse args. Logging in..."
+            "Could not either find access token in 'facebook.access_token' or parse args."
         ACCESS_TOKEN = login()
 
 # process the results of the following fql query to create a json output suitable for
@@ -37,9 +38,9 @@ q = \
        (select target_id from connection where source_id = me() and target_type = 'user')"""
 results = fql.query(q)
 
-# first, read over the raw fql query and create a hierarchical maps that groups people by where they live
-# now compared to their hometown. we'll simply tabulate frequencies, but you could easily grab additional
-# data in the fql and use it for many creative situations
+# first, read over the raw fql query and create a hierarchical maps that groups people by 
+# where they live now compared to their hometown. we'll simply tabulate frequencies, but 
+# you could easily grab additional data in the fql and use it for many creative situations
 
 current_by_hometown = {}
 for r in results:
@@ -65,7 +66,8 @@ for r in results:
         current_by_hometown[hometown_location] = {}
         current_by_hometown[hometown_location][current_location] = [r['name']]
 
-# from here, there are a lot different ways you could slice and dice the data now that it's in a reasonable data structure
+# from here, there are a lot different ways you could slice and dice the data now that 
+# it's in a reasonable data structure.
 # let's create a hierarchical structure that lends itself to being displayed as a tree.
 
 items = []
@@ -91,15 +93,17 @@ for hometown in current_by_hometown:
                                 len(current_by_hometown[hometown][current])),
                                 'state': current_state, 'children': [{'name'
                                 : f[:f.find(' ') + 2] + '.'} for f in
-                                current_by_hometown[hometown][current]]})  # Anonymize the name a bit
+                                current_by_hometown[hometown][current]]})
 
-    # sort items alphabetically by state. further roll up by state could be done here if desired
+    # sort items alphabetically by state. further roll up by state could 
+    # be done here if desired
 
     item['children'] = sorted(item['children'], key=lambda i: i['state'])
     items.append(item)
 
-# optionally, roll up outer level items by state to create a better user experience in the display. alternatively, you could
-# just pass the current value of items in the final statement that creates the json output for smaller data sets
+# optionally, roll up outer level items by state to create a better user experience in 
+# the display. alternatively, you could just pass the current value of items in the final 
+# statement that creates the json output for smaller data sets
 
 items = sorted(items, key=lambda i: i['state'])
 all_items_by_state = []

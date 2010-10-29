@@ -19,12 +19,13 @@ except IOError, e:
 
         # If you pass in the access token from the Facebook app as a command line
         # parameter, be sure to wrap it in single quotes so that the shell
-        # doesn't interpret any characters in it. You may also need to escape the # character
+        # doesn't interpret any characters in it. You may also need to escape 
+        # the # character
 
         ACCESS_TOKEN = sys.argv[2]
     except IndexError, e:
         print >> sys.stderr, \
-            "Could not either find access token in 'facebook.access_token' or parse args. Logging in..."
+            "Could not either find access token in 'facebook.access_token' or parse args."
         ACCESS_TOKEN = login()
 
 gapi = facebook.GraphAPI(ACCESS_TOKEN)
