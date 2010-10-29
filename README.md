@@ -1,12 +1,12 @@
 # Overview
 
-This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://www.amazon.com/gp/product/1449388345?tag=oreonbl-20). As of late October 2010, the book's content is nearly final and production at O'Reilly is commencing. A "final" electronic version of the book is expected to be available in January 2011, but you can grab the [Rough Cut](http://oreilly.com/catalog/0636920010203) online right now or read it in [Safari](http://my.safaribooksonline.com/9781449394752). More information will be added here as it becomes available.
+This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). As of late October 2010, the book's content is nearly final and production at O'Reilly is commencing. A "final" electronic version of the book is expected to be available in January 2011, but you can grab the [Rough Cut](http://oreilly.com/catalog/0636920010203) online right now or read it in [Safari](http://my.safaribooksonline.com/9781449394752). More information will be added here as it becomes available.
 
 # Marketing Description
 
 *Book Description* 
 
-[Mining the Social Web: Finding Needles In The Social Haystack](http://www.amazon.com/gp/product/1449388345?tag=oreonbl-20)
+[Mining the Social Web: Finding Needles In The Social Haystack](http://amzn.to/d1Ci8A)
 
 *Product Description* 
 
