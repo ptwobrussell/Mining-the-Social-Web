@@ -8,12 +8,18 @@ import re
 import webbrowser
 import networkx as nx
 
+# The pickle file containing search results
 DATA_FILE = sys.argv[1]
+
+# An HTML page that we'll inject Protovis consumable data into
 HTML_TEMPLATE = \
     os.path.join(*'../web_code/protovis/twitter.retweet_graph.html'.split('/'))
 
-OUT_FILE = 'twitter.retweet_graph.html'
+# Base filename for output data
+OUT_FILE = 'twitter.retweet_graph'
 
+# Writes out a DOT language file that can be converted into an 
+# image by Graphviz
 def write_dot_output(g, out_file):
 
     if not os.path.isdir('out'):
@@ -39,7 +45,11 @@ def write_dot_output(g, out_file):
 
         print >> sys.stderr, 'Data file written to: %s' % f.name
 
-def get_protovis_output(g, out_file):
+        return f.name
+
+# Writes out an HTML page that can be opened in the browser
+# that displays a graph 
+def write_protovis_output(g, out_file):
     nodes = g.nodes()
     indexed_nodes = {}
 
@@ -53,9 +63,19 @@ def get_protovis_output(g, out_file):
         links.append({'source' : indexed_nodes[n2], 
                       'target' : indexed_nodes[n1]})
 
-    return json.dumps({"nodes" : [{"nodeName" : n} for n in nodes], "links" : links}, indent=4)
+    json_data = json.dumps({"nodes" : [{"nodeName" : n} for n in nodes], "links" : links}, indent=4)
+    html = open(HTML_TEMPLATE).read() % (json_data,)
+    if not os.path.isdir('out'):
+        os.mkdir('out')
+    f = open(os.path.join(os.getcwd(), 'out', out_file + ".html"), 'w')
+    f.write(html)
+    f.close()
 
+    print >> sys.stderr, 'Data file written to: %s' % f.name
 
+    return f.name
+
+# Given a tweet, pull out any retweet origins in it and return as a list
 def get_rt_origins(tweet):
     # Regex adapted from 
     # http://stackoverflow.com/questions/655903/python-regular-expression-for-retweets
@@ -69,6 +89,7 @@ def get_rt_origins(tweet):
 
     return rt_origins
 
+# Unpickle search results and build up a retweet graph
 search_results = \
     cPickle.load(open(os.path.join(*DATA_FILE.split('/'))))
 
@@ -82,22 +103,15 @@ for tweet in all_tweets:
     for rt_origin in rt_origins:
         g.add_edge(rt_origin, tweet['from_user'], {'tweet_id': tweet['id']})
 
+# Print out some status
 print >> sys.stderr, g.number_of_nodes()
 print >> sys.stderr, g.number_of_edges()
 print >> sys.stderr, len(nx.connected_components(g.to_undirected()))
 print >> sys.stderr, sorted(nx.degree(g))
 
+# Write Graphviz output
 write_dot_output(g, OUT_FILE)
 
-json_data = get_protovis_output(g, OUT_FILE)
-
-# Write out and open up a web page
-html = open(HTML_TEMPLATE).read() % (json_data,)
-                                     
-if not os.path.isdir('out'):
-    os.mkdir('out')
-f = open(os.path.join('out', OUT_FILE), 'w')
-f.write(html)
-f.close()
-
-webbrowser.open('file://' + os.path.join(os.getcwd(), 'out', OUT_FILE))
+# Write Protovis output and open in browser
+protovis_output = write_protovis_output(g, OUT_FILE)
+webbrowser.open('file://' + protovis_output)
