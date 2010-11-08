@@ -6,10 +6,11 @@ import cPickle
 import json
 import re
 import webbrowser
+import twitter
 import networkx as nx
 
-# The pickle file containing search results
-DATA_FILE = sys.argv[1]
+# Your query
+Q = sys.argv[1]
 
 # An HTML page that we'll inject Protovis consumable data into
 HTML_TEMPLATE = \
@@ -89,10 +90,14 @@ def get_rt_origins(tweet):
 
     return rt_origins
 
-# Unpickle search results and build up a retweet graph
-search_results = \
-    cPickle.load(open(os.path.join(*DATA_FILE.split('/'))))
 
+# Get some search results for a query
+twitter_search = twitter.Twitter(domain="search.twitter.com")
+search_results = []
+for page in range(1,6):
+    search_results.append(twitter_search.search(q=Q, rpp=100, page=page))
+
+# Build up a graph data structure
 g = nx.DiGraph()
 
 all_tweets = [tweet for page in search_results for tweet in page['results']]
@@ -103,11 +108,11 @@ for tweet in all_tweets:
     for rt_origin in rt_origins:
         g.add_edge(rt_origin, tweet['from_user'], {'tweet_id': tweet['id']})
 
-# Print out some status
-print >> sys.stderr, g.number_of_nodes()
-print >> sys.stderr, g.number_of_edges()
-print >> sys.stderr, len(nx.connected_components(g.to_undirected()))
-print >> sys.stderr, sorted(nx.degree(g))
+# Print out some stats
+print >> sys.stderr, "Number nodes:", g.number_of_nodes()
+print >> sys.stderr, "Num edges:", g.number_of_edges()
+print >> sys.stderr, "Num connected components:", len(nx.connected_components(g.to_undirected()))
+print >> sys.stderr, "Node degrees:", sorted(nx.degree(g))
 
 # Write Graphviz output
 write_dot_output(g, OUT_FILE)
