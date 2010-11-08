@@ -2,7 +2,6 @@
 
 import sys
 import os
-import cPickle
 import json
 import re
 import webbrowser
