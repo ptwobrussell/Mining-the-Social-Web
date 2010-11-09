@@ -27,11 +27,7 @@ def handleTwitterHTTPError(e, wait_period=2):
         time.sleep(sleep_time)
         return 2
     else:
-        print 'Encountered unhandled error (%i). Trying again in %s secs' \
-            % (e.e.code, wait_period)
-        time.sleep(wait_period)
-        wait_period *= 1.5
-        return wait_period
+        raise e # Best to handle this based on the specific issue
 
 
 def getUserInfo(

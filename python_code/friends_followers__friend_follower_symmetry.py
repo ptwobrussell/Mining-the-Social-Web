@@ -69,6 +69,9 @@ def _getFriendsOrFollowersUsingFunc(
                     % (sleep_time, sleep_time / 60)
                 time.sleep(sleep_time)
                 continue
+            else:
+                raise e # Best to handle this based on the specific issue
+
 
         cursor = response['next_cursor']
         scard = r.scard(getRedisIdByScreenName(screen_name, key_name))

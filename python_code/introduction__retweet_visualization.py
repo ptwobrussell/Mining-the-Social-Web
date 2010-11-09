@@ -87,7 +87,7 @@ def get_rt_origins(tweet):
     except IndexError, e:
         pass
 
-    return rt_origins
+    return [rto.strip("@") for rto in rt_origins]
 
 
 # Get some search results for a query

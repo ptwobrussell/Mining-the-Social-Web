@@ -55,6 +55,8 @@ while cursor != 0:
                     )
             time.sleep(sleep_time)
             continue
+        else:
+            raise e # Best to handle this based on the specific issue
 
     cursor = response['next_cursor']
     print 'Fetched %i ids for %s' % (len(ids), SCREEN_NAME)
