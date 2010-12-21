@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import urllib2
 import HTMLParser
 from BeautifulSoup import BeautifulSoup
+
+# Try http://ajaxian.com/
+URL = sys.argv[1]
 
 XFN_TAGS = set([
     'colleague',
@@ -25,10 +29,8 @@ XFN_TAGS = set([
     'friend',
     ])
 
-url = 'http://ajaxian.com/'
-
 try:
-    page = urllib2.urlopen(url)
+    page = urllib2.urlopen(URL)
 except urllib2.URLError:
     print 'Failed to fetch ' + item
 

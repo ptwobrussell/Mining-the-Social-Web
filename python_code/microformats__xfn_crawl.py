@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import os
 import urllib2
 from BeautifulSoup import BeautifulSoup
 import HTMLParser
 import networkx as nx
+
+ROOT_URL = sys.argv[1]
+
+if len(sys.argv) > 2:
+    MAX_DEPTH = int(sys.argv[2])
+else:
+    MAX_DEPTH = 1
 
 XFN_TAGS = set([
     'colleague',
@@ -29,16 +37,13 @@ XFN_TAGS = set([
 
 OUT = "graph.dot"
 
-max_depth = 1
 depth = 0
 
 g = nx.DiGraph()
 
-root = 'http://ajaxian.com/'
+next_queue = [ROOT_URL]
 
-next_queue = [root]
-
-while depth < max_depth:
+while depth < MAX_DEPTH:
 
     depth += 1
     (queue, next_queue) = (next_queue, [])
