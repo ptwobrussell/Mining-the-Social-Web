@@ -11,6 +11,7 @@ try:
 except ImportError:
     import json
 
+MBOX = sys.argv[1]
 
 def cleanContent(msg):
 
@@ -53,10 +54,8 @@ def jsonifyMessage(msg):
     finally:
         return json_msg
 
-
-mbox_file_name = sys.argv[1]
 # Note: opening in binary mode is recommended
-mbox = mailbox.UnixMailbox(open(mbox_file_name, 'rb'), email.message_from_file)  
+mbox = mailbox.UnixMailbox(open(MBOX, 'rb'), email.message_from_file)  
 json_msgs = []
 while 1:
     msg = mbox.next()
