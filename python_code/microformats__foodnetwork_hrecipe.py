@@ -4,7 +4,7 @@ import sys
 import urllib2
 import json
 import HTMLParser
-from BeautifulSoup import BeautifulSoup
+import BeautifulSoup
 
 # Pass in a URL such as
 # http://www.foodnetwork.com/recipes/alton-brown/pad-thai-recipe/index.html
@@ -23,7 +23,7 @@ def parse_hrecipe(url):
         raise e
 
     try:
-        soup = BeautifulSoup(page)
+        soup = BeautifulSoup.BeautifulSoup(page)
     except HTMLParser.HTMLParseError, e:
         print 'Failed to parse ' + url
         raise e
@@ -33,9 +33,22 @@ def parse_hrecipe(url):
     if hrecipe and len(hrecipe) > 1:
         fn = hrecipe.find(True, 'fn').string
         author = hrecipe.find(True, 'author').find(text=True)
-        ingredients = [i.string for i in hrecipe.findAll(True, 'ingredient')]
-        instructions = [i for i in hrecipe.find(True, 'instructions'
-                        ).findAll(text=True) if i.strip() != '']
+        ingredients = [i.string 
+                            for i in hrecipe.findAll(True, 'ingredient') 
+                                if i.string is not None]
+
+        instructions = []
+        for i in hrecipe.find(True, 'instructions'):
+            if type(i) == BeautifulSoup.Tag:
+                s = ''.join(i.findAll(text=True)).strip()
+            elif type(i) == BeautifulSoup.NavigableString:
+                s = i.string.strip()
+            else:
+                continue
+
+            if s != '': 
+                instructions += [s]
+
         return {
             'name': fn,
             'author': author,
