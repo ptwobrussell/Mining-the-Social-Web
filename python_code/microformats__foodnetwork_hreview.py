@@ -7,6 +7,13 @@ import json
 import HTMLParser
 from BeautifulSoup import BeautifulSoup
 
+##################################################################################
+# Warning: As of mid-Dec 2010, FoodNetwork.com seems to no longer include 
+# hReview info for their recipes. This is likely a temporary deployment or
+# development error. A support request is pending.
+##################################################################################
+
+
 # Pass in a URL such as
 # http://www.foodnetwork.com/recipes/alton-brown/pad-thai-recipe/reviews/index.html
 
