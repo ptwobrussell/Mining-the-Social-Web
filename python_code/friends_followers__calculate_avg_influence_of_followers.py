@@ -4,6 +4,7 @@ import sys
 import json
 import locale
 import redis
+from prettytable import PrettyTable
 
 # Pretty printing numbers
 from twitter__util import pp 
@@ -45,9 +46,15 @@ def calculate():
 
     print 'The top 10 followers from the sample:'
 
+    fields = ['Date', 'Count']
+    pt = PrettyTable(fields=fields)
+    [pt.set_field_align(f, 'l') for f in fields]
+
     for (user, freq) in reversed([(user['screen_name'], k) for k in keys[-10:]
-                                 for user in freqs[k]]):
-        print user, pp(freq)
+                                    for user in freqs[k]]):
+        pt.add_row([user, pp(freq)])
+
+    print pt.printt()
 
     all_freqs = [k for k in keys for user in freqs[k]]
     avg = reduce(lambda x, y: x + y, all_freqs) / len(all_freqs)
