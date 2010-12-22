@@ -2,7 +2,7 @@
 
 import sys
 import couchdb
-from mailboxes_jwzthreading import thread, Message
+from mailboxes__jwzthreading import thread, Message
 from mailboxes__CouchDBBulkReader import CouchDBBulkReader
 from datetime import datetime as dt
 from prettytable import PrettyTable
