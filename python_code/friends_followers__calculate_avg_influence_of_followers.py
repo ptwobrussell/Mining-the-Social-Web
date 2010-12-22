@@ -54,7 +54,7 @@ def calculate():
                                     for user in freqs[k]]):
         pt.add_row([user, pp(freq)])
 
-    print pt.printt()
+    pt.printt()
 
     all_freqs = [k for k in keys for user in freqs[k]]
     avg = reduce(lambda x, y: x + y, all_freqs) / len(all_freqs)

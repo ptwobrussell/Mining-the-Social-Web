@@ -7,13 +7,13 @@ import twitter
 from twitter__login import login
 from twitter__util import makeTwitterRequest 
 
-friends_limit = 10000
+SCREEN_NAME = sys.argv[1]
+FRIENDS_LIMIT = int(sys.argv[2])
 
 # You may need to setup your OAuth settings in twitter__login.py
 t = login()
 
 def getFriendIds(screen_name=None, user_id=None, friends_limit=10000):
-    assert screen_name is not None or user_id is not None
 
     ids = []
     cursor = -1
@@ -36,7 +36,7 @@ def getFriendIds(screen_name=None, user_id=None, friends_limit=10000):
     return ids
 
 if __name__ == '__main__':
-    ids = getFriendIds(sys.argv[1], friends_limit=10000)
+    ids = getFriendIds(SCREEN_NAME, friends_limit=FRIENDS_LIMIT)
 
     # do something interesting with the ids
 
