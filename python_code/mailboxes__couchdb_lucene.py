@@ -5,6 +5,9 @@ import httplib
 from urllib import quote
 import json
 
+DB = sys.argv[1]
+QUERY = sys.argv[2]
+
 #  The body of a JavaScript-based design document we'll create
 
 dd = \
@@ -27,11 +30,11 @@ dd = \
 
 try:
     conn = httplib.HTTPConnection('localhost', 5984)
-    DB = sys.argv[1]
     conn.request('PUT', '/%s/_design/lucene' % (DB, ), json.dumps(dd))
     response = conn.getresponse()
 finally:
     conn.close()
+
 if response.status != 201:  #  Created
     print 'Unable to create design document: %s %s' % (response.status,
             response.reason)
@@ -41,7 +44,6 @@ if response.status != 201:  #  Created
 #  couchdb-lucene's _fti HTTP handler
 #  $ curl http://localhost:5984/DB/_fti/_design/lucene/by_subject?q=QUERY
 
-QUERY = sys.argv[2]
 try:
     conn.request('GET', '/%s/_fti/_design/lucene/by_subject?q=%s' % (DB,
                  quote(QUERY)))
