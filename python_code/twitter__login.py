@@ -13,6 +13,8 @@ from twitter.oauth_dance import oauth_dance
 def login():
 
     # Go to http://twitter.com/apps/new to create an app and get these items
+    # See also http://dev.twitter.com/pages/oauth_single_token
+
     APP_NAME = ''
     CONSUMER_KEY = ''
     CONSUMER_SECRET = ''

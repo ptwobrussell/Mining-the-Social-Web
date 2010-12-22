@@ -84,5 +84,5 @@ print '%s of %s are not following %s back' % (locale.format('%d',
 print '%s of %s are not being followed back by %s' % (locale.format('%d',
         n_followers_diff_friends, True), locale.format('%d', n_followers, True),
         screen_name)
-print '%s has %s mutual friends (followers who are also being followed)' \
+print '%s has %s mutual friends' \
     % (screen_name, locale.format('%d', n_friends_inter_followers, True))
