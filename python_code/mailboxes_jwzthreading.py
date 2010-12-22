@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 
 """
-Contains an implementation of an algorithm for threading mail
+Overview: Contains an implementation of an algorithm for threading mail
 messages, as described at http://www.jwz.org/doc/threading.html.
 
-This code was minimally adapted and touched up from the Mail Trends
+Note: The presence of only a single underscore in this file's name is
+intentional, so that it can be identified with but remain separate
+from code examples that appear in the text of the book.
+
+License: This code was minimally adapted and touched up from the Mail Trends
 source code - http://code.google.com/p/mail-trends/ - under the
 Apache 2.0 License
 
-XXX: Clean this code up more. It was pretty yucky as originally yanked.
+TODOs: Clean this code up more. It was pretty gnarly as originally yanked
+     and still needs some work.
 """
 
 import sys
