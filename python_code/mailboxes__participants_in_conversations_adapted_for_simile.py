@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 
+"""
+XXX: This script could be refactored to maximally borrow from
+     mailboxes__participants_in_conversations.py
+"""
+
 import sys
 import os
 import httplib
 from urllib import quote
 from urllib import urlencode
 import json
+import webbrowser
 from dateutil.parser import parse
 
 DB = sys.argv[1]  # enron
 QUERY = sys.argv[2]
+
+HTML_TEMPLATE = '../web_code/simile/timeline.html'
 
 # Query couchdb-lucene by_subject and by_content
 
@@ -147,10 +155,21 @@ for thread in threads_of_interest:
 if not os.path.isdir('out'):
     os.mkdir('out')
 
+json_output = json.dumps({'dateTimeFormat': 'iso8601', 'events': events}, indent=4)
 f = open(os.path.join('out', 'simile_data.json'), 'w')
-f.write(json.dumps({'dateTimeFormat': 'iso8601', 'events': events}, indent=4))
+f.write(json_output)
 f.close()
 
 print >> sys.stderr, 'Data file written to: %s' % f.name
 
-# Point simile to the data file
+# Write out  a web page
+
+html = open(HTML_TEMPLATE).read().replace("%s", json_output) # simple hack
+f = open(os.path.join('out', os.path.basename(HTML_TEMPLATE)), 'w')
+f.write(html)
+f.close()
+
+# Open up the web page in your browser
+
+webbrowser.open('file://' + os.path.join(os.getcwd(), 'out',
+                os.path.basename(HTML_TEMPLATE)))

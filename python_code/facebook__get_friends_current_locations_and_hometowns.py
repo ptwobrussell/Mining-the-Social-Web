@@ -8,9 +8,7 @@ import webbrowser
 from facebook__fql_query import FQL
 from facebook__login import login
 
-HTML_TEMPLATE = \
-    os.path.join(*'../web_code/dojo/facebook.current_locations_and_hometowns.html'.split('/'
-                 ))
+HTML_TEMPLATE = '../web_code/dojo/facebook.current_locations_and_hometowns.html'
 
 try:
     ACCESS_TOKEN = open('facebook.access_token').read()
