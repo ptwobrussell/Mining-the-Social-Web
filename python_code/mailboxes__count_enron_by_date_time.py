@@ -3,10 +3,12 @@
 import sys
 import couchdb
 from couchdb.design import ViewDefinition
+from prettytable import PrettyTable
+
+DB = sys.argv[1]
 
 server = couchdb.Server('http://localhost:5984')
-db = server[sys.argv[1]]
-
+db = server[DB]
 
 def dateTimeCountMapper(doc):
     from dateutil.parser import parse
@@ -24,10 +26,14 @@ view = ViewDefinition('index', 'doc_count_by_date_time', dateTimeCountMapper,
                       reduce_fun=summingReducer, language='python')
 view.sync(db)
 
-# print out message counts by time slice
+# Print out message counts by time slice such that they're
+# grouped by year, month, day
 
-print 'Date\t\tCount'
-print '-' * 25
-# group by year, month, day
+fields = ["Date", "Num docs"]
+pt = PrettyTable(fields=fields)
+[pt.set_field_align(f, 'l') for f in fields]
+
 for row in db.view('index/doc_count_by_date_time', group_level=3):  
-    print '%s\t\t%s' % (row.key, row.value)
+    pt.add_row(["-".join([str(i) for i in row.key]), row.value])
+
+pt.printt()
