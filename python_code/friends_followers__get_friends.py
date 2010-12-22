@@ -6,19 +6,21 @@ import cPickle
 import twitter
 from twitter.oauth_dance import oauth_dance
 
-# Go to http://twitter.com/apps/new to create an app and get these items
-
-consumer_key = ''
-consumer_secret = ''
-
 SCREEN_NAME = sys.argv[1]
+
+# Go to http://twitter.com/apps/new to create an app 
+# to get the consumer key/secret
+
+CONSUMER_KEY = sys.argv[2]
+CONSUMER_SECRET = sys.argv[3]
+
 friends_limit = 10000
 
 (oauth_token, oauth_token_secret) = oauth_dance('MiningTheSocialWeb',
-        consumer_key, consumer_secret)
+        CONSUMER_KEY, CONSUMER_SECRET)
 t = twitter.Twitter(domain='api.twitter.com', api_version='1',
                     auth=twitter.oauth.OAuth(oauth_token, oauth_token_secret,
-                    consumer_key, consumer_secret))
+                    CONSUMER_KEY, CONSUMER_SECRET))
 
 ids = []
 wait_period = 2  # secs
@@ -56,13 +58,13 @@ while cursor != 0:
             time.sleep(sleep_time)
             continue
         else:
-            raise e # Best to handle this based on the specific issue
+            raise e # Best to handle this on a case by case basis
 
     cursor = response['next_cursor']
     print 'Fetched %i ids for %s' % (len(ids), SCREEN_NAME)
     if len(ids) >= friends_limit:
         break
 
-# do something interesting with the ids
+# Do something interesting with the ids
 
 print ids
