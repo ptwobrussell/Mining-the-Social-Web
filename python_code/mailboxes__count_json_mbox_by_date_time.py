@@ -29,7 +29,7 @@ view.sync(db)
 # Print out message counts by time slice such that they're
 # grouped by year, month, day
 
-fields = ['Date', 'Num docs']
+fields = ['Date', 'Count']
 pt = PrettyTable(fields=fields)
 [pt.set_field_align(f, 'l') for f in fields]
 
