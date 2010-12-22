@@ -8,9 +8,12 @@ try:
 except ImportError:
     import json
 
-server = couchdb.Server('http://localhost:5984')
-db = server[sys.argv[1]]
+DB = sys.argv[1]
+START_DATE = sys.argv[2] #YYYY-MM-DD
+END_DATE = sys.argv[3]   #YYYY-MM-DD
 
+server = couchdb.Server('http://localhost:5984')
+db = server[DB]
 
 def dateTimeToDocMapper(doc):
 
@@ -24,15 +27,19 @@ def dateTimeToDocMapper(doc):
         _date = list(dt.timetuple(parse(doc['Date']))[:-3])  
         yield (_date, doc)
 
+# Specify an index to back the query. Note that the index won't be 
+# created until the first time the query is run
 
 view = ViewDefinition('index', 'by_date_time', dateTimeToDocMapper,
                       language='python')
 view.sync(db)
 
-# slice over items sorted by date
+# Now query, by slicing over items sorted by date
 
-(start, end) = ([2001, 5, 28], [2001, 7, 4])
-print 'Documents dated from %s-%s-%s to %s-%s-%s' % tuple(start + end)
+start = [int(i) for i in START_DATE.split("-")]
+end = [int(i) for i in END_DATE.split("-")]
+print 'Finding docs dated from %s-%s-%s to %s-%s-%s' % tuple(start + end)
+
 docs = []
 for row in db.view('index/by_date_time', startkey=start, endkey=end):
     docs.append(db.get(row.id))

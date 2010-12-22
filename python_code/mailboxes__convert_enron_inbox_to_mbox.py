@@ -31,3 +31,4 @@ for (root, dirs, file_names) in os.walk(directory):
         msg.set_unixfrom('From %s %s' % (_from, _date))
         print msg.as_string(unixfrom=True)
         print
+        # redirect stdout to a file, or write to a file directly
