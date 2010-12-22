@@ -5,7 +5,6 @@ import time
 import cPickle
 import twitter
 from twitter__login import login
-from twitter__util import getUserInfo 
 from twitter__util import makeTwitterRequest 
 
 friends_limit = 10000
