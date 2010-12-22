@@ -6,6 +6,7 @@ import twitter
 import redis
 import json
 import time
+from random import shuffle
 from urllib2 import URLError
 from twitter__login import login
 
