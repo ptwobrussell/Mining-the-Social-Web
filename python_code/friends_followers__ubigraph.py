@@ -2,8 +2,10 @@
 
 import sys
 import json
-import ubigraph
 import networkx as nx
+
+# Packaged with Ubigraph in the examples/Python directory
+import ubigraph
 
 SCREEN_NAME = sys.argv[1]
 FRIEND = sys.argv[2]
