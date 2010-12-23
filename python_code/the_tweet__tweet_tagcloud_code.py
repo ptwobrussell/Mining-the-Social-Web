@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import webbrowser
 import json
@@ -8,15 +9,15 @@ from math import log
 import couchdb
 from couchdb.design import ViewDefinition
 
-server = couchdb.Server('http://localhost:5984')
 DB = sys.argv[1]
-db = server[DB]
+MIN_FREQUENCY = int(sys.argv[2])
 
-OUT_FILE = sys.argv[2]
-MIN_FREQUENCY = int(sys.argv[3])
-
+HTML_TEMPLATE = '../web_code/wp_cumulus/tagcloud_template.html'
 MIN_FONT_SIZE = 3
 MAX_FONT_SIZE = 20
+
+server = couchdb.Server('http://localhost:5984')
+db = server[DB]
 
 # Map entities in tweets to the docs that they appear in
 
@@ -58,7 +59,7 @@ def entityCountMapper(doc):
 
     if doc['entities'].get('user_mentions'):
         for user_mention in doc['entities']['user_mentions']:
-            yield ('@' + user_mention['screen_name'], [doc['_id'], doc['id']])
+            yield ('@' + user_mention['screen_name'].lower(), [doc['_id'], doc['id']])
     if doc['entities'].get('hashtags'):
         for hashtag in doc['entities']['hashtags']:
             yield ('#' + hashtag['text'], [doc['_id'], doc['id']])
@@ -99,13 +100,18 @@ weighted_output = [[i[0], i[1], weightTermByFreq(i[2])] for i in raw_output]
 
 # Substitute the JSON data structure into the template
 
-html_page = open('tagcloud_template.html').read() % (json.dumps(weighted_output),
-        )
+html_page = open(HTML_TEMPLATE).read() % \
+                 (json.dumps(weighted_output),)
 
-f = open(OUT_FILE, 'w')
+if not os.path.isdir('out'):
+    os.mkdir('out')
+
+f = open(os.path.join('out', os.path.basename(HTML_TEMPLATE)), 'w')
 f.write(html_page)
 f.close()
 
+print 'Tagcloud stored in: %s' % f.name
+
 # Open up the web page in your browser
 
-webbrowser.open(OUT_FILE)
+webbrowser.open("file://" + os.path.join(os.getcwd(), 'out', os.path.basename(HTML_TEMPLATE)))
