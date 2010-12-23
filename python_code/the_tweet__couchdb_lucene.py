@@ -75,3 +75,4 @@ doc_ids = [row['id'] for row in response_body['rows']]
 tweets = [db.get(doc_id)['text'] for doc_id in doc_ids]
 for tweet in tweets:
     print tweet
+    print
