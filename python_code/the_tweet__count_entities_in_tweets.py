@@ -3,9 +3,11 @@
 import sys
 import couchdb
 from couchdb.design import ViewDefinition
+from prettytable import PrettyTable
+
+DB = sys.argv[1]
 
 server = couchdb.Server('http://localhost:5984')
-DB = sys.argv[1]
 db = server[DB]
 
 if len(sys.argv) > 2 and sys.argv[2].isdigit():
@@ -78,10 +80,14 @@ view.sync(db)
 
 entities_freqs = sorted([(row.key, row.value) for row in
                         db.view('index/entity_count_by_doc', group=True)],
-                        key=lambda x: x[1])
+                        key=lambda x: x[1], reverse=True)
 
-print 'Entity'.ljust(100), 'Count'.rjust(5)
-print '-' * 110
+fields = ['Entity', 'Count']
+pt = PrettyTable(fields=fields)
+[pt.set_field_align(f, 'l') for f in fields]
+
 for (entity, freq) in entities_freqs:
     if freq > FREQ_THRESHOLD:
-        print entity.ljust(100), str(freq).rjust(5)
+        pt.add_row([entity, freq])
+
+pt.printt()
