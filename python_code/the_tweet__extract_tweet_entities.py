@@ -4,24 +4,15 @@ import sys
 import json
 import twitter_text
 import twitter
-from twitter.oauth_dance import oauth_dance
+from twitter__login import login
 
-tweet_id = sys.argv[1]
+# Get a tweet id clicking on a status right off of twitter.com. 
+# For example, http://twitter.com/#!/timoreilly/status/17386521699024896
 
-# Go to http://twitter.com/apps/new to create an app and get these items
+TWEET_ID = sys.argv[1]
 
-consumer_key = ''
-consumer_secret = ''
-
-# authenticate with the twitter api
-
-(oauth_token, oauth_token_secret) = oauth_dance('MiningTheSocialWeb',
-        consumer_key, consumer_secret)
-
-t = twitter.Twitter(domain='api.twitter.com', api_version='1',
-                    auth=twitter.oauth.OAuth(oauth_token, oauth_token_secret,
-                    consumer_key, consumer_secret))
-
+# You may need to setup your OAuth settings in twitter__login.py
+t = login()
 
 def getEntities(tweet):
 
@@ -55,7 +46,7 @@ def getEntities(tweet):
 
 # Fetch a tweet using an API method of your choice and mixin the entities
 
-tweet = t.statuses.show(id=tweet_id)
+tweet = t.statuses.show(id=TWEET_ID)
 
 tweet['entities'] = getEntities(tweet)
 
