@@ -39,7 +39,7 @@ def entityCountMapper(doc):
             entities['hashtags'] = []
             for ht in extractor.extract_hashtags_with_indices():
 
-                # massage field name to match production twitter api
+                # Massage field name to match production twitter api
 
                 ht['text'] = ht['hashtag']
                 del ht['hashtag']
@@ -55,7 +55,7 @@ def entityCountMapper(doc):
 
     if doc['entities'].get('user_mentions'):
         for user_mention in doc['entities']['user_mentions']:
-            yield ('@' + user_mention['screen_name'], [doc['_id'], doc['id']])
+            yield ('@' + user_mention['screen_name'].lower(), [doc['_id'], doc['id']])
     if doc['entities'].get('hashtags'):
         for hashtag in doc['entities']['hashtags']:
             yield ('#' + hashtag['text'], [doc['_id'], doc['id']])
