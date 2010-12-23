@@ -9,7 +9,9 @@ G = sys.argv[1]
 g = nx.read_gpickle(G)
 
 # Finding cliques is a hard problem, so this could
-# take a while for large graphs
+# take a while for large graphs.
+# See http://en.wikipedia.org/wiki/NP-complete and 
+# http://en.wikipedia.org/wiki/Clique_problem
 
 cliques = [c for c in nx.find_cliques(g)]
 
@@ -37,4 +39,3 @@ print json.dumps(people_in_every_max_clique, indent=4)
 print
 print 'Max cliques:'
 print json.dumps(max_cliques, indent=4)
-

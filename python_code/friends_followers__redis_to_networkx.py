@@ -1,23 +1,18 @@
 # -*- coding: utf-8 -*-
 
-# Build up a digraph where an edge exists between two users if the source node is 
-# following the destination node
+# Summary: Build up a digraph where an edge exists between two users 
+# if the source node is following the destination node
 
+import os
 import sys
 import json
 import networkx as nx
 import redis
 
+from twitter__util import getRedisIdByScreenName
+from twitter__util import getRedisIdByUserId
+
 SCREEN_NAME = sys.argv[1]
-
-
-def getRedisIdByScreenName(screen_name, key_name):
-    return 'screen_name$' + screen_name + '$' + key_name
-
-
-def getRedisIdByUserId(user_id, key_name):
-    return 'user_id$' + str(user_id) + '$' + key_name
-
 
 g = nx.Graph()
 r = redis.Redis()
@@ -30,7 +25,7 @@ id_for_screen_name = json.loads(r.get(getRedisIdByScreenName(SCREEN_NAME,
 ids = [id_for_screen_name] + friend_ids
 
 for current_id in ids:
-    print 'Processing', current_id
+    print >> sys.stderr, 'Processing user with id', current_id
 
     try:
         current_info = json.loads(r.get(getRedisIdByUserId(current_id, 'info.json'
@@ -44,21 +39,28 @@ for current_id in ids:
 
         friend_ids = [fid for fid in friend_ids if fid in ids]
     except Exception, e:
-        print 'Skipping', current_id
+        print >> sys.stderr, 'Skipping', current_id
 
     for friend_id in friend_ids:
         try:
             friend_info = json.loads(r.get(getRedisIdByUserId(friend_id,
                                      'info.json')))
         except TypeError, e:
-            print '\tSkipping', friend_id, 'for', current_screen_name
+            print >> sys.stderr, '\tSkipping', friend_id, 'for', current_screen_name
             continue
 
         g.add_edge(current_screen_name, friend_info['screen_name'])
 
-# store graph to disk by pickling it...
+# Pickle the graph to disk...
 
-nx.write_gpickle(g, SCREEN_NAME + '.gpickle')
+if not os.path.isdir('out'):
+    os.mkdir('out')
 
-# you can read it back out like this...
-# g = nx.read_gpickle(SCREEN_NAME + '.gpickle')
+filename = os.path.join('out', SCREEN_NAME + '.gpickle')
+nx.write_gpickle(g, filename)
+
+print 'Pickle file stored in: %s' % filename
+
+# You can un-pickle like so...
+
+# g = nx.read_gpickle(os.path.join('out', SCREEN_NAME + '.gpickle'))
