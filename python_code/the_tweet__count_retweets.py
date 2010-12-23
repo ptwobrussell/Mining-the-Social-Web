@@ -29,7 +29,7 @@ def entityCountMapper(doc):
         if m:
             entities = m.groups()[1].split()
             for entity in entities:
-                yield (entity, [doc['_id'], doc['id']])
+                yield (entity.lower(), [doc['_id'], doc['id']])
         else:
             yield ('@', [doc['_id'], doc['id']])
 
