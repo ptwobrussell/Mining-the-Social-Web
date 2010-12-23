@@ -3,10 +3,17 @@
 import sys
 import couchdb
 from couchdb.design import ViewDefinition
+from prettytable import PrettyTable
 
-server = couchdb.Server('http://localhost:5984')
 DB = sys.argv[1]
-db = server[DB]
+
+try:
+    server = couchdb.Server('http://localhost:5984')
+    db = server[DB]
+except couchdb.http.ResourceNotFound, e:
+    print """CouchDB database '%s' not found. 
+Please check that the database exists and try again.""" % DB
+    sys.exit(1)
 
 if len(sys.argv) > 2 and sys.argv[2].isdigit():
     FREQ_THRESHOLD = int(sys.argv[2])
@@ -14,7 +21,6 @@ else:
     FREQ_THRESHOLD = 3
 
 # Map entities in tweets to the docs that they appear in
-
 
 def entityCountMapper(doc):
     if doc.get('text'):
@@ -39,15 +45,19 @@ view = ViewDefinition('index', 'retweet_entity_count_by_doc', entityCountMapper,
                       reduce_fun=summingReducer, language='python')
 view.sync(db)
 
-# Print out a nicely formatted table. Sorting by value in the client is cheap and easy
+# Sorting by value in the client is cheap and easy
 # if you're dealing with hundreds or low thousands of tweets
 
 entities_freqs = sorted([(row.key, row.value) for row in
                         db.view('index/retweet_entity_count_by_doc',
-                        group=True)], key=lambda x: x[1])
+                        group=True)], key=lambda x: x[1], reverse=True)
 
-print 'Entity'.ljust(100), 'Count'.rjust(5)
-print '-' * 110
+fields = ['Entity', 'Count']
+pt = PrettyTable(fields=fields)
+[pt.set_field_align(f, 'l') for f in fields]
+
 for (entity, freq) in entities_freqs:
     if freq > FREQ_THRESHOLD and entity != '@':
-        print entity.ljust(100), str(freq).rjust(5)
+        pt.add_row([entity, freq])
+
+pt.printt()
