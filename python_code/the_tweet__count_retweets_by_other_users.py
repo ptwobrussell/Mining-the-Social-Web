@@ -34,7 +34,7 @@ fields = ['Key', 'Value']
 pt = PrettyTable(fields=fields)
 [pt.set_field_align(f, 'l') for f in fields]
 
-retweet_total, num_tweets = 0, 0
+retweet_total, num_tweets, num_zeros = 0, 0, 0
 for (k,v) in sorted([(row.key, row.value) for row in 
                      db.view('index/retweets_by_id', group=True)
                      if row.key is not None],
@@ -43,6 +43,8 @@ for (k,v) in sorted([(row.key, row.value) for row in
 
     if k == "100+":
         retweet_total += 100*v
+    elif k == 0:
+        num_zeros += v
     else:
         retweet_total += k*v
 
@@ -50,4 +52,6 @@ for (k,v) in sorted([(row.key, row.value) for row in
 
 pt.printt()
 
-print '\n%s tweets generated %s retweets' % (pp(num_tweets), pp(retweet_total),)
+print '\n%s of %s authored tweets were retweeted by at least one other person' % \
+      (num_tweets - num_zeros, num_tweets,)
+print 'Those %s authored tweets generated %s retweets' % (pp(num_tweets), pp(retweet_total),)
