@@ -154,6 +154,7 @@ def getUserInfo(
 # Convenience functions
 
 def pp(_int):  # For nice number formatting
+    locale.setlocale(locale.LC_ALL, '')
     return locale.format('%d', _int, True)
 
 

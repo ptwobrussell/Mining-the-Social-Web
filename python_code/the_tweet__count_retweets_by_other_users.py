@@ -30,11 +30,11 @@ view = ViewDefinition('index', 'retweets_by_id', retweetCountMapper,
 
 view.sync(db)
 
-fields = ['Key', 'Value']
+fields = ['Num Tweets', 'Retweet Count']
 pt = PrettyTable(fields=fields)
 [pt.set_field_align(f, 'l') for f in fields]
 
-retweet_total, num_tweets, num_zeros = 0, 0, 0
+retweet_total, num_tweets, num_zero_retweets = 0, 0, 0
 for (k,v) in sorted([(row.key, row.value) for row in 
                      db.view('index/retweets_by_id', group=True)
                      if row.key is not None],
@@ -44,7 +44,7 @@ for (k,v) in sorted([(row.key, row.value) for row in
     if k == "100+":
         retweet_total += 100*v
     elif k == 0:
-        num_zeros += v
+        num_zero_retweets += v
     else:
         retweet_total += k*v
 
@@ -52,6 +52,9 @@ for (k,v) in sorted([(row.key, row.value) for row in
 
 pt.printt()
 
-print '\n%s of %s authored tweets were retweeted by at least one other person' % \
-      (num_tweets - num_zeros, num_tweets,)
+print '\n%s of %s authored tweets were retweeted at least once' % \
+    (pp(num_tweets - num_zero_retweets), pp(num_tweets),)
+print '\t(%s tweet/retweet ratio)\n' % \
+      (1.0*(num_tweets - num_zero_retweets)/num_tweets,)
+
 print 'Those %s authored tweets generated %s retweets' % (pp(num_tweets), pp(retweet_total),)
