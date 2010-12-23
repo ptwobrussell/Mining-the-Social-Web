@@ -13,7 +13,7 @@ def usage():
     print 'Usage: $ %s timeline_name [max_pages] [user]' % (sys.argv[0], )
     print
     print '\ttimeline_name in [public, home, user]'
-    print '\t0 < max_pages <= 4 for timeline_name in [home, user]'
+    print '\t0 < max_pages <= 16 for timeline_name in [home, user]'
     print '\tmax_pages == 1 for timeline_name == public'
     print 'Notes:'
     print '\t* ~800 statuses are available from the home timeline.'

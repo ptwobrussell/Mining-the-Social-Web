@@ -4,12 +4,17 @@ import sys
 import couchdb
 from couchdb.design import ViewDefinition
 
-server = couchdb.Server('http://localhost:5984')
 DB = sys.argv[1]
-db = server[DB]
+
+try:
+    server = couchdb.Server('http://localhost:5984')
+    db = server[DB]
+except couchdb.http.ResourceNotFound, e:
+    print """CouchDB database '%s' not found. 
+Please check that the database exists and try again.""" % DB
+    sys.exit(1)
 
 # Emit the number of hashtags in a document
-
 
 def entityCountMapper(doc):
     if not doc.get('entities'):
@@ -32,7 +37,7 @@ def entityCountMapper(doc):
             entities['hashtags'] = []
             for ht in extractor.extract_hashtags_with_indices():
 
-                # massage field name to match production twitter api
+                # Massage field name to match production twitter api
 
                 ht['text'] = ht['hashtag']
                 del ht['hashtag']
@@ -50,9 +55,6 @@ def entityCountMapper(doc):
         yield (None, len(doc['entities']['hashtags']))
 
 
-# Sum all of the values (all keys match)
-
-
 def summingReducer(keys, values, rereduce):
     return sum(values)
 
@@ -63,8 +65,7 @@ view.sync(db)
 
 num_hashtags = [row for row in db.view('index/count_hashtags')][0].value
 
-# Now, count the total number of tweet documents that aren't direct replies
-
+# Now, count the total number of tweets that aren't direct replies
 
 def entityCountMapper(doc):
     if doc.get('text')[0] == '@':
@@ -81,4 +82,5 @@ num_docs = [row for row in db.view('index/num_docs')][0].value
 
 # Finally, compute the average
 
-print 1.0 * num_hashtags / num_docs
+print 'Avg number of hashtags per tweet for %s: %s' % \
+        (DB.split('-')[-1], 1.0 * num_hashtags / num_docs,)
