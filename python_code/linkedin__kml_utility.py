@@ -67,5 +67,3 @@ def createKML(items, centroid_color='ff0000ff'):
     kmlElement.appendChild(documentElement)
 
     return kmlDoc.toprettyxml('  ', newl='\n', encoding='utf-8')
-
-

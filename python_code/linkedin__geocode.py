@@ -8,7 +8,8 @@ from cluster import KMeansClustering, centroid
 
 # A very uninteresting helper function to build up an XML tree
 
-from kml_util import createKML
+from linkedin__kml_util import createKML
+
 K = int(sys.argv[1])
 KML_FILE = sys.argv[2]
 
