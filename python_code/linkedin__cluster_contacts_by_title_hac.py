@@ -94,4 +94,4 @@ for titles in clustered_contacts:
     json_output[', '.join(descriptive_terms)[:30]] = dict([(c, None) for c in
             clustered_contacts[titles]])
 
-    print 'var clusters = %s;' % json.dumps(json_output, indent=4)
+print 'var clusters = %s;' % json.dumps(json_output, indent=4)
