@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+		"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>LinkedIn OAuth Helper</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" 
+        type="text/javascript"></script>
+    <script type="text/javascript">
+        dojo.ready(function() {
+            var q = dojo.queryToObject(window.location.search.slice(1));
+            dojo.byId("oauth_verifier").innerHTML = q.oauth_verifier;
+        });
+    </script>
+</head>
+<body>
+    <div>
+        Type the following identifier into the prompt in your terminal: 
+        <strong><span id="oauth_verifier"></span></strong>
+	</div>
+</body>
+</html>
