@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import webbrowser
 import cPickle
@@ -20,7 +21,7 @@ def oauthDance(key, secret, return_url):
     result = api.requestToken()
 
     if not result:
-        print api.requestTokenError()
+        print >> sys.stderr, api.requestTokenError()
         return None
 
     authorize_url = api.getAuthorizeURL()
@@ -31,7 +32,7 @@ def oauthDance(key, secret, return_url):
 
     result = api.accessToken(verifier=oauth_verifier)
     if not result:
-        print 'Error: %s\nAborting' % api.getRequestTokenError()
+        print >> sys.stderr, 'Error: %s\nAborting' % api.getRequestTokenError()
         return None
 
     return api
@@ -46,10 +47,12 @@ api = oauthDance(KEY, SECRET, RETURN_URL)
 if api:
     connections = api.GetConnections()
 else:
-    print 'Failed to aunthenticate. You need to learn to dance'
+    print >> sys.stderr, 'Failed to aunthenticate. You need to learn to dance'
     sys.exit(1)
 
 # Be careful - this type of API usage limits you to 500 calls per day
+
+print >> sys.stderr, 'Fetching extended connections...'
 
 extended_connections = [api.GetProfile(member_id=c.id, url=None, fields=[
     'first-name',
@@ -65,8 +68,13 @@ extended_connections = [api.GetProfile(member_id=c.id, url=None, fields=[
     'location',
     ]) for c in connections]
 
-# Store these out wherever it's handy
+# Store the data
 
-f = open('linkedin_connections.pickle', 'wb')
+if not os.path.isdir('out'):
+    os.mkdir('out')
+
+f = open('out/linkedin_connections.pickle', 'wb')
 cPickle.dump(extended_connections, f)
 f.close()
+
+print >> sys.stderr, 'Data pickled to out/linkedin_connections.pickle'
