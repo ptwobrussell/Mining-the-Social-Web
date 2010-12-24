@@ -20,7 +20,7 @@ GEOCODING_API_KEY = sys.argv[2]
 
 CONNECTIONS_DATA = sys.argv[3]
 
-OUT = "clusters.kmeans.xml"
+OUT = "clusters.kmeans.kml"
 
 # Open up your saved connections with extended profile information
 
