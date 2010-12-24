@@ -50,7 +50,8 @@ else:
     print >> sys.stderr, 'Failed to aunthenticate. You need to learn to dance'
     sys.exit(1)
 
-# Be careful - this type of API usage limits you to 500 calls per day
+# Be careful - this type of API usage is "expensive".
+# See http://developer.linkedin.com/docs/DOC-1112
 
 print >> sys.stderr, 'Fetching extended connections...'
 
