@@ -12,11 +12,8 @@ import networkx as nx
 Q = sys.argv[1]
 
 # An HTML page that we'll inject Protovis consumable data into
-HTML_TEMPLATE = \
-    os.path.join(*'../web_code/protovis/twitter.retweet_graph.html'.split('/'))
-
-# Base filename for output data
-OUT_FILE = 'twitter.retweet_graph'
+HTML_TEMPLATE = '../web_code/protovis/twitter.retweet_graph.html'
+OUT = os.path.basename(HTML_TEMPLATE)
 
 # Writes out a DOT language file that can be converted into an 
 # image by Graphviz
@@ -114,8 +111,8 @@ print >> sys.stderr, "Num connected components:", len(nx.connected_components(g.
 print >> sys.stderr, "Node degrees:", sorted(nx.degree(g))
 
 # Write Graphviz output
-write_dot_output(g, OUT_FILE)
+write_dot_output(g, OUT)
 
 # Write Protovis output and open in browser
-protovis_output = write_protovis_output(g, OUT_FILE)
+protovis_output = write_protovis_output(g, OUT)
 webbrowser.open('file://' + protovis_output)

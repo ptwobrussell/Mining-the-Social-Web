@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
+import shutil
 import cPickle
 import json
+import webbrowser
 from urllib2 import HTTPError
 from geopy import geocoders
 
@@ -11,6 +14,10 @@ from geopy import geocoders
 
 GEOCODING_API_KEY = sys.argv[1]
 CONNECTIONS_PICKLE = sys.argv[2]
+
+# An HTML page that we'll inject Protovis consumable data into
+HTML_TEMPLATE = '../web_code/protovis/dorling_cartogram/dorling_cartogram.html'
+OUT = os.path.basename(HTML_TEMPLATE)
 
 # Open up your saved connections with extended profile information
 
@@ -66,7 +73,7 @@ for location in locations:
 # Roll up frequencies for each state and
 # emit output expected by Protovis for Dorling Cartogram
 
-output = {}
+json_data = {}
 for (city, [state, freq]) in freqs.items():
 
     # The results from geocoding probably won't be perfect,
@@ -78,12 +85,30 @@ for (city, [state, freq]) in freqs.items():
     if state == 'DC':
         state = 'VA'
 
-    if not output.has_key(state):
-        output[state] = {'value': 0}
-    output[state]['value'] += freq
+    if not json_data.has_key(state):
+        json_data[state] = {'value': 0}
+    json_data[state]['value'] += freq
 
-# This output is consumed by dorling_cartogram.html
+# This json_data is consumed by dorling_cartogram.html
+if not os.path.isdir('out'):
+    os.mkdir('out')
 
-f = open('dorling_cartogram.js', 'w')
-f.write('var _data = %s;' % (json.dumps(output, indent=4), ))
+# HTML_TEMPLATE references some Protovis scripts, which we can
+# simply copy into out/
+
+shutil.rmtree('out/dorling_cartogram', ignore_errors=True)
+shutil.rmtree('out/dorling_cartogram', ignore_errors=True)
+
+shutil.copytree('../web_code/protovis/dorling_cartogram',
+                'out/dorling_cartogram')
+
+shutil.copytree('../web_code/protovis/protovis-3.2',
+                'out/protovis-3.2')
+
+html = open(HTML_TEMPLATE).read() % (json.dumps(json_data),)
+f = open(os.path.join(os.getcwd(), 'out', 'dorling_cartogram', OUT), 'w')
+f.write(html)
 f.close()
+
+print >> sys.stderr, 'Data file written to: %s' % f.name
+webbrowser.open('file://' + f.name)
