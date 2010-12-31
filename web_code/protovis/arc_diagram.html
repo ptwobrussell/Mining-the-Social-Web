@@ -2,10 +2,12 @@
   <head>
     <title>Protovis Arc Graph Example</title>
     <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
-    <script type="text/javascript" src="../data/graph.js"></script>
   </head>
   <body>
     <script type="text/javascript+protovis">
+
+        var graph = %s; // Substituted by Python
+
         var vis = new pv.Panel()
             .width(1800)
             .height(1000)

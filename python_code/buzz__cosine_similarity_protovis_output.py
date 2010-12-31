@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
+import shutil
+import webbrowser
 import json
 from operator import itemgetter
 import nltk
@@ -10,6 +13,10 @@ import numpy
 
 BUZZ_DATA = sys.argv[1]
 buzz_data = json.loads(open(BUZZ_DATA).read())
+
+# HTML templmates that we'll inject Protovis consumable data into
+HTML_TEMPLATES = ['../web_code/protovis/matrix_diagram.html', 
+                  '../web_code/protovis/arc_diagram.html']
 
 all_posts = [post['content'].lower().split() for post in buzz_data]
 
@@ -111,10 +118,26 @@ for s in similar:
 nodes = [{'nodeName': title, 'nodeUrl': url} for ((title, url), idx) in
          sorted(nodes.items(), key=itemgetter(1))]
 
-json_output = {'nodes': nodes, 'links': edges}
+json_data = {'nodes': nodes, 'links': edges}
 
-# this output can be captured into a file called graph.js and
-# plugged right into minimally adapted examples from the Protovis
-# examples gallery
+# This json_data is consumed by matrix_diagram.html
+if not os.path.isdir('out'):
+    os.mkdir('out')
 
-print 'var graph=%s;' % json.dumps(json_output, indent=4)
+# HTML_TEMPLATE references some Protovis scripts, which we can
+# simply copy into out/
+
+shutil.rmtree('out/protovis-3.2', ignore_errors=True)
+
+shutil.copytree('../web_code/protovis/protovis-3.2',
+                'out/protovis-3.2')
+
+
+for template in HTML_TEMPLATES:
+    html = open(template).read() % (json.dumps(json_data),)
+    f = open(os.path.join(os.getcwd(), 'out', os.path.basename(template)), 'w')
+    f.write(html)
+    f.close()
+
+    print >> sys.stderr, 'Data file written to: %s' % f.name
+    webbrowser.open('file://' + f.name)

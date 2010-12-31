@@ -2,10 +2,11 @@
   <head>
     <title>Protovis Matrix Diagram Example</title>
     <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
-    <script type="text/javascript" src="../data/graph.js"></script>
   </head>
   <body>
     <script type="text/javascript+protovis">
+
+        var graph = %s; // Substituted from Python 
 
         var maxLinkValue = Math.max.apply(Math, graph.links.map(function(l) {return l.value}));
         var colorBlender = pv.ramp("#eee", "black");
