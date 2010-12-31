@@ -97,7 +97,7 @@ if not os.path.isdir('out'):
 # simply copy into out/
 
 shutil.rmtree('out/dorling_cartogram', ignore_errors=True)
-shutil.rmtree('out/dorling_cartogram', ignore_errors=True)
+shutil.rmtree('out/protovis-3.2', ignore_errors=True)
 
 shutil.copytree('../web_code/protovis/dorling_cartogram',
                 'out/dorling_cartogram')
