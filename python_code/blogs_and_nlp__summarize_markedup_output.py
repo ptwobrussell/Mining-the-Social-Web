@@ -7,7 +7,6 @@ import nltk
 import numpy
 from blogs_and_nlp__summarize import summarize
 
-
 HTML_TEMPLATE = """<html>
     <head>
         <title>%s</title>
@@ -23,6 +22,11 @@ if __name__ == '__main__':
     BLOG_DATA = sys.argv[1]
     blog_data = json.loads(open(BLOG_DATA).read())
 
+    # Marked up version can be written out to disk
+
+    if not os.path.isdir('out/summarize'):
+        os.makedirs('out/summarize')
+
     for post in blog_data:
        
         post.update(summarize(post['content']))
@@ -35,11 +39,6 @@ if __name__ == '__main__':
             for s in post[summary_type]:
                 post[summary_type + '_marked_up'] = \
                 post[summary_type + '_marked_up'].replace(s, '<strong>%s</strong>' % (s, ))
-
-            # Marked up version can be written out to disk
-
-            if not os.path.isdir('out/summarize'):
-                os.makedirs('out/summarize')
 
             filename = post['title'] + '.summary.' + summary_type + '.html'
             f = open(os.path.join('out', 'summarize', filename), 'w')

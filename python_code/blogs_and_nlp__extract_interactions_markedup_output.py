@@ -1,56 +1,51 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import nltk
 import json
+from blogs_and_nlp__extract_interactions import extract_interactions
 
-# Load in human readable text from wherever you've saved it
+HTML_TEMPLATE = """<html>
+    <head>
+        <title>%s</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>%s</body>
+</html>"""
 
-BLOG_DATA = sys.argv[1]
-blog_data = json.loads(open(BLOG_DATA).read())
+if __name__ == '__main__':
 
-for post in blog_data:
+    # Read in output from blogs_and_nlp__get_feed.py
 
-    sentences = nltk.tokenize.sent_tokenize(post['content'])
-    tokens = [nltk.tokenize.word_tokenize(s) for s in sentences]
-    pos_tagged_tokens = [nltk.pos_tag(t) for t in tokens]
+    BLOG_DATA = sys.argv[1]
+    blog_data = json.loads(open(BLOG_DATA).read())
 
-    post['entity_interactions'] = []
-    for sentence in pos_tagged_tokens:
+    # Marked up version can be written out to disk
 
-        all_entity_chunks = []
-        previous_pos = None
-        current_entity_chunk = []
+    if not os.path.isdir('out/interactions'):
+        os.makedirs('out/interactions')
 
-        for (token, pos) in sentence:
+    for post in blog_data:
 
-            if pos == previous_pos and pos.startswith('NN'):
-                current_entity_chunk.append(token)
-            elif pos.startswith('NN'):
-                if current_entity_chunk != []:
-                    all_entity_chunks.append((' '.join(current_entity_chunk),
-                            pos))
-                current_entity_chunk = [token]
+        post.update(extract_interactions(post['content']))
 
-            previous_pos = pos
+        # Display output as markup with entities presented in bold text
 
-        if len(all_entity_chunks) > 1:
-            post['entity_interactions'].append(all_entity_chunks)
-        else:
-            post['entity_interactions'].append([])
+        post['markup'] = []
 
-    # Display output as markup with entities presented in bold text
+        for sentence_idx in range(len(post['sentences'])):
 
-    post['markup'] = []
+            s = post['sentences'][sentence_idx]
+            for (term, _) in post['entity_interactions'][sentence_idx]:
+                s = s.replace(term, '<strong>%s</strong>' % (term, ))
 
-    for sentence_idx in range(len(sentences)):
+            post['markup'] += [s]
+        
+        filename = post['title'] + '.entity_interactions.html'
+        f = open(os.path.join('out', 'interactions', filename), 'w')
+        html = HTML_TEMPLATE % (post['title'] + ' Interactions', ' '.join(post['markup']),)
+        f.write(html.encode('utf-8'))
+        f.close()
 
-        s = sentences[sentence_idx]
-        for (term, _) in post['entity_interactions'][sentence_idx]:
-            s = s.replace(term, '<strong>%s</strong>' % (term, ))
-
-        post['markup'] += [s]
-
-    f = open(post['title'] + '.entity_interactions.html', 'w')
-    f.write('<p>%s</p>' % (' '.join(post['markup']), ))
-    f.close()
+        print >> sys.stderr, "Data written to", f.name
