@@ -4,7 +4,7 @@ import sys
 import json
 import nltk
 
-# Load in human readable text from wherever you've saved it
+# Load in output from blogs_and_nlp__get_feed.py
 
 BLOG_DATA = sys.argv[1]
 blog_data = json.loads(open(BLOG_DATA).read())
@@ -25,6 +25,8 @@ stop_words = nltk.corpus.stopwords.words('english') + [
     '\'re',
     '"',
     '-',
+    '}',
+    '{',
     ]
 
 for post in blog_data:
@@ -47,12 +49,12 @@ for post in blog_data:
     top_10_words_sans_stop_words = [w for w in fdist.items() if w[0]
                                     not in stop_words][:10]
 
-    print '-' * 50
-    print 'Post Title:', post['title']
+    print post['title']
     print '\tNum Sentences:'.ljust(25), len(sentences)
     print '\tNum Words:'.ljust(25), num_words
     print '\tNum Unique Words:'.ljust(25), num_unique_words
     print '\tNum Hapaxes:'.ljust(25), num_hapaxes
-    print '\tTop 10 Most Frequent Words (sans stop words):', ', '.join(['%s (%s)'
+    print '\tTop 10 Most Frequent Words (sans stop words):\n\t\t', \
+            '\n\t\t'.join(['%s (%s)'
             % (w[0], w[1]) for w in top_10_words_sans_stop_words])
     print

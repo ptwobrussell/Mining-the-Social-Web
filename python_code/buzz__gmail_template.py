@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import oauth2 as oauth
 import oauth2.clients.imap as imaplib
 
-OAUTH_TOKEN = ''  # obtained with xoauth.py
-OAUTH_TOKEN_SECRET = ''  # obtained with xoauth.py
-GMAIL_ACCOUNT = ''  # example@gmail.com
+# See http://code.google.com/p/google-mail-xoauth-tools/wiki/
+#     XoauthDotPyRunThrough for details on xoauth.py
+
+OAUTH_TOKEN = sys.argv[1]  # obtained with xoauth.py
+OAUTH_TOKEN_SECRET = sys.argv[2]  # obtained with xoauth.py
+GMAIL_ACCOUNT = sys.argv[3]  # example@gmail.com
 
 url = 'https://mail.google.com/mail/b/%s/imap/' % (GMAIL_ACCOUNT, )
 
