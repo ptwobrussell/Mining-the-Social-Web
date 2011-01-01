@@ -3,14 +3,20 @@
 import oauth2 as oauth
 import oauth2.clients.imap as imaplib
 
+import os
 import sys
 import email
 import quopri
+import json
 from BeautifulSoup import BeautifulSoup
 
-OAUTH_TOKEN = ''  # obtained with xoauth.py
-OAUTH_TOKEN_SECRET = ''  # obtained with xoauth.py
-GMAIL_ACCOUNT = ''  # example@gmail.com
+# See http://code.google.com/p/google-mail-xoauth-tools/wiki/
+#     XoauthDotPyRunThrough for details on xoauth.py
+
+OAUTH_TOKEN = sys.argv[1]  # obtained with xoauth.py
+OAUTH_TOKEN_SECRET = sys.argv[2]  # obtained with xoauth.py
+GMAIL_ACCOUNT = sys.argv[3]  # example@gmail.com
+Q = sys.argv[4]
 
 url = 'https://mail.google.com/mail/b/%s/imap/' % (GMAIL_ACCOUNT, )
 
@@ -74,8 +80,6 @@ def jsonifyMessage(msg):
 
 # Consume a query from the user. This example illustrates searching by subject
 
-Q = sys.argv[1]
-
 (status, data) = conn.search(None, '(SUBJECT "%s")' % (Q, ))
 ids = data[0].split()
 
@@ -93,4 +97,15 @@ jsonified_messages = [jsonifyMessage(m) for m in messages]
 
 content = [p['content'] for m in jsonified_messages for p in m['parts']]
 
-# Content can still be quite messy and contain lots of line breaks and other quirks
+# Note: Content can still be quite messy and contain lots of line breaks and other quirks
+
+if not os.path.isdir('out'):
+    os.mkdir('out')
+
+filename = os.path.join('out', GMAIL_ACCOUNT.split("@")[0] + '.gmail.json')
+f = open(filename, 'w')
+f.write(json.dumps(jsonified_messages))
+f.close()
+
+print >> sys.stderr, "Data written out to", f.name
+

@@ -5,19 +5,13 @@ import json
 import nltk
 import numpy
 
-# Load in human readable text from wherever you've saved it
-
-BLOG_DATA = sys.argv[1]
-blog_data = json.loads(open(BLOG_DATA).read())
-
 N = 100  # Number of words to consider
 CLUSTER_THRESHOLD = 5  # Distance between words to consider
 TOP_SENTENCES = 5  # Number of sentences to return for a "top n" summary
 
 # Approach taken from "The Automatic Creation of Literature Abstracts" by H.P. Luhn
 
-
-def score_sentences(sentences, important_words):
+def _score_sentences(sentences, important_words):
     scores = []
     sentence_idx = -1
 
@@ -27,17 +21,18 @@ def score_sentences(sentences, important_words):
         word_idx = []
 
         # For each word in the word list...
-
         for w in important_words:
             try:
-
                 # Compute an index for where any important words occur in the sentence
 
                 word_idx.append(s.index(w))
-            except ValueError, e:
+            except ValueError, e: # w not in this particular sentence
                 pass
 
         word_idx.sort()
+
+        # It is possible that some sentences may not contain any important words at all
+        if len(word_idx)== 0: continue
 
         # Using the word index, compute clusters by using a max distance threshold
         # for any two consecutive words
@@ -71,9 +66,8 @@ def score_sentences(sentences, important_words):
 
     return scores
 
-
-for post in blog_data:
-    sentences = [s for s in nltk.tokenize.sent_tokenize(post['content'])]
+def summarize(txt):
+    sentences = [s for s in nltk.tokenize.sent_tokenize(txt)]
     normalized_sentences = [s.lower() for s in sentences]
 
     words = [w.lower() for sentence in normalized_sentences for w in
@@ -81,10 +75,10 @@ for post in blog_data:
 
     fdist = nltk.FreqDist(words)
 
-    top_n_words = [w[0] for w in fdist.items() if w[0]
-                   not in nltk.corpus.stopwords.words('english')][:N]
+    top_n_words = [w[0] for w in fdist.items() 
+            if w[0] not in nltk.corpus.stopwords.words('english')][:N]
 
-    scored_sentences = score_sentences(normalized_sentences, top_n_words)
+    scored_sentences = _score_sentences(normalized_sentences, top_n_words)
 
     # Summaization Approach 1:
     # Filter out non-significant sentences by using the average score plus a
@@ -103,19 +97,31 @@ for post in blog_data:
 
     # Decorate the post object with summaries
 
-    post['top_n_summary'] = [sentences[idx] for (idx, score) in top_n_scored]
-    post['mean_scored_summary'] = [sentences[idx] for (idx, score) in mean_scored]
+    return dict(top_n_summary=[sentences[idx] for (idx, score) in top_n_scored],
+                mean_scored_summary=[sentences[idx] for (idx, score) in mean_scored])
 
-    # Optionally save back out the data...
 
-    print post['title']
-    print '-' * len(post['title'])
-    print
-    print 'Top N Summary'
-    print '---------'
-    print post['top_n_summary']
-    print
-    print 'Mean Scored Summary'
-    print '---------'
-    print post['mean_scored_summary']
-    print
+if __name__ == '__main__':
+
+    # Load in output from blogs_and_nlp__get_feeds.py
+
+    BLOG_DATA = sys.argv[1]
+    blog_data = json.loads(open(BLOG_DATA).read())
+
+    for post in blog_data:
+       
+        post.update(summarize(post['content']))
+
+        print post['title']
+        print '-' * len(post['title'])
+        print
+        print '-------------'
+        print 'Top N Summary'
+        print '-------------'
+        print ' '.join(post['top_n_summary'])
+        print
+        print '-------------------'
+        print 'Mean Scored Summary'
+        print '-------------------'
+        print ' '.join(post['mean_scored_summary'])
+        print

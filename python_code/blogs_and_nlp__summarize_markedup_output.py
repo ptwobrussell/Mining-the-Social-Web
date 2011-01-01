@@ -1,121 +1,50 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import json
 import nltk
 import numpy
-
-# Load in human readable text from wherever you've saved it
-
-BLOG_DATA = sys.argv[1]
-blog_data = json.loads(open(BLOG_DATA).read())
-
-N = 100  # Number of words to consider
-CLUSTER_THRESHOLD = 5  # Distance between words to consider
-TOP_SENTENCES = 5  # Number of sentences to return for a "top n" summary
-
-# Approach taken from "The Automatic Creation of Literature Abstracts" by H.P. Luhn
+from blogs_and_nlp__summarize import summarize
 
 
-def score_sentences(sentences, important_words):
-    scores = []
-    sentence_idx = -1
+HTML_TEMPLATE = """<html>
+    <head>
+        <title>%s</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>%s</body>
+</html>"""
 
-    for s in [nltk.tokenize.word_tokenize(s) for s in sentences]:
+if __name__ == '__main__':
 
-        sentence_idx += 1
-        word_idx = []
+    # Load in output from blogs_and_nlp__get_feeds.py
 
-        # For each word in the word list...
+    BLOG_DATA = sys.argv[1]
+    blog_data = json.loads(open(BLOG_DATA).read())
 
-        for w in important_words:
-            try:
+    for post in blog_data:
+       
+        post.update(summarize(post['content']))
 
-                # Compute an index for where any important words occur in the sentence
+        # You could also store a version of the full post with key sentences markedup
+        # for analysis with simple string replacement...
 
-                word_idx.append(s.index(w))
-            except ValueError, e:
-                pass
+        for summary_type in ['top_n_summary', 'mean_scored_summary']:
+            post[summary_type + '_marked_up'] = '<p>%s</p>' % (post['content'], )
+            for s in post[summary_type]:
+                post[summary_type + '_marked_up'] = \
+                post[summary_type + '_marked_up'].replace(s, '<strong>%s</strong>' % (s, ))
 
-        word_idx.sort()
+            # Marked up version can be written out to disk
 
-        # Using the word index, compute clusters by using a max distance threshold
-        # for any two consecutive words
+            if not os.path.isdir('out/summarize'):
+                os.makedirs('out/summarize')
 
-        clusters = []
-        cluster = [word_idx[0]]
-        i = 1
-        while i < len(word_idx):
-            if word_idx[i] - word_idx[i - 1] < CLUSTER_THRESHOLD:
-                cluster.append(word_idx[i])
-            else:
-                clusters.append(cluster[:])
-                cluster = [word_idx[i]]
-            i += 1
-        clusters.append(cluster)
+            filename = post['title'] + '.summary.' + summary_type + '.html'
+            f = open(os.path.join('out', 'summarize', filename), 'w')
+            html = HTML_TEMPLATE % (post['title'] + ' Summary', post[summary_type + '_marked_up'],)
+            f.write(html.encode('utf-8'))
+            f.close()
 
-        # Score each cluster. The max score for any given cluster is the score for the sentence
-
-        max_cluster_score = 0
-        for c in clusters:
-            significant_words_in_cluster = len(c)
-            total_words_in_cluster = c[-1] - c[0] + 1
-            score = 1.0 * significant_words_in_cluster \
-                * significant_words_in_cluster / total_words_in_cluster
-
-            if score > max_cluster_score:
-                max_cluster_score = score
-
-        scores.append((sentence_idx, score))
-
-    return scores
-
-
-for post in blog_data:
-    sentences = [s for s in nltk.tokenize.sent_tokenize(post['content'])]
-    normalized_sentences = [s.lower() for s in sentences]
-
-    words = [w.lower() for sentence in normalized_sentences for w in
-             nltk.tokenize.word_tokenize(sentence)]
-
-    fdist = nltk.FreqDist(words)
-
-    top_n_words = [w[0] for w in fdist.items() if w[0]
-                   not in nltk.corpus.stopwords.words('english')][:N]
-
-    scored_sentences = score_sentences(normalized_sentences, top_n_words)
-
-    # Summaization Approach 1:
-    # Filter out non-significant sentences by using the average score plus a
-    # fraction of the std dev as a filter
-
-    avg = numpy.mean([s[1] for s in scored_sentences])
-    std = numpy.std([s[1] for s in scored_sentences])
-    mean_scored = [(sent_idx, score) for (sent_idx, score) in scored_sentences
-                   if score > avg + 0.5 * std]
-
-    # Summarization Approach 2:
-    # Another approach would be to return only the top N ranked sentences
-
-    top_n_scored = sorted(scored_sentences, key=lambda s: s[1])[-TOP_SENTENCES:]
-    top_n_scored = sorted(top_n_scored, key=lambda s: s[0])
-
-    # Decorate the post object with summaries
-
-    post['top_n_summary'] = [sentences[idx] for (idx, score) in top_n_scored]
-    post['mean_scored_summary'] = [sentences[idx] for (idx, score) in mean_scored]
-
-    # You could also store a version of the full post with key sentences markedup
-    # for analysis with simple string replacement...
-
-    for summary_type in ['top_n_summary', 'mean_scored_summary']:
-        post[summary_type + '_marked_up'] = '<p>%s</p>' % (post['content'], )
-        for s in post[summary_type]:
-            post[summary_type + '_marked_up'] = post[summary_type + '_marked_up'
-                    ].replace(s, '<strong>%s</strong>' % (s, ))
-
-        # Marked up version can be written out to disk
-
-        f = open(post['title'] + '.summary.' + summary_type + '.html', 'w')
-        f.write(post[summary_type + '_marked_up'])
-        f.close()
+            print >> sys.stderr, "Data written to", f.name

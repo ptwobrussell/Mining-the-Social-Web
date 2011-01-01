@@ -53,9 +53,11 @@ f = open(filename, 'w')
 f.write(json.dumps(posts))
 f.close()
 
-# Or store it somewhere like CouchDB...
+print >> sys.stderr, "Data written to", f.name
 
-server = couchdb.Server('http://localhost:5984')
-DB = 'buzz-' + USER
-db = server.create(DB)
-db.update(posts, all_or_nothing=True)
+# Or store it somewhere like CouchDB like so...
+
+# server = couchdb.Server('http://localhost:5984')
+# DB = 'buzz-' + USER
+# db = server.create(DB)
+# db.update(posts, all_or_nothing=True)
