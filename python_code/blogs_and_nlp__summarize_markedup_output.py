@@ -18,7 +18,7 @@ HTML_TEMPLATE = """<html>
 
 if __name__ == '__main__':
 
-    # Load in output from blogs_and_nlp__get_feeds.py
+    # Load in output from blogs_and_nlp__get_feed.py
 
     BLOG_DATA = sys.argv[1]
     blog_data = json.loads(open(BLOG_DATA).read())

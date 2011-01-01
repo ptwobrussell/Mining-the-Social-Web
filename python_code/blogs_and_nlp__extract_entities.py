@@ -4,7 +4,7 @@ import sys
 import nltk
 import json
 
-# Load in human readable text from wherever you've saved it
+# Load in output from blogs_and_nlp__get_feed.py
 
 BLOG_DATA = sys.argv[1]
 blog_data = json.loads(open(BLOG_DATA).read())
