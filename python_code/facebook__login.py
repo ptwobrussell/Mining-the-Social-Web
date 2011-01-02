@@ -10,7 +10,7 @@ def login():
 
     # Get this value from your Facebook application's settings
 
-    CLIENT_ID = '9ba88ca6f3d788b7b6075edce551f31e'
+    CLIENT_ID = ''
 
     REDIRECT_URI = 'http://miningthesocialweb.appspot.com/static/facebook_oauth_helper.html'
 
