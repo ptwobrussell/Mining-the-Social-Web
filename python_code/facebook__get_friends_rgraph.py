@@ -8,7 +8,7 @@ from facebook__fql_query import FQL
 from facebook__login import login
 
 try:
-    ACCESS_TOKEN = open('facebook.access_token').read()
+    ACCESS_TOKEN = open('out/facebook.access_token').read()
 except IOError, e:
     try:
 
@@ -117,7 +117,7 @@ print 'JS data file written to: %s' % f.name
 
 # Write out another file that's standard JSON for additional analysis
 
-f = open(os.path.join('out', 'facebook.rgraph.json'), 'w')
+f = open(os.path.join('out', 'facebook.friends.json'), 'w')
 f.write(json.dumps(jit_output, indent=4))
 f.close()
 

@@ -6,6 +6,8 @@ import json
 import webbrowser
 from copy import deepcopy
 
+# Reuses out/facebook.friends.json written out by 
+# facebook__get_friends_rgraph.py
 DATA = sys.argv[1]
 data = json.loads(open(DATA).read())
 

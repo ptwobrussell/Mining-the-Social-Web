@@ -39,7 +39,7 @@ class FQL(object):
 
 if __name__ == '__main__':
     try:
-        ACCESS_TOKEN = open('facebook.access_token').read()
+        ACCESS_TOKEN = open('out/facebook.access_token').read()
         Q = sys.argv[1]
     except IOError, e:
         try:

@@ -10,7 +10,7 @@ from cgi import escape
 from facebook__login import login
 
 try:
-    ACCESS_TOKEN = open('facebook.access_token').read()
+    ACCESS_TOKEN = open('out/facebook.access_token').read()
 except IOError, e:
     try:
 

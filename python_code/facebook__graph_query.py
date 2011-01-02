@@ -7,7 +7,7 @@ import urllib2
 from facebook__login import login
 
 try:
-    ACCESS_TOKEN = open('facebook.access_token').read()
+    ACCESS_TOKEN = open('out/facebook.access_token').read()
     Q = sys.argv[1]
 except IOError, e:
     try:

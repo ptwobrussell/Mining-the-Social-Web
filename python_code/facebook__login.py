@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import webbrowser
 import urllib
@@ -79,12 +80,17 @@ def login():
     # to passing it as a command line parameter into scripts...
 
     access_token = raw_input('Enter your access_token: ')
-    f = open('facebook.access_token', 'w')
+
+    if not os.path.isdir('out'):
+        os.mkdir('out')
+
+    filename = os.path.join('out', 'facebook.access_token')
+    f = open(filename, 'w')
     f.write(access_token)
     f.close()
 
     print >> sys.stderr, \
-    "Access token stored to local file in current directory as 'facebook.access_token'"
+            "Access token stored to local file: 'out/facebook.access_token'"
 
     return access_token
 

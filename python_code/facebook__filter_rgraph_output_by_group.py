@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import facebook
+import webbrowser
 from facebook__fql_query import FQL
 from facebook__login import login
 
@@ -13,7 +14,7 @@ DATA = sys.argv[1]
 rgraph = json.loads(open(DATA).read())
 
 try:
-    ACCESS_TOKEN = open('facebook.access_token').read()
+    ACCESS_TOKEN = open('out/facebook.access_token').read()
 except IOError, e:
     try:
 
@@ -71,3 +72,8 @@ f.write('var graph = %s;' % (json.dumps(filtered_rgraph, indent=4), ))
 f.close()
 
 print 'Data file written to: %s' % filename
+
+# Open up the web page in your browser
+
+webbrowser.open('file://' + os.path.join(os.getcwd(), '..', 'web_code', 'jit',
+                'rgraph', 'rgraph.html'))

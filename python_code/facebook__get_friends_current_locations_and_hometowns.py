@@ -11,7 +11,7 @@ from facebook__login import login
 HTML_TEMPLATE = '../web_code/dojo/facebook.current_locations_and_hometowns.html'
 
 try:
-    ACCESS_TOKEN = open('facebook.access_token').read()
+    ACCESS_TOKEN = open('out/facebook.access_token').read()
 except IOError, e:
     try:
 
@@ -32,11 +32,11 @@ except IOError, e:
 fql = FQL(ACCESS_TOKEN)
 
 q = \
-    """select name, current_location, hometown_location from user where uid in
-       (select target_id from connection where source_id = me() and target_type = 'user')"""
+"""select name, current_location, hometown_location from user where uid in
+  (select target_id from connection where source_id = me() and target_type = 'user')"""
 results = fql.query(q)
 
-# first, read over the raw fql query and create a hierarchical maps that groups people by 
+# First, read over the raw fql query and create a hierarchical maps that groups people by 
 # where they live now compared to their hometown. we'll simply tabulate frequencies, but 
 # you could easily grab additional data in the fql and use it for many creative situations
 
