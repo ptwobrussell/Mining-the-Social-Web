@@ -1,8 +1,10 @@
 <html>
   <head>
     <title>Protovis Dendrogram</title>
-    <script type="text/javascript" src="../protovis-3.2/protovis-r3.2.js"></script>
-    <script type="text/javascript" src="../../data/clusters.js"></script>
+    <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript">
+        var data = %s; // Substituted by Python 
+    </script>
   </head>
   <body style="padding:20px"><div>
     <script type="text/javascript+protovis">
@@ -15,7 +17,7 @@
             .bottom(10);
 
         var layout = vis.add(pv.Layout.Cluster)
-            .nodes(pv.dom(clusters)
+            .nodes(pv.dom(data)
                 .root("My LinkedIn")
                 .sort(function(a, b) pv.naturalOrder(a.nodeName, b.nodeName))
                 .nodes())

@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import csv
 import json
+import shutil
+import webbrowser
 from nltk.metrics.distance import masi_distance
 from cluster import HierarchicalClustering
+
+HTML_TEMPLATE = '../web_code/protovis/linkedin_tree.html'
+
+# Another option for a template
+HTML_TEMPLATE = '../web_code/protovis/linkedin_dendogram.html'
+
+OUT = os.path.basename(HTML_TEMPLATE)
+
 
 CSV_FILE = sys.argv[1]
 DISTANCE_THRESHOLD = 0.34
@@ -94,4 +105,24 @@ for titles in clustered_contacts:
     json_output[', '.join(descriptive_terms)[:30]] = dict([(c, None) for c in
             clustered_contacts[titles]])
 
-print 'var clusters = %s;' % json.dumps(json_output, indent=4)
+if not os.path.isdir('out'):
+    os.mkdir('out')
+
+# HTML_TEMPLATE references some dependencies that we need to
+# copy into out/
+
+shutil.rmtree('out/protovis-3.2', ignore_errors=True)
+
+shutil.copytree('../web_code/protovis/protovis-3.2',
+                'out/protovis-3.2')
+
+html = open(HTML_TEMPLATE).read() % (json.dumps(json_output),)
+f = open(os.path.join(os.getcwd(), 'out', OUT), 'w')
+f.write(html)
+f.close()
+
+print 'Data file written to: %s' % f.name
+
+# Open up the web page in your browser
+
+webbrowser.open('file://' + f.name)

@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Protovis Graph</title>
-    <script type="text/javascript" src="../protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="protovis-3.2/protovis-r3.2.js"></script>
     <script type="text/javascript">
         var data = %s; //Substituted by Python
     </script>
@@ -17,7 +17,7 @@
             .bottom(-80);
 
         var tree = vis.add(pv.Layout.Tree)
-            .nodes(pv.dom(clusters).root("My LinkedIn").nodes())
+            .nodes(pv.dom(data).root("My LinkedIn").nodes())
             .depth(200)
             .breadth(15)
             .orient("radial");
