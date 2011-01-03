@@ -5,10 +5,15 @@ import sys
 import json
 import facebook
 import webbrowser
+import shutil
 from facebook__fql_query import FQL
 from facebook__login import login
 
-# load the rgraph data
+HTML_TEMPLATE = '../web_code/jit/rgraph/rgraph.html'
+OUT = os.path.basename(HTML_TEMPLATE)
+
+# Reuses out/facebook.friends.json written out by 
+# facebook__get_friends_rgraph.py
 
 DATA = sys.argv[1]
 rgraph = json.loads(open(DATA).read())
@@ -66,14 +71,21 @@ for n in filtered_rgraph:
 if not os.path.isdir('out'):
     os.mkdir('out')
 
-filename = os.path.join('out', 'facebook.rgraph_groups.js')
-f = open(filename, 'w')
-f.write('var graph = %s;' % (json.dumps(filtered_rgraph, indent=4), ))
+# HTML_TEMPLATE references some dependencies that we need to
+# copy into out/
+
+shutil.rmtree('out/jit', ignore_errors=True)
+
+shutil.copytree('../web_code/jit',
+                'out/jit')
+
+html = open(HTML_TEMPLATE).read() % (json.dumps(filtered_rgraph),)
+f = open(os.path.join(os.getcwd(), 'out', 'jit', 'rgraph', OUT), 'w')
+f.write(html)
 f.close()
 
-print 'Data file written to: %s' % filename
+print 'Data file written to: %s' % f.name
 
 # Open up the web page in your browser
 
-webbrowser.open('file://' + os.path.join(os.getcwd(), '..', 'web_code', 'jit',
-                'rgraph', 'rgraph.html'))
+webbrowser.open('file://' + f.name)

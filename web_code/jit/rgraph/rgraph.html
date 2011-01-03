@@ -12,11 +12,13 @@
     <!-- JIT Library File -->
     <script language="javascript" type="text/javascript" src="../jit.js"></script>
 
-    <!-- Data - this points to where it would be written out by python code -->
-    <script language="javascript" type="text/javascript" src="../../../python_code/out/facebook.rgraph.js"></script>
-
     <!-- JIT code to process the data -->
     <script language="javascript" type="text/javascript" src="rgraph.js"></script>
+
+    <!-- Data -->
+    <script language="javascript" type="text/javascript">
+        var graph = %s; // Substituted by Python  
+    </script>
 </head>
 
 <body onload="init();">

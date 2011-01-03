@@ -4,8 +4,12 @@ import os
 import sys
 import json
 import webbrowser
+import shutil
 from facebook__fql_query import FQL
 from facebook__login import login
+
+HTML_TEMPLATE = '../web_code/jit/rgraph/rgraph.html'
+OUT = os.path.basename(HTML_TEMPLATE)
 
 try:
     ACCESS_TOKEN = open('out/facebook.access_token').read()
@@ -109,21 +113,30 @@ for fid in friendships:
 if not os.path.isdir('out'):
     os.mkdir('out')
 
-f = open(os.path.join('out', 'facebook.rgraph.js'), 'w')
-f.write('var graph = %s;' % (json.dumps(jit_output, indent=4), ))
+# HTML_TEMPLATE references some dependencies that we need to
+# copy into out/
+
+shutil.rmtree('out/jit', ignore_errors=True)
+
+shutil.copytree('../web_code/jit',
+                'out/jit')
+
+html = open(HTML_TEMPLATE).read() % (json.dumps(jit_output),)
+f = open(os.path.join(os.getcwd(), 'out', 'jit', 'rgraph', OUT), 'w')
+f.write(html)
 f.close()
 
-print 'JS data file written to: %s' % f.name
+print >> sys.stderr, 'Data file written to: %s' % f.name
 
 # Write out another file that's standard JSON for additional analysis
+# and potential use later (by facebook_sunburst.py, for example)
 
-f = open(os.path.join('out', 'facebook.friends.json'), 'w')
-f.write(json.dumps(jit_output, indent=4))
-f.close()
+json_f = open(os.path.join('out', 'facebook.friends.json'), 'w')
+json_f.write(json.dumps(jit_output, indent=4))
+json_f.close()
 
-print 'JSON data file written to: %s' % f.name
+print 'Data file written to: %s' % json_f.name
 
 # Open up the web page in your browser
 
-webbrowser.open('file://' + os.path.join(os.getcwd(), '..', 'web_code', 'jit',
-                'rgraph', 'rgraph.html'))
+webbrowser.open('file://' + f.name)

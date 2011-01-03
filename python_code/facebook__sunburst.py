@@ -4,7 +4,11 @@ import os
 import sys
 import json
 import webbrowser
+import shutil
 from copy import deepcopy
+
+HTML_TEMPLATE = '../web_code/jit/sunburst/sunburst.html'
+OUT = os.path.basename(HTML_TEMPLATE)
 
 # Reuses out/facebook.friends.json written out by 
 # facebook__get_friends_rgraph.py
@@ -18,7 +22,7 @@ colors = ['#FF0000', '#00FF00', '#0000FF']
 
 # The primary output to collect input
 
-out = {
+jit_output = {
     'id': 'friends',
     'name': 'friends',
     'data': {'$type': 'none'},
@@ -60,7 +64,7 @@ for g in ['male', 'female']:
 
         go['children'].append(fo)
 
-    out['children'].append(go)
+    jit_output['children'].append(go)
     i += 1
 
 # Emit the output expected by the JIT Sunburst
@@ -68,13 +72,22 @@ for g in ['male', 'female']:
 if not os.path.isdir('out'):
     os.mkdir('out')
 
-f = open(os.path.join('out', 'facebook.sunburst.js'), 'w')
-f.write('var json = %s;' % (json.dumps(out, indent=4), ))
+# HTML_TEMPLATE references some dependencies that we need to
+# copy into out/
+
+shutil.rmtree('out/jit', ignore_errors=True)
+
+shutil.copytree('../web_code/jit',
+                'out/jit')
+
+
+html = open(HTML_TEMPLATE).read() % (json.dumps(jit_output),)
+f = open(os.path.join(os.getcwd(), 'out', 'jit', 'sunburst', OUT), 'w')
+f.write(html)
 f.close()
 
 print 'Data file written to: %s' % f.name
 
 # Open up the web page in your browser
 
-webbrowser.open('file://' + os.path.join(os.getcwd(), '..', 'web_code', 'jit',
-                'sunburst', 'sunburst.html'))
+webbrowser.open('file://' + f.name)

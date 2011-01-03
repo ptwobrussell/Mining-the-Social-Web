@@ -12,11 +12,15 @@
 <!-- JIT Library File -->
 <script language="javascript" type="text/javascript" src="../jit.js"></script>
 
-<!-- Data -->
-<script language="javascript" type="text/javascript" src="../../../python_code/out/facebook.sunburst.js"></script>
-
 <!-- Sunburst -->
 <script language="javascript" type="text/javascript" src="sunburst.js"></script>
+
+<!-- Data -->
+<script language="javascript" type="text/javascript">
+    var json = %s; // Substituted by Python
+</script>
+
+
 </head>
 
 <body onload="init();">
