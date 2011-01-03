@@ -12,7 +12,7 @@ import networkx as nx
 Q = sys.argv[1]
 
 # An HTML page that we'll inject Protovis consumable data into
-HTML_TEMPLATE = '../web_code/protovis/twitter.retweet_graph.html'
+HTML_TEMPLATE = '../web_code/protovis/twitter_retweet_graph.html'
 OUT = os.path.basename(HTML_TEMPLATE)
 
 # Writes out a DOT language file that can be converted into an 
