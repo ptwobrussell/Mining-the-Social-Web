@@ -2,6 +2,14 @@
 
 This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). As of January 10, 2011, the book's content is final, and the book is heading to the printer. Both electronic and paper-based versions of the book will be available later in the month, but you can grab the [Rough Cut](http://oreil.ly/clJYaY) online right now or read it in [Safari Books Online](http://bit.ly/dx7quU). More information will be added here as it becomes available.
 
+# Getting Started
+
+[These simple instructions](http://bit.ly/9SZ2kb) walk you through an exercise in visualizing retweets and make a great starting point. All that's needed is a basic familiarity with [Python](http://bit.ly/fBn3cM) and [easy_install](http://bit.ly/ii8HuM), and you'll be up and running in no time at all. Feel free to also submit questions to [@SocialWebMining](http://twitter.com/SocialWebMining) on Twitter.
+
+# Getting Help
+
+Feel free to submit pull requests if you uncover any bugs or come up with improvements you'd like to share with everyone, or file an issue here on GitHub if you need help with something.
+
 # Marketing Description
 
 ![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/raw/master/cover_art.jpg)
@@ -18,14 +26,6 @@ With Mining the Social Web, intermediate to advanced Python programmers will lea
 * Use easily adaptable scripts hosted on GitHub to harvest data from popular social network APIs including Twitter, Facebook, and LinkedIn
 * Learn how to slice and dice social web data with easy to use Python tools as well as apply more advanced mining techniques such as TF-IDF, cosine similarity, collocation analysis, document summarization, and clique detection
 * Build interactive visualizations with easily adaptable web technologies built upon HTML5 and JavaScript toolkits
-
-# Getting Started
-
-[These simple instructions](http://bit.ly/9SZ2kb) walk you through an exercise in visualizing retweets and make a great starting point. All that's needed is a basic familiarity with [Python](http://bit.ly/fBn3cM) and [easy_install](http://bit.ly/ii8HuM), and you'll be up and running in no time at all. Feel free to also submit questions to [@SocialWebMining](http://twitter.com/SocialWebMining) on Twitter.
-
-# Getting Help
-
-Feel free to submit pull requests if you uncover any bugs or come up with improvements you'd like to share with everyone, or file an issue here on GitHub if you need help with something.
 
 # Praise
 
