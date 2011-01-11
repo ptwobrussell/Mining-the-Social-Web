@@ -4,7 +4,8 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 # Marketing Description
 
-![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/tree/master/cover_art.jpg)
+![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/blob/master/cover_art.jpg)
+
 [Mining the Social Web: Finding Needles In The Social Haystack](http://amzn.to/d1Ci8A)
 
 *Product Description* 
