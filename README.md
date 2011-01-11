@@ -4,8 +4,7 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 # Marketing Description
 
-*Book Description* 
-
+![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/tree/master/cover_art.jpg)
 [Mining the Social Web: Finding Needles In The Social Haystack](http://amzn.to/d1Ci8A)
 
 *Product Description* 
@@ -21,7 +20,7 @@ With Mining the Social Web, intermediate to advanced Python programmers will lea
 
 # Getting Started
 
-[These simple instructions](http://bit.ly/9SZ2kb) walk you through an exercise in visualizing retweets and make a great starting point. All that's needed is a basic familiarity with [Python](http://bit.ly/fBn3cM) and [easy_install](http://bit.ly/ii8HuM), and you'll be up and running in no time at all. 
+[These simple instructions](http://bit.ly/9SZ2kb) walk you through an exercise in visualizing retweets and make a great starting point. All that's needed is a basic familiarity with [Python](http://bit.ly/fBn3cM) and [easy_install](http://bit.ly/ii8HuM), and you'll be up and running in no time at all. Feel free to also submit questions to [@SocialWebMining](http://twitter.com/SocialWebMining) on Twitter.
 
 # Getting Help
 
