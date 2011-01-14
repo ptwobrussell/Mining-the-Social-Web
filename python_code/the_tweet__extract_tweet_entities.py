@@ -1,5 +1,22 @@
 # -*- coding: utf-8 -*-
 
+#################################################################################
+# NOTE: The opt-in "include_entities" flag can be passed in as a keyword 
+# argument to to t.statuses.show to have Twitter's API extract the entities 
+# instead of using the getEntities function as described in this example like so:
+#
+# tweet = t.statuses.show(id=TWEET_ID, include_entities=1)
+# 
+# This is a case-in-point of Twitter's API constantly evolving to make the lives
+# of developers easier. Their API slowly evolved quite a bit over the course of
+# 2010 as Mining the Social Web was being written, and will no doubt continue
+# to evolve and obsolete additional examples. Still, however, not all Twitter 
+# APIs provide an opt-in parameter for extracting tweet entities (as of early
+# January 2010 anyway), and it is likely the case that you'll need to perform 
+# this work manually for histroical or archived data that was collected prior 
+# to mid- to late-2010 unless 3rd party data providers perform the work for you.
+#################################################################################
+
 import sys
 import json
 import twitter_text
@@ -10,9 +27,6 @@ from twitter__login import login
 # For example, http://twitter.com/#!/timoreilly/status/17386521699024896
 
 TWEET_ID = sys.argv[1]
-
-# You may need to setup your OAuth settings in twitter__login.py
-t = login()
 
 def getEntities(tweet):
 
@@ -45,6 +59,8 @@ def getEntities(tweet):
 
 
 # Fetch a tweet using an API method of your choice and mixin the entities
+
+t = twitter.Twitter(domain='api.twitter.com', api_version='1')
 
 tweet = t.statuses.show(id=TWEET_ID)
 
