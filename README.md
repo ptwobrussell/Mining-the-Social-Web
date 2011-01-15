@@ -12,7 +12,7 @@ Feel free to submit pull requests if you uncover any bugs or come up with improv
 
 # Connect
 
-Join the book's official Twitter account, [@SocialWebMining](http://twitter.com/SocialWebMining), or ["Like It" on Facebook](http://on.fb.me/hXY7jo) to keep up with news, speaking events, webinar announcements, additional content that will be published, occasional book giveaways, and more.
+Join the book's official Twitter account, [@SocialWebMining](http://twitter.com/SocialWebMining), or [check out its Facebook Page](http://on.fb.me/hXY7jo) to keep up with news, speaking events, webinar announcements, additional content that will be published, occasional book giveaways, and more.
 
 # Marketing Description
 
