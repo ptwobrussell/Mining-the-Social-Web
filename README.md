@@ -10,13 +10,15 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 Feel free to submit pull requests if you uncover any bugs or come up with improvements you'd like to share with everyone, or file an issue here on GitHub if you need help with something. Feel free to also submit questions to [@SocialWebMining](http://twitter.com/SocialWebMining) on Twitter.
 
+# Connect
+
+Join the book's official Twitter account, [@SocialWebMining](http://twitter.com/SocialWebMining), or ["Like It" on Facebook](http://on.fb.me/hXY7jo) to keep up with news, speaking events, webinar announcements, additional content that will be published, occasional book giveaways, and more.
+
 # Marketing Description
 
 ![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/raw/master/cover_art.jpg)
 
 [Mining the Social Web: Finding Needles In The Social Haystack](http://amzn.to/d1Ci8A)
-
-*Product Description* 
 
 Popular social networks such as Facebook, Twitter, and LinkedIn generate a tremendous amount of valuable social data. Who's talking to whom? What are they talking about? How often are they talking? Where are they at? This concise and practical book shows you how to answer these types of questions and more. Each chapter presents a soup-to-nuts approach that combines popular social web data, analysis techniques, and visualization so that you can find the needles you've been looking for as well as some of the ones you didn't even know to look for in the first place.
 
