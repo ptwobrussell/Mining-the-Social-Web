@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
-import webbrowser
-import urllib
 import twitter
 
 from twitter.oauth import write_token_file, read_token_file

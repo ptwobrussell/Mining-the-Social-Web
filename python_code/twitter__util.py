@@ -187,4 +187,4 @@ if __name__ == '__main__': # For ad-hoc testing
         return 0
 
     t = login()
-    makeTwitterRequest(t, t.friends.ids, screen_names=['abeZaffra'])
+    makeTwitterRequest(t, t.friends.ids, screen_names=['SocialWebMining'])
