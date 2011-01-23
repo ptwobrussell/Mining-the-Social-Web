@@ -1,6 +1,18 @@
 # Overview
 
-This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). As of January 10, 2011, the book's content is final, and the book is heading to the printer. Both electronic and paper-based versions of the book will be available later in the month, but you can grab the [Rough Cut](http://oreil.ly/clJYaY) online right now or read it in [Safari Books Online](http://bit.ly/dx7quU). More information will be added here as it becomes available.
+This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. As of January 2011, the first edition of the book is complete. The [eBook is already available for purchase](http://oreil.ly/clJYaY), and [Amazon shows that the book will be in stock on February 1](http://amzn.to/d1Ci8A); new copies will sell for just under $25 USD. Another option is to read it in [Safari Books Online](http://bit.ly/dx7quU) if you already have a subscription or are interested in signing up for a free trial. 
+
+# Don't Steal This Book
+
+Let me be the first to tell you that you can already find pirated copies of this book online before it's even in stock on Amazon, but I implore you not to go there. In the end, everybody really ends up losing if you steal eBooks, because it kills the supply chain at its roots -- stripping the motivation right out of authors and other original/creative content producers who work hard to bring you interesting content that takes a lot of energy to produce. Here are at least 5 sound reasons not to steal this book:
+
+- All of the source code is already being given away right here as a convenient GitHub project. Do whatever you want with it.
+- You can already "Click to Look Inside" at [Amazon](http://amzn.to/d1Ci8A) and explore the content, and surely, lots of reviews are forthcoming on Amazon.
+- You can get a free trial to Safari that allows you to explore the *entire book's content* without paying a cent.
+- There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
+- You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
+
+If those three reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment, then please send me a message and tell me what it would take to convince you.
 
 # Getting Started
 
@@ -18,7 +30,7 @@ Join the book's official Twitter account, [@SocialWebMining](http://twitter.com/
 
 ![cover_art!](https://github.com/ptwobrussell/Mining-the-Social-Web/raw/master/cover_art.jpg)
 
-[Mining the Social Web: Finding Needles In The Social Haystack](http://amzn.to/d1Ci8A)
+[Mining the Social Web: Analyzing Data from Facebook, Twitter, LinkedIn, and Other Social Media Sites](http://amzn.to/d1Ci8A)
 
 Popular social networks such as Facebook, Twitter, and LinkedIn generate a tremendous amount of valuable social data. Who's talking to whom? What are they talking about? How often are they talking? Where are they at? This concise and practical book shows you how to answer these types of questions and more. Each chapter presents a soup-to-nuts approach that combines popular social web data, analysis techniques, and visualization so that you can find the needles you've been looking for as well as some of the ones you didn't even know to look for in the first place.
 
