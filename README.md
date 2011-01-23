@@ -8,7 +8,7 @@ Let me be the first to tell you that you can already find pirated copies of this
 
 - All of the source code is already being given away right here as a convenient GitHub project. Do whatever you want with it.
 - You can already "Click to Look Inside" at [Amazon](http://amzn.to/d1Ci8A) and explore the content, and surely, lots of reviews are forthcoming on Amazon.
-- You can get a free trial to Safari that allows you to explore the *entire book's content* without paying a cent.
+- You can get a free trial to [Safari](http://bit.ly/dx7quU) that allows you to explore the *entire book's content* without paying a cent.
 - There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
 - You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
 
