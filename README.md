@@ -14,6 +14,8 @@ Let me be the first to tell you that you can already find pirated copies of this
 
 If those three reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment, then please send me a message and tell me what it would take to convince you.
 
+It would be great if there were a 6th reason -- the book being available for Kindle. If you feel the same way, please consider clicking on the "I’d like to read this book on Kindle" link on the [Amazon product page](http://amzn.to/d1Ci8A).
+
 # Getting Started
 
 [These simple instructions](http://bit.ly/9SZ2kb) walk you through an exercise in visualizing retweets and make a great starting point. All that's needed is a basic familiarity with [Python](http://bit.ly/fBn3cM) and [easy_install](http://bit.ly/ii8HuM), and you'll be up and running in no time at all.
