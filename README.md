@@ -12,7 +12,7 @@ Let me be the first to tell you that you can already find pirated copies of this
 - There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
 - You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
 
-If those three reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment, then please send me a message and tell me what it would take to convince you.
+If these reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment, then please send me a message and tell me what it would take to convince you.
 
 It would be great if there were a 6th reason -- the book being available for Kindle. If you feel the same way, please consider clicking on the "I’d like to read this book on Kindle" link on the [Amazon product page](http://amzn.to/d1Ci8A).
 

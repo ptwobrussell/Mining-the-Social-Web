@@ -103,5 +103,4 @@ while page_num <= MAX_PAGES:
     tweets = makeTwitterRequest(t, api_call, **KW)
     db.update(tweets, all_or_nothing=True)
     print 'Fetched %i tweets' % len(tweets)
-    wait_period = 2
     page_num += 1
