@@ -4,11 +4,12 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 # Don't Steal This Book
 
-Let me be the first to tell you that you can already find pirated copies of this book online before it's even in stock on Amazon, but I implore you not to go there. In the end, everybody really ends up losing if you steal eBooks, because it kills the supply chain at its roots -- stripping the motivation right out of authors and other original/creative content producers who work hard to bring you interesting content that takes a lot of energy to produce. Here are at least 5 sound reasons not to steal this book:
+Let me be the first to tell you that you can already find pirated copies of this book online before it's even in stock on Amazon, but I implore you not to go there. In the end, everybody really ends up losing if you steal eBooks, because it kills the supply chain at its roots -- stripping the motivation right out of authors and other original/creative content producers who work hard to bring you interesting content that takes a lot of energy to produce. Here are lots of reasons not to steal this book:
 
 - All of the source code is already being given away right here as a convenient GitHub project. Do whatever you want with it.
 - You can already "Click to Look Inside" at [Amazon](http://amzn.to/d1Ci8A) and explore the content, and surely, lots of reviews are forthcoming on Amazon.
 - You can get a free trial to [Safari](http://bit.ly/dx7quU) that allows you to explore the *entire book's content* without paying a cent.
+- You can download a "free sampler" of the [entire first chapter](http://bit.ly/htd530) as a DRM-free PDF.
 - There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
 - You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
 
