@@ -4,16 +4,17 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 # Don't Steal This Book
 
-Let me be the first to tell you that you can already find pirated copies of this book online before it's even in stock on Amazon, but I implore you not to go there. In the end, everybody really ends up losing if you steal eBooks, because it kills the supply chain at its roots -- stripping the motivation right out of authors and other original/creative content producers who work hard to bring you interesting content that takes a lot of energy to produce. Here are lots of reasons not to steal this book:
+Let me be the first to tell you that you could find pirated copies of this book online before it was even in stock on Amazon, but I implore you not to go to *those* places and get it. In the end, everybody really ends up losing if you steal eBooks, because it kills the supply chain at its roots -- stripping the motivation right out of authors and other original/creative content producers who work hard to bring you interesting content that takes a lot of energy to produce. Here are lots of reasons not to steal this book:
 
 - All of the source code is already being given away right here as a convenient GitHub project. Do whatever you want with it.
 - You can already "Click to Look Inside" at [Amazon](http://amzn.to/d1Ci8A) and explore the content, and surely, lots of reviews are forthcoming on Amazon.
 - You can get a free trial to [Safari](http://bit.ly/dx7quU) that allows you to explore the *entire book's content* without paying a cent.
-- You can download a "free sampler" of the [entire first chapter](http://bit.ly/htd530) as a DRM-free PDF.
+- You can download a full quality "free sampler" of the [entire first chapter](http://bit.ly/htd530) as a DRM-free PDF.
 - There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
 - You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
+- You can preview approximately 20% of the content with [Google Books](http://bit.ly/ffF2TA).
 
-If these reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment, then please send me a message and tell me what it would take to convince you.
+If these reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment and that there are ample alternatives to "casual copying", then please send me a message and tell me what it would take to convince you. I'd love to chat about it and hear your thoughts.
 
 It would be great if there were a 6th reason -- the book being available for Kindle. If you feel the same way, please consider clicking on the "I’d like to read this book on Kindle" link on the [Amazon product page](http://amzn.to/d1Ci8A).
 
