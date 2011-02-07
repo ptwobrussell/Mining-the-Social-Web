@@ -15,10 +15,10 @@ Let me be the first to tell you that you could find pirated copies of this book 
 - There's a [Facebook Page](http://on.fb.me/hXY7jo) where you can connect with friends who "like" the book -- ask them for an honest opinion.
 - You can ask all the questions you want on Twitter at [@SocialWebMining](http://twitter.com/SocialWebMining), and you *will* get a helpful response.
 - You can preview approximately 20% of the content with [Google Books](http://bit.ly/ffF2TA).
+- The book is available for Kindle on the [Amazon product page](http://amzn.to/d1Ci8A), so it's available for a deeper discount than the in-print version if you already own a Kindle.
 
 If these reasons don't provide enough information for you to make an informed decision about whether or not spending ~$25 is a good investment and that there are ample alternatives to "casual copying", then please send me a message and tell me what it would take to convince you. I'd love to chat about it and hear your thoughts.
 
-It would be great if there were a 6th reason -- the book being available for Kindle. If you feel the same way, please consider clicking on the "I’d like to read this book on Kindle" link on the [Amazon product page](http://amzn.to/d1Ci8A).
 
 # Getting Started
 
