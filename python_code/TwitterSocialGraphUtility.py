@@ -286,9 +286,9 @@ class TwitterSocialGraphUtility:
                 d += 1
                 (queue, next_queue) = (next_queue, [])
                 for _screen_name in queue:
-                    friend_ids = self.getFriends(screen_name=screen_name,
+                    friend_ids = self.getFriends(screen_name=_screen_name,
                             limit=friends_limit)
-                    follower_ids = self.getFollowers(screen_name=screen_name,
+                    follower_ids = self.getFollowers(screen_name=_screen_name,
                             limit=followers_limit)
                     next_queue.extend(friend_ids + follower_ids)
                     self.getUserInfo(user_ids=next_queue)
