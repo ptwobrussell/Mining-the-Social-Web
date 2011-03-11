@@ -5,6 +5,7 @@ import os
 import json
 import re
 import webbrowser
+import codecs
 import twitter
 import networkx as nx
 
@@ -14,27 +15,33 @@ Q = sys.argv[1]
 # An HTML page that we'll inject Protovis consumable data into
 HTML_TEMPLATE = '../web_code/protovis/twitter_retweet_graph.html'
 OUT = os.path.basename(HTML_TEMPLATE)
+OUT_DIR = 'out'
 
 # Writes out a DOT language file that can be converted into an 
 # image by Graphviz
 def write_dot_output(g, out_file):
 
-    if not os.path.isdir('out'):
-        os.mkdir('out')
+    out_file += ".dot"
+
+    if not os.path.isdir(OUT_DIR):
+        os.mkdir(OUT_DIR)
 
     try:
-        nx.drawing.write_dot(g, os.path.join('out', out_file + ".dot"))
-        print >> sys.stderr, 'Data file written to: %s' % os.path.join(os.getcwd(), 'out', out_file + ".dot")
-    except ImportError, e:
+        nx.drawing.write_dot(g, os.path.join(OUT_DIR, out_file))
+        print >> sys.stderr, 'Data file written to: %s' % os.path.join(os.getcwd(), OUT_DIR, out_file)
+    except (ImportError, UnicodeEncodeError):
 
-        # Help for Windows users:
-        # Not a general purpose method, but representative of
+        # This block serves two purposes:
+        # 1) Help for Windows users who will almost certainly not get nx.drawing.write_dot to work 
+        # 2) It handles a UnicodeEncodeError that surfaces in write_dot. Appears to be a
+        # bug in the source for networkx. Below, codecs.open shows one way to handle it.
+        # This except block is not a general purpose method for write_dot, but is representative of
         # the same output write_dot would provide for this graph
         # if installed and easy to implement
 
         dot = ['"%s" -> "%s" [tweet_id=%s]' % (n1, n2, g[n1][n2]['tweet_id'])
                for (n1, n2) in g.edges()]
-        f = open(out_file, 'w')
+        f = codecs.open(os.path.join(os.getcwd(), OUT_DIR, out_file), 'w', encoding='utf-8')
         f.write('''strict digraph {
     %s
     }''' % (';\n'.join(dot), ))
@@ -62,9 +69,9 @@ def write_protovis_output(g, out_file):
 
     json_data = json.dumps({"nodes" : [{"nodeName" : n} for n in nodes], "links" : links}, indent=4)
     html = open(HTML_TEMPLATE).read() % (json_data,)
-    if not os.path.isdir('out'):
-        os.mkdir('out')
-    f = open(os.path.join(os.getcwd(), 'out', out_file + ".html"), 'w')
+    if not os.path.isdir(OUT_DIR):
+        os.mkdir(OUT_DIR)
+    f = open(os.path.join(os.getcwd(), OUT_DIR, out_file + ".html"), 'w')
     f.write(html)
     f.close()
 
