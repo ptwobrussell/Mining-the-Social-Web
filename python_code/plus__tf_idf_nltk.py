@@ -11,26 +11,26 @@ data = json.loads(open(DATA).read())
 
 QUERY_TERMS = sys.argv[2:]
 
-all_posts = [post['content'].lower().split() for post in data]
+activities = [activity['object']['content'].lower().split() for activity in data]
 
 # Provides tf/idf/tf_idf abstractions
 
-tc = nltk.TextCollection(all_posts)
+tc = nltk.TextCollection(activities)
 
-relevant_posts = []
+relevant_activities = []
 
-for idx in range(len(all_posts)):
+for idx in range(len(activities)):
     score = 0
     for term in [t.lower() for t in QUERY_TERMS]:
-        score += tc.tf_idf(term, all_posts[idx])
+        score += tc.tf_idf(term, activities[idx])
     if score > 0:
-        relevant_posts.append({'score': score, 'title': data[idx]['title'],
+        relevant_activities.append({'score': score, 'title': data[idx]['title'],
                               'link': data[idx]['link']})
 
 # Sort by score and display results
 
-relevant_posts = sorted(relevant_posts, key=lambda p: p['score'], reverse=True)
-for post in relevant_posts:
-    print post['title']
-    print '\tLink: %s' % (post['link'], )
-    print '\tScore: %s' % (post['score'], )
+relevant_activities = sorted(relevant_activities, key=lambda p: p['score'], reverse=True)
+for activity in relevant_activities:
+    print activity['title']
+    print '\tLink: %s' % (activity['link'], )
+    print '\tScore: %s' % (activity['score'], )

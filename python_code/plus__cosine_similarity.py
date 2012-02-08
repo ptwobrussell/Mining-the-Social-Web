@@ -8,9 +8,9 @@ import nltk
 
 DATA = sys.argv[1]
 N = 25
-data = json.loads(open(BUZZ_DATA).read())
+data = json.loads(open(DATA).read())
 
-all_tokens = [token for post in data for token in post['content'
+all_tokens = [token for activity in data for token in activity['object']['content'
               ].lower().split()]
 
 finder = nltk.BigramCollocationFinder.from_words(all_tokens)

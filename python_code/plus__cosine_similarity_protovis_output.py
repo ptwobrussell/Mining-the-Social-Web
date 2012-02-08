@@ -18,26 +18,26 @@ data = json.loads(open(DATA).read())
 HTML_TEMPLATES = ['../web_code/protovis/matrix_diagram.html', 
                   '../web_code/protovis/arc_diagram.html']
 
-all_posts = [post['content'].lower().split() for post in data]
+activities = [activity['object']['content'].lower().split() for activity in data]
 
 # Provides tf/idf/tf_idf abstractions for scoring
 
-tc = nltk.TextCollection(all_posts)
+tc = nltk.TextCollection(activities)
 
 # Compute a term-document matrix such that td_matrix[doc_title][term]
 # returns a tf-idf score for the term in the document
 
 td_matrix = {}
-for idx in range(len(all_posts)):
-    post = all_posts[idx]
-    fdist = nltk.FreqDist(post)
+for idx in range(len(activities)):
+    activity = activities[idx]
+    fdist = nltk.FreqDist(activity)
 
     doc_title = data[idx]['title']
     link = data[idx]['link']
     td_matrix[(doc_title, link)] = {}
 
     for term in fdist.iterkeys():
-        td_matrix[(doc_title, link)][term] = tc.tf_idf(term, post)
+        td_matrix[(doc_title, link)][term] = tc.tf_idf(term, activity)
 
 # Build vectors such that term scores are in the same positions...
 

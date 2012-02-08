@@ -20,7 +20,7 @@ from nltk import clean_html
 
 USER_ID=sys.argv[1] # Tim O'Reilly's Google+ id is '107033731246200681024'
 
-API_KEY="AIzaSyAUJw5aN2OK34_5P7blHn-7sewukuZYkNg"
+API_KEY=""
 
 MAX_RESULTS = 200 # May actually get slightly more 
 
@@ -74,4 +74,4 @@ print >> sys.stderr, str(len(activities)), "activities written to", f.name
 # server = couchdb.Server('http://localhost:5984')
 # DB = 'plus-' + USER_ID
 # db = server.create(DB)
-# db.update(posts, all_or_nothing=True)
+# db.update(activities, all_or_nothing=True)
