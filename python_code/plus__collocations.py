@@ -6,11 +6,11 @@ import nltk
 
 # Load in human readable text from wherever you've saved it
 
-BUZZ_DATA = sys.argv[1]
+DATA = sys.argv[1]
 N = 25
-buzz_data = json.loads(open(BUZZ_DATA).read())
+data = json.loads(open(BUZZ_DATA).read())
 
-all_tokens = [token for post in buzz_data for token in post['content'
+all_tokens = [token for post in data for token in post['content'
               ].lower().split()]
 
 finder = nltk.BigramCollocationFinder.from_words(all_tokens)

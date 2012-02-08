@@ -6,12 +6,12 @@ import nltk
 
 # Load in unstructured data from wherever you've saved it
 
-BUZZ_DATA = sys.argv[1]
-buzz_data = json.loads(open(BUZZ_DATA).read())
+DATA = sys.argv[1]
+data = json.loads(open(DATA).read())
 
 QUERY_TERMS = sys.argv[2:]
 
-all_posts = [post['content'].lower().split() for post in buzz_data]
+all_posts = [post['content'].lower().split() for post in data]
 
 # Provides tf/idf/tf_idf abstractions
 
@@ -24,8 +24,8 @@ for idx in range(len(all_posts)):
     for term in [t.lower() for t in QUERY_TERMS]:
         score += tc.tf_idf(term, all_posts[idx])
     if score > 0:
-        relevant_posts.append({'score': score, 'title': buzz_data[idx]['title'],
-                              'link': buzz_data[idx]['link']})
+        relevant_posts.append({'score': score, 'title': data[idx]['title'],
+                              'link': data[idx]['link']})
 
 # Sort by score and display results
 

@@ -1,5 +1,17 @@
 # -*- coding: utf-8 -*-
 
+# ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT
+# 
+# Short story: 
+# Use ../plus__get_activities.py instead of this script. There is also a
+# nearly identical ../plus__*.py version of each buzz__*.py script that 
+# you should use.
+# 
+# See also the README located in this same directory for a slightly
+# longer explanation with some more context.
+#
+# ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT ALERT
+
 import os
 import sys
 import buzz

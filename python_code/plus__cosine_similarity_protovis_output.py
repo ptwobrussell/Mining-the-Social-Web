@@ -11,14 +11,14 @@ import numpy
 
 # Load in textual data from wherever you've saved it
 
-BUZZ_DATA = sys.argv[1]
-buzz_data = json.loads(open(BUZZ_DATA).read())
+DATA = sys.argv[1]
+data = json.loads(open(DATA).read())
 
 # HTML templmates that we'll inject Protovis consumable data into
 HTML_TEMPLATES = ['../web_code/protovis/matrix_diagram.html', 
                   '../web_code/protovis/arc_diagram.html']
 
-all_posts = [post['content'].lower().split() for post in buzz_data]
+all_posts = [post['content'].lower().split() for post in data]
 
 # Provides tf/idf/tf_idf abstractions for scoring
 
@@ -32,8 +32,8 @@ for idx in range(len(all_posts)):
     post = all_posts[idx]
     fdist = nltk.FreqDist(post)
 
-    doc_title = buzz_data[idx]['title']
-    link = buzz_data[idx]['link']
+    doc_title = data[idx]['title']
+    link = data[idx]['link']
     td_matrix[(doc_title, link)] = {}
 
     for term in fdist.iterkeys():
