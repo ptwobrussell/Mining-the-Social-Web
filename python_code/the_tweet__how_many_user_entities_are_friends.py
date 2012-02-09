@@ -21,7 +21,7 @@ friend_screen_names = []
 for friend_id in friend_ids:
     try:
         friend_screen_names.append(json.loads(r.get(getRedisIdByUserId(friend_id,
-                                   'info.json')))['screen_name'])
+                                   'info.json')))['screen_name'].lower())
     except TypeError, e:
         continue  # not locally available in Redis - look it up or skip it
 

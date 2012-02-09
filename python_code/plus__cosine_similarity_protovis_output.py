@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 import webbrowser
+from random import shuffle
 import json
 from operator import itemgetter
 import nltk
@@ -14,7 +15,13 @@ import numpy
 DATA = sys.argv[1]
 data = json.loads(open(DATA).read())
 
+# Take a random sample so that a meaningful visualization can be displayed
+
+shuffle(data)
+data = data[:25]
+
 # HTML templmates that we'll inject Protovis consumable data into
+
 HTML_TEMPLATES = ['../web_code/protovis/matrix_diagram.html', 
                   '../web_code/protovis/arc_diagram.html']
 
@@ -33,29 +40,29 @@ for idx in range(len(activities)):
     fdist = nltk.FreqDist(activity)
 
     doc_title = data[idx]['title']
-    link = data[idx]['link']
-    td_matrix[(doc_title, link)] = {}
+    url = data[idx]['url']
+    td_matrix[(doc_title, url)] = {}
 
     for term in fdist.iterkeys():
-        td_matrix[(doc_title, link)][term] = tc.tf_idf(term, activity)
+        td_matrix[(doc_title, url)][term] = tc.tf_idf(term, activity)
 
 # Build vectors such that term scores are in the same positions...
 
 distances = {}
-for (title1, link1) in td_matrix.keys():
+for (title1, url1) in td_matrix.keys():
 
-    distances[(title1, link1)] = {}
+    distances[(title1, url1)] = {}
 
-    for (title2, link2) in td_matrix.keys():
+    for (title2, url2) in td_matrix.keys():
 
-        if link1 == link2:
+        if url1 == url2:
             continue
 
         # Take care not to mutate the original data structures
         # since we're in a loop and need the originals multiple times
 
-        terms1 = td_matrix[(title1, link1)].copy()
-        terms2 = td_matrix[(title2, link2)].copy()
+        terms1 = td_matrix[(title1, url1)].copy()
+        terms2 = td_matrix[(title2, url2)].copy()
 
         # Fill in "gaps" in each map so vectors of the same length can be computed
 
@@ -74,7 +81,7 @@ for (title1, link1) in td_matrix.keys():
 
         # Compute similarity amongst documents
 
-        distances[(title1, link1)][(title2, link2)] = \
+        distances[(title1, url1)][(title2, url2)] = \
             nltk.cluster.util.cosine_distance(v1, v2)
 
 # Compute the standard deviation for the distances as a basis of automated thresholding
@@ -91,8 +98,8 @@ for k1 in keys:
 
         d = distances[k1][k2]
         if d < std / 2 and d > 0.000001:  # call them similar
-            (title1, link1) = k1
-            (title2, link2) = k2
+            (title1, url1) = k1
+            (title2, url2) = k2
             similar.append((k1, k2, distances[k1][k2]))
 
 # Emit output expected by Protovis.
@@ -113,7 +120,7 @@ for s in similar:
 
     node1 = nodes[s[1]]
 
-    edges.append({'source': node0, 'target': node1, 'value': s[2] * 1000})
+    edges.append({'source': node0, 'target': node1, 'value': s[2] * 100})
 
 nodes = [{'nodeName': title, 'nodeUrl': url} for ((title, url), idx) in
          sorted(nodes.items(), key=itemgetter(1))]

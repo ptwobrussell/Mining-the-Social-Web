@@ -49,7 +49,7 @@ for term in [t.lower() for t in QUERY_TERMS]:
     print
 
     for doc in sorted(corpus):
-        score = tf_idf(term, corpus[doc], corpus)
+        score = tf_idf(term, corpus[doc], corpus.values())
         print 'TF-IDF(%s): %s' % (doc, term), score
         query_scores[doc] += score
     print

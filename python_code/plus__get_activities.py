@@ -20,7 +20,7 @@ from nltk import clean_html
 
 USER_ID=sys.argv[1] # Tim O'Reilly's Google+ id is '107033731246200681024'
 
-API_KEY=""
+API_KEY=None # Supply your own API key value.
 
 MAX_RESULTS = 200 # May actually get slightly more 
 
@@ -49,8 +49,12 @@ while request != None and len(activities) < MAX_RESULTS:
   activities_document = request.execute()
 
   if 'items' in activities_document:
+
     for activity in activities_document['items']:
-      if activity['object']['objectType'] == 'note':
+
+      if activity['object']['objectType'] == 'note' and \
+         activity['object']['content'] != '':
+
         activity['title'] = cleanHtml(activity['title'])
         activity['object']['content'] = cleanHtml(activity['object']['content'])
         activities.append(activity)

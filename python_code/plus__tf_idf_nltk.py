@@ -11,7 +11,9 @@ data = json.loads(open(DATA).read())
 
 QUERY_TERMS = sys.argv[2:]
 
-activities = [activity['object']['content'].lower().split() for activity in data]
+activities = [activity['object']['content'].lower().split() \
+              for activity in data \
+                if activity['object']['content'] != ""]
 
 # Provides tf/idf/tf_idf abstractions
 
@@ -25,12 +27,12 @@ for idx in range(len(activities)):
         score += tc.tf_idf(term, activities[idx])
     if score > 0:
         relevant_activities.append({'score': score, 'title': data[idx]['title'],
-                              'link': data[idx]['link']})
+                              'url': data[idx]['url']})
 
 # Sort by score and display results
 
 relevant_activities = sorted(relevant_activities, key=lambda p: p['score'], reverse=True)
 for activity in relevant_activities:
     print activity['title']
-    print '\tLink: %s' % (activity['link'], )
+    print '\tLink: %s' % (activity['url'], )
     print '\tScore: %s' % (activity['score'], )
