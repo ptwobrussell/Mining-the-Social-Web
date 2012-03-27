@@ -56,7 +56,7 @@ def crawl(
                 # sample that allows you to crawl only a random sample of nodes
                 # at any given level of the graph
 
-                getUserInfo(user_ids=next_queue)
+                getUserInfo(t, r, user_ids=next_queue)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
