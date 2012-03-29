@@ -53,7 +53,7 @@ def handleTwitterHTTPError(e, t, wait_period=2):
         status = t.account.rate_limit_status()
         now = time.time()  # UTC
         when_rate_limit_resets = status['reset_time_in_seconds']  # UTC
-        sleep_time = when_rate_limit_resets - now
+        sleep_time = max(when_rate_limit_resets - now, 5) # Prevent negative numbers
         print >> sys.stderr, 'Rate limit reached: sleeping for %i secs' % (sleep_time, )
         time.sleep(sleep_time)
         return 2
