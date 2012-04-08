@@ -31,13 +31,13 @@ XFN_TAGS = set([
 
 try:
     page = urllib2.urlopen(URL)
-except urllib2.URLError:
-    print 'Failed to fetch ' + item
-
-try:
     soup = BeautifulSoup(page)
+except urllib2.URLError:
+    print 'Failed to fetch ' + URL
+    sys.exit()
 except HTMLParser.HTMLParseError:
-    print 'Failed to parse ' + item
+    print 'Failed to parse ' + URL
+    sys.exit()
 
 anchorTags = soup.findAll('a')
 
