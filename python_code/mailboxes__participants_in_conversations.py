@@ -84,7 +84,8 @@ message_ids_for_threads_of_interest = list(set([message_id for message_ids in
 try:
     conn = httplib.HTTPConnection('localhost', 5984)
     post_params = json.dumps({'keys': message_ids_for_threads_of_interest})
-    conn.request('POST', '/%s/_all_docs?include_docs=true' % (DB, ), post_params)
+    headers = { 'Content-Type': 'application/json;charset=utf-8' }
+    conn.request('POST', '/%s/_all_docs?include_docs=true' % (DB, ), post_params, headers)
     response = conn.getresponse()
     if response.status != 200:  #  OK
         print 'Unable to get docs: %s %s' % (response.status, response.reason)
