@@ -5,7 +5,7 @@ import email
 from time import asctime
 import os
 import sys
-from dateutil.parser import parse  # easy_install dateutil
+from dateutil.parser import parse  # easy_install python_dateutil
 
 directory = sys.argv[1]
 
