@@ -12,6 +12,11 @@ except ImportError:
     import json
 
 MBOX = sys.argv[1]
+OUT_FILE = None
+try:
+    OUT_FILE = sys.argv[2]
+except Exception, e:
+    pass
 
 def cleanContent(msg):
 
@@ -54,13 +59,17 @@ def jsonifyMessage(msg):
     finally:
         return json_msg
 
-# Note: opening in binary mode is recommended
-mbox = mailbox.UnixMailbox(open(MBOX, 'rb'), email.message_from_file)  
-json_msgs = []
-while 1:
-    msg = mbox.next()
-    if msg is None:
-        break
-    json_msgs.append(jsonifyMessage(msg))
-
-print json.dumps(json_msgs, indent=4)
+ #Note: opening in binary mode is recommended
+ 
+ mbox = mailbox.UnixMailbox(open(MBOX, 'rb'), email.message_from_file)  
+ def gen_json_msgs(m_box):
+    while 1:
+        msg = m_box.next()
+        if msg is None:
+            break
+        yield jsonifyMessage(msg)
+        
+if OUT_FILE:
+    json.dump(gen_json_msgs(mbox),open(OUT_FILE, 'wb'), indent=4)
+else:
+    print json.dumps(gen_json_msgs(mbox), indent=4)
