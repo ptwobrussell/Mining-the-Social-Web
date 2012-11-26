@@ -26,11 +26,11 @@ view = ViewDefinition('index', 'doc_count_by_sender_recipient',
 view.sync(db)
 
 # print out a nicely formatted table
-fields = ['Sender', 'Recipient', 'Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Sender', 'Recipient', 'Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 for row in db.view('index/doc_count_by_sender_recipient', group=True):
     pt.add_row([row.key[0], row.key[1], row.value])
 
-pt.printt()
+print pt
