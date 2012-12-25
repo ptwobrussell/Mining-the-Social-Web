@@ -1,5 +1,5 @@
 # Overview
-
+Kunta
 This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. As of late January 2011, the first edition of the book is complete. The [eBook is already available for purchase](http://oreil.ly/clJYaY), and [Amazon has it in stock](http://amzn.to/d1Ci8A); new copies are reasonably priced at just under $25 USD. 
 
 In addition to *Mining the Social Web*, you might also enjoy two companion products: [Matthew Russell on Mining the Social Web](http://oreil.ly/iiwtF5), a spin-off video series that talks through much of the Twitter-related content in the book, and [21 Recipes for Mining Twitter](http://oreil.ly/hFaIAE), a collection of useful starting points that you can piece together and adapt to solve lots of Twitter-related data mining problems.
