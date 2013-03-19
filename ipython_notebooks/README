@@ -6,6 +6,9 @@ For convenience, there's also a raw Python dump of the notebook file in this dir
 
 # Links
 
+A read-only version of this notebook via iPython Notebook Viewer
+  http://nbviewer.ipython.org/urls/raw.github.com/ptwobrussell/Mining-the-Social-Web/master/ipython_notebooks/Chapter1.ipynb
+
 iPython and iPython Notebook:
   http://ipython.org
   http://ipython.org/notebook.html
