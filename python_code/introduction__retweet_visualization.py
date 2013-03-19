@@ -9,16 +9,17 @@ import codecs
 import twitter
 import networkx as nx
 
+print >> sys.stderr, """This example has been updated to use Twitter's v1.1 API, which now requires authentication for *all* requests (amongst other things.) 
 
-# Go to http://twitter.com/apps/new to create an app and get these items
-# See https://dev.twitter.com/docs/auth/oauth for more information on Twitter's OAuth implementation
+To run this example, you'll just need to go to http://twitter.com/apps/new to create an app and get authentication credentials that should be inserted into this file's source code. See https://dev.twitter.com/docs/auth/oauth for more information on Twitter's OAuth implementation"""
 
+# Fill in these 4 values
 CONSUMER_KEY = ''
 CONSUMER_SECRET = ''
 OAUTH_TOKEN = ''
 OAUTH_TOKEN_SECRET = ''
 
-# Your query
+# Your query - pass it in as a command line parameter (or hard code it if you prefer)
 Q = sys.argv[1]
 
 # An HTML page that we'll inject Protovis consumable data into
