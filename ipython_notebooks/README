@@ -1,0 +1,20 @@
+# README
+
+This directory contains an iPython Notebook (ipynb) that adapts sample code from Mining the Social Web. iPython is a terrific tool that is well worth a modest time investment to installed and start using if you haven't already started. iPython Notebook takes the iPython concept to the next level and introduces the concept of a browser-based notebook that allows you to craft a document and execute (most) Python source code inline. It's an amazing concept, is very useful for educational purposes, and if you give it a try, you'll likely get hooked. 
+
+For convenience, there's also a raw Python dump of the notebook file in this directory as well.
+
+# Links
+
+iPython and iPython Notebook:
+  http://ipython.org
+  http://ipython.org/notebook.html
+
+Social: 
+  https://www.facebook.com/MiningTheSocialWeb
+  http://twitter.com/socialwebmining
+  https://github.com/ptwobrussell/Mining-the-Social-Web
+
+Get the book:
+  http://shop.oreilly.com/product/0636920010203.do
+  http://www.amazon.com/gp/product/1449388345?tag=oreonbl-20
