@@ -9,6 +9,15 @@ import codecs
 import twitter
 import networkx as nx
 
+
+# Go to http://twitter.com/apps/new to create an app and get these items
+# See https://dev.twitter.com/docs/auth/oauth for more information on Twitter's OAuth implementation
+
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+OAUTH_TOKEN = ''
+OAUTH_TOKEN_SECRET = ''
+
 # Your query
 Q = sys.argv[1]
 
@@ -94,22 +103,36 @@ def get_rt_origins(tweet):
     return [rto.strip("@") for rto in rt_origins]
 
 
-# Get some search results for a query
-twitter_search = twitter.Twitter(domain="search.twitter.com")
-search_results = []
-for page in range(1,6):
-    search_results.append(twitter_search.search(q=Q, rpp=100, page=page))
+# Authenticate and then get some search results for a query
+auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
+                           CONSUMER_KEY, CONSUMER_SECRET)
+
+twitter_api = twitter.Twitter(domain='api.twitter.com', 
+                              api_version='1.1',
+                              auth=auth
+                             )
+
+search_results = twitter_api.search.tweets(q=Q, count=100)
+tweets = search_results['statuses']
+
+for _ in range(1): # Get 5 more pages
+    next_results = search_results['search_metadata']['next_results']
+
+    # Create a dictionary from the query string params
+    kwargs = dict([ kv.split('=') for kv in next_results[1:].split("&") ]) 
+
+    search_results = twitter_api.search.tweets(**kwargs)
+    tweets += search_results['statuses']
 
 # Build up a graph data structure
 g = nx.DiGraph()
 
-all_tweets = [tweet for page in search_results for tweet in page['results']]
-for tweet in all_tweets:
+for tweet in tweets:
     rt_origins = get_rt_origins(tweet['text'])
     if not rt_origins:
         continue
     for rt_origin in rt_origins:
-        g.add_edge(rt_origin, tweet['from_user'], {'tweet_id': tweet['id']})
+        g.add_edge(rt_origin, tweet['user']['screen_name'], {'tweet_id': tweet['id']})
 
 # Print out some stats
 print >> sys.stderr, "Number nodes:", g.number_of_nodes()
