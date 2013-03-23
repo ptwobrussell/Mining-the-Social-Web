@@ -28,10 +28,12 @@ def transposeMapper(doc):
 view = ViewDefinition('index', 'num_per_day', transposeMapper, language='python')
 view.sync(db_scratch)
 
-fields = ['Date', 'Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Date', 'Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 for row in db_scratch.view('index/num_per_day'):
     if row.key > 10:  # display stats where more than 10 messages were sent
         pt.add_row(['-'.join([str(i) for i in row.value]), row.key])
+
+print pt
