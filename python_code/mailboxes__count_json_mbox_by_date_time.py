@@ -29,11 +29,11 @@ view.sync(db)
 # Print out message counts by time slice such that they're
 # grouped by year, month, day
 
-fields = ['Date', 'Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Date', 'Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 for row in db.view('index/doc_count_by_date_time', group_level=3):  
     pt.add_row(['-'.join([str(i) for i in row.key]), row.value])
 
-pt.printt()
+print pt
