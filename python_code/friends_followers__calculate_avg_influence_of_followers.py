@@ -46,15 +46,15 @@ def calculate():
 
     print 'The top 10 followers from the sample:'
 
-    fields = ['Date', 'Count']
-    pt = PrettyTable(fields=fields)
-    [pt.set_field_align(f, 'l') for f in fields]
+    field_names = ['Date', 'Count']
+    pt = PrettyTable(field_names=field_names)
+    pt.align = 'l'
 
     for (user, freq) in reversed([(user['screen_name'], k) for k in keys[-10:]
                                     for user in freqs[k]]):
         pt.add_row([user, pp(freq)])
 
-    pt.printt()
+    print pt
 
     all_freqs = [k for k in keys for user in freqs[k]]
     avg = reduce(lambda x, y: x + y, all_freqs) / len(all_freqs)
