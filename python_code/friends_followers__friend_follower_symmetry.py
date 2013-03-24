@@ -19,7 +19,10 @@ from twitter__util import getRedisIdByScreenName
 
 SCREEN_NAME = sys.argv[1]
 
-MAXINT = sys.maxint
+if len(sys.argv) > 2:
+    MAXINT = int(sys.argv[2])
+else:
+    MAXINT = sys.maxint
 
 # For nice number formatting
 locale.setlocale(locale.LC_ALL, '')  

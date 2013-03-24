@@ -18,7 +18,7 @@ friends_limit = 10000
 
 (oauth_token, oauth_token_secret) = oauth_dance('MiningTheSocialWeb',
         CONSUMER_KEY, CONSUMER_SECRET)
-t = twitter.Twitter(domain='api.twitter.com', api_version='1',
+t = twitter.Twitter(domain='api.twitter.com', api_version='1.1',
                     auth=twitter.oauth.OAuth(oauth_token, oauth_token_secret,
                     CONSUMER_KEY, CONSUMER_SECRET))
 
