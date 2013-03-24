@@ -7,24 +7,24 @@ import couchdb
 from couchdb.design import ViewDefinition
 from twitter__login import login
 from twitter__util import makeTwitterRequest
+from twitter__util import getNextQueryMaxIdParam
 
 
 def usage():
-    print 'Usage: $ %s timeline_name [max_pages] [user]' % (sys.argv[0], )
+    print 'Usage: $ %s <timeline name> [max_pages] [user]' % (sys.argv[0], )
     print
-    print '\ttimeline_name in [public, home, user]'
+    print '\t<timeline name> in [home, user] and is required'
     print '\t0 < max_pages <= 16 for timeline_name in [home, user]'
-    print '\tmax_pages == 1 for timeline_name == public'
     print 'Notes:'
     print '\t* ~800 statuses are available from the home timeline.'
     print '\t* ~3200 statuses are available from the user timeline.'
-    print '\t* The public timeline updates once every 60 secs and returns 20 statuses.'
-    print '\t* See the streaming/search API for additional options to harvest tweets.'
+    print '\t* The public timeline must now be accessed with the streaming API.'
+    print '\t* See https://dev.twitter.com/docs/api/1.1/get/statuses/sample for details'
 
     exit()
 
 
-if len(sys.argv) < 2 or sys.argv[1] not in ('public', 'home', 'user'):
+if len(sys.argv) < 2 or sys.argv[1] not in ('home', 'user'):
     usage()
 if len(sys.argv) > 2 and not sys.argv[2].isdigit():
     usage()
@@ -38,24 +38,22 @@ USER = None
 
 KW = {  # For the Twitter API call
     'count': 200,
-    'skip_users': 'true',
-    'include_entities': 'true',
-    'since_id': 1,
+    'trim_user': 'true',
+    'include_rts' : 'true',
+    'since_id' : 1,
     }
+
 if TIMELINE_NAME == 'user':
     USER = sys.argv[3]
-    KW['id'] = USER  # id or screen name
+    KW['screen_name'] = USER
 if TIMELINE_NAME == 'home' and MAX_PAGES > 4:
     MAX_PAGES = 4
 if TIMELINE_NAME == 'user' and MAX_PAGES > 16:
     MAX_PAGES = 16
-if TIMELINE_NAME == 'public':
-    MAX_PAGES = 1
 
 t = login()
 
 # Establish a connection to a CouchDB database
-
 server = couchdb.Server('http://localhost:5984')
 DB = 'tweets-%s-timeline' % (TIMELINE_NAME, )
 
@@ -73,7 +71,8 @@ except couchdb.http.PreconditionFailed, e:
     # Try to avoid appending duplicate data into the system by only retrieving tweets 
     # newer than the ones already in the system. A trivial mapper/reducer combination 
     # allows us to pull out the max tweet id which guards against duplicates for the 
-    # home and user timelines. It has no effect for the public timeline
+    # home and user timelines. This is best practice for the Twitter v1.1 API
+    # See https://dev.twitter.com/docs/working-with-timelines
 
 
     def idMapper(doc):
@@ -87,18 +86,21 @@ except couchdb.http.PreconditionFailed, e:
     view = ViewDefinition('index', 'max_tweet_id', idMapper, maxFindingReducer,
                           language='python')
     view.sync(db)
+
     KW['since_id'] = int([_id for _id in db.view('index/max_tweet_id')][0].value)
 
-# Harvest tweets for the given timeline.
-# For friend and home timelines, the unofficial limitation is about 800 statuses although
-# other documentation may state otherwise. The public timeline only returns 20 statuses 
-# and gets updated every 60 seconds.
-# See http://groups.google.com/group/twitter-development-talk/browse_thread/thread/4678df70c301be43
-# Note that the count and since_id params have no effect for the public timeline
+api_call = getattr(t.statuses, TIMELINE_NAME + '_timeline')
+tweets = makeTwitterRequest(t, api_call, **KW)
+db.update(tweets, all_or_nothing=True)
+print 'Fetched %i tweets' % len(tweets)
 
 page_num = 1
-while page_num <= MAX_PAGES:
-    KW['page'] = page_num
+while page_num < MAX_PAGES and len(tweets) > 0:
+
+    # Necessary for traversing the timeline in Twitter's v1.1 API.
+    # See https://dev.twitter.com/docs/working-with-timelines
+    KW['max_id'] = getNextQueryMaxIdParam(tweets)
+
     api_call = getattr(t.statuses, TIMELINE_NAME + '_timeline')
     tweets = makeTwitterRequest(t, api_call, **KW)
     db.update(tweets, all_or_nothing=True)

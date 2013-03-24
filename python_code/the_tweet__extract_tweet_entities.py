@@ -19,11 +19,11 @@
 
 import sys
 import json
-import twitter_text
+import twitter_text # easy_install twitter-text-py
 import twitter
 from twitter__login import login
 
-# Get a tweet id clicking on a status right off of twitter.com. 
+# Get a tweet id by clicking on status "Details" right off of twitter.com. 
 # For example, http://twitter.com/#!/timoreilly/status/17386521699024896
 
 TWEET_ID = sys.argv[1]

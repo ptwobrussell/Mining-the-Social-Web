@@ -165,6 +165,12 @@ def getRedisIdByScreenName(screen_name, key_name):
 def getRedisIdByUserId(user_id, key_name):
     return 'user_id$' + str(user_id) + '$' + key_name
 
+# For calculating the max_id parameter from statuses, which is 
+# necessary in order to traverse a timeline in the v1.1 API. 
+# See https://dev.twitter.com/docs/working-with-timelines
+
+def getNextQueryMaxIdParam(statuses): 
+    return min([ status['id'] for status in statuses ]) - 1
 
 if __name__ == '__main__': # For ad-hoc testing
 
