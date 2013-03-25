@@ -4,11 +4,7 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 # Important Update - March 2013
 
-Twitter is retiring v1 of its API that the examples in this book were based upon. The (print and ebook) copies that are in circulation are not updated to reflect the new v1.1 Twitter API, but as a stop-gap measure, iPython Notebooks are in the works and estimated to be complete prior to March 2013. Chapters 1, 4, and 5 feature Twitter, and at the moment, here's the status of those updates:
-
-- Chapter 1 - sample code is updated and checked in to this repository and an iPython Notebook that features all of the examples from Chapter 1 is available
-- Chapter 4 - sample code is not yet updated in this repository but an iPython Notebook is already checked in that is based upon the sample code.
-- Chapter 5 - neither an iPython Notebook nor sample code is available yet.
+Twitter is retiring v1 of its API that the examples in this book were based upon. The (print and ebook) copies that are in circulation are not updated to reflect the new v1.1 Twitter API, but as a stop-gap measure, iPython Notebooks and standard Python exports of those notebooks are now checked in for chapters 1, 4, and 5, which feature Twitter data.
 
 Again, these remaining items are in the works, will be complete very soon, and this README will be updated once that happens. Reach out on the Facebook page or Twitter with any questions or concerns that you may have.
 
