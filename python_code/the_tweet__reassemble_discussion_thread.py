@@ -41,10 +41,10 @@ doc_ids = [row['id'] for row in response_body['rows']]
 
 tweets = [db.get(doc_id) for doc_id in doc_ids]
 
-# mine out the in_reply_to_status_id fields and fetch those tweets as a batch request
+# mine out the in_reply_to_status_id_str fields and fetch those tweets as a batch request
 
-conversation = sorted([(tweet['_id'], int(tweet['in_reply_to_status_id']))
-                      for tweet in tweets if tweet['in_reply_to_status_id']
+conversation = sorted([(tweet['_id'], int(tweet['in_reply_to_status_id_str']))
+                      for tweet in tweets if tweet['in_reply_to_status_id_str']
                       is not None], key=lambda x: x[1])
 min_conversation_id = min([int(i[1]) for i in conversation if i[1] is not None])
 max_conversation_id = max([int(i[1]) for i in conversation if i[1] is not None])

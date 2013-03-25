@@ -30,9 +30,9 @@ view = ViewDefinition('index', 'retweets_by_id', retweetCountMapper,
 
 view.sync(db)
 
-fields = ['Num Tweets', 'Retweet Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Num Tweets', 'Retweet Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 retweet_total, num_tweets, num_zero_retweets = 0, 0, 0
 for (k,v) in sorted([(row.key, row.value) for row in 
@@ -50,7 +50,7 @@ for (k,v) in sorted([(row.key, row.value) for row in
 
     num_tweets += v
 
-pt.printt()
+print pt
 
 print '\n%s of %s authored tweets were retweeted at least once' % \
     (pp(num_tweets - num_zero_retweets), pp(num_tweets),)

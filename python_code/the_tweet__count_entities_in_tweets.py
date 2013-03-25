@@ -82,12 +82,12 @@ entities_freqs = sorted([(row.key, row.value) for row in
                         db.view('index/entity_count_by_doc', group=True)],
                         key=lambda x: x[1], reverse=True)
 
-fields = ['Entity', 'Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Entity', 'Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 for (entity, freq) in entities_freqs:
     if freq > FREQ_THRESHOLD:
         pt.add_row([entity, freq])
 
-pt.printt()
+print pt

@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+# Note: As pointed out in the text, there are now additional/better ways to process retweets
+# as the Twitter API has evolved. In particular, take a look at the retweet_count field of the
+# status object. See https://dev.twitter.com/docs/platform-objects/tweets. However, the technique
+# illustrated in this code is still relevant as some Twitter clients may not follow best practices
+# and still use the "RT" or "via" conventions to tweet as opposed to using the Twitter API to issue
+# a retweet.
+
 import sys
 import couchdb
 from couchdb.design import ViewDefinition
@@ -52,12 +59,12 @@ entities_freqs = sorted([(row.key, row.value) for row in
                         db.view('index/retweet_entity_count_by_doc',
                         group=True)], key=lambda x: x[1], reverse=True)
 
-fields = ['Entity', 'Count']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+field_names = ['Entity', 'Count']
+pt = PrettyTable(field_names=field_names)
+pt.align = 'l'
 
 for (entity, freq) in entities_freqs:
     if freq > FREQ_THRESHOLD and entity != '@':
         pt.add_row([entity, freq])
 
-pt.printt()
+print pt
