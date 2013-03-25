@@ -6,7 +6,13 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 Twitter is retiring v1 of its API that the examples in this book were based upon. The (print and ebook) copies that are in circulation are not updated to reflect the new v1.1 Twitter API, but as a stop-gap measure, iPython Notebooks and standard Python exports of those notebooks are now checked in for chapters 1, 4, and 5, which feature Twitter data.
 
-Again, these remaining items are in the works, will be complete very soon, and this README will be updated once that happens. Reach out on the Facebook page or Twitter with any questions or concerns that you may have.
+You can view read-only version of these notebooks if you're interested:
+
+- [Chapter 1](http://nbviewer.ipython.org/urls/raw.github.com/ptwobrussell/Mining-the-Social-Web/master/ipython_notebooks/Chapter1.ipynb)
+- [Chapter 4](http://nbviewer.ipython.org/urls/raw.github.com/ptwobrussell/Mining-the-Social-Web/master/ipython_notebooks/Chapter4.ipynb)
+- [Chapter 5](http://nbviewer.ipython.org/urls/raw.github.com/ptwobrussell/Mining-the-Social-Web/master/ipython_notebooks/Chapter5.ipynb)
+
+Reach out on the Facebook page or Twitter with any questions or concerns that you may have.
 
 # Don't Steal This Book
 
