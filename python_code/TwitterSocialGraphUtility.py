@@ -25,8 +25,6 @@ def pp(_int):  # for nice number formatting
     return locale.format('%d', _int, True)
 
 
-# XXX: requires > twitter 1.3.1 which is not currently available from easy_install but will be soon
-
 from twitter.oauth_dance import oauth_dance
 
 
@@ -73,7 +71,7 @@ class TwitterSocialGraphUtility:
             print 'Using previously stored OAuth tokens'
 
         self.twitter_api = twitter.Twitter(domain='api.twitter.com',
-                api_version='1', auth=twitter.oauth.OAuth(oauth_token,
+                api_version='1.1', auth=twitter.oauth.OAuth(oauth_token,
                 oauth_token_secret, consumer_key, consumer_secret))
 
     def handleTwitterHTTPError(self, e, wait_period=1):
