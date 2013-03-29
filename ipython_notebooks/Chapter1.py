@@ -77,7 +77,8 @@ WORLD_WOE_ID = 1
 
 # Prefix id with the underscore for query string parameterization.
 # Without the underscore, it's appended to the URL itself
-world_trends = twitter_api.trends.place(_id=1) 
+world_trends = twitter_api.trends.place(_id=WORLD_WOE_ID) 
+print world_trends
 
 # <markdowncell>
 
