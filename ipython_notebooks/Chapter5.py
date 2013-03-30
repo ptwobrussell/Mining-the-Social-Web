@@ -7,7 +7,7 @@
 # 
 # If you only have 10 seconds...
 # 
-# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this iPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests illustrated in this chapter and how to use the new search API amongst other things. It is highly recommended that you read the iPython Notebook file for Chapter 1 before attempting the examples in this chapter if you haven't already. One of the examples also presumes that you've run an example from Chapter 4 and stored some data in Redis that is recycled into this chapter.
+# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this IPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests illustrated in this chapter and how to use the new search API amongst other things. It is highly recommended that you read the IPython Notebook file for Chapter 1 before attempting the examples in this chapter if you haven't already. One of the examples also presumes that you've run an example from Chapter 4 and stored some data in Redis that is recycled into this chapter.
 # 
 # If you have a couple of minutes...
 # 
@@ -15,9 +15,9 @@
 # 
 # The latest printing of Mining the Social Web (2012-02-22, Third release) reflects v1.0 of the API, and this document is intended to provide readers with updated examples from Chapter 5 of the book until a new printing provides updates.
 # 
-# Unlike the iPython Notebook for Chapter 1, there is no filler in this notebook at this time. See the Chapter 1 notebook for a good introduction to using the Twitter API and all that it entails.
+# Unlike the IPython Notebook for Chapter 1, there is no filler in this notebook at this time. See the Chapter 1 notebook for a good introduction to using the Twitter API and all that it entails.
 # 
-# As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that iPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
+# As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that IPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
 # 
 # Regards - Matthew A. Russell
 # 
@@ -70,7 +70,7 @@ from twitter__login import login
 # Get a tweet id by clicking on status "Details" right off of twitter.com. 
 # For example, http://twitter.com/#!/timoreilly/status/17386521699024896
 
-TWEET_ID = '17386521699024896' # XXX: iPython Notebook cannot prompt for input
+TWEET_ID = '17386521699024896' # XXX: IPython Notebook cannot prompt for input
 
 def getEntities(tweet):
 
@@ -128,9 +128,9 @@ from twitter__util import makeTwitterRequest
 from twitter__util import getNextQueryMaxIdParam
 
 
-TIMELINE_NAME = 'user' # XXX: iPython Notebook cannot prompt for input
-MAX_PAGES = 2 # XXX: iPython Notebook cannot prompt for input
-USER = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+TIMELINE_NAME = 'user' # XXX: IPython Notebook cannot prompt for input
+MAX_PAGES = 2 # XXX: IPython Notebook cannot prompt for input
+USER = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 KW = {  # For the Twitter API call
     'count': 200,
@@ -218,12 +218,12 @@ import couchdb
 from couchdb.design import ViewDefinition
 from prettytable import PrettyTable
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 server = couchdb.Server('http://localhost:5984')
 db = server[DB]
 
-FREQ_THRESHOLD = 3 # XXX: iPython Notebook cannot prompt for input
+FREQ_THRESHOLD = 3 # XXX: IPython Notebook cannot prompt for input
 
 
 # Map entities in tweets to the docs that they appear in
@@ -315,8 +315,8 @@ import sys
 from twitter__util import getRedisIdByScreenName
 from twitter__util import getRedisIdByUserId
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
-THRESHOLD = 15 # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
+THRESHOLD = 15 # XXX: IPython Notebook cannot prompt for input
 
 # Connect using default settings for localhost
 
@@ -377,8 +377,8 @@ from urllib import quote
 import json
 import couchdb
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
-QUERY = 'data' # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
+QUERY = 'data' # XXX: IPython Notebook cannot prompt for input
 
 #  The body of a JavaScript-based design document we'll create
 
@@ -462,8 +462,8 @@ import couchdb
 from twitter__login import login
 from twitter__util import makeTwitterRequest
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
-USER = 'n2vip' # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
+USER = 'n2vip' # XXX: IPython Notebook cannot prompt for input
 
 try:
     server = couchdb.Server('http://localhost:5984')
@@ -559,8 +559,8 @@ import couchdb
 from couchdb.design import ViewDefinition
 from prettytable import PrettyTable
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
-FREQ_THRESHOLD = 3 # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
+FREQ_THRESHOLD = 3 # XXX: IPython Notebook cannot prompt for input
 
 try:
     server = couchdb.Server('http://localhost:5984')
@@ -624,7 +624,7 @@ from couchdb.design import ViewDefinition
 from prettytable import PrettyTable
 from twitter__util import pp
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 try:
     server = couchdb.Server('http://localhost:5984')
@@ -687,7 +687,7 @@ import sys
 import couchdb
 from couchdb.design import ViewDefinition
 
-DB = 'tweets-user-timeline-timoreilly' # XXX: iPython Notebook cannot prompt for input
+DB = 'tweets-user-timeline-timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 try:
     server = couchdb.Server('http://localhost:5984')
@@ -781,7 +781,7 @@ from couchdb.design import ViewDefinition
 from twitter__util import makeTwitterRequest
 from twitter__login import login
 
-Q = 'OpenGov' # XXX: iPython Notebook cannot accept input
+Q = 'OpenGov' # XXX: IPython Notebook cannot accept input
 MAX_PAGES = 5
 
 server = couchdb.Server('http://localhost:5984')

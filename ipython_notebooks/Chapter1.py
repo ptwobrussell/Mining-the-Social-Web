@@ -7,7 +7,7 @@
 # 
 # If you only have 10 seconds...
 # 
-# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this iPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests and demonstrates how to use the new search API.
+# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this IPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests and demonstrates how to use the new search API.
 # 
 # If you have a couple of minutes...
 # 
@@ -15,9 +15,9 @@
 # 
 # The latest printing of Mining the Social Web (2012-02-22, Third release) reflects v1.0 of the API, and this document is intended to provide readers with updated information and examples that specifically related to Twitter requests from Chapter 1 of the book until a new printing provides updates, which are likely to become available in the early April 2013 timeframe. (If you're an O'Reilly ebook customer, you'll get an updated version of the book automatically added to your account when the revisions are ready.)
 # 
-# I've tried to add some filler in between the examples below so that they flow and are easy to follow along; however, they'll make a lot more sense to you if you are following along with the text. The great news is that you can download the sample chapter that corresponds to this iPython Notebook at http://shop.oreilly.com/product/0636920010203.do free of charge!
+# I've tried to add some filler in between the examples below so that they flow and are easy to follow along; however, they'll make a lot more sense to you if you are following along with the text. The great news is that you can download the sample chapter that corresponds to this IPython Notebook at http://shop.oreilly.com/product/0636920010203.do free of charge!
 # 
-# I'm working through updates to the sample source code for other Twitter-related content (Chapters 4 and 5) as quickly as possible and expect to have the GitHub repository updated by the end of March 2013. Thank you for your patience while I get this all sorted out. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that iPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
+# I'm working through updates to the sample source code for other Twitter-related content (Chapters 4 and 5) as quickly as possible and expect to have the GitHub repository updated by the end of March 2013. Thank you for your patience while I get this all sorted out. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that IPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
 # 
 # Regards - Matthew A. Russell
 
@@ -40,7 +40,7 @@
 
 # <markdowncell>
 
-# Once installed, you should be able to open up a Python interpreter (or better yet, your iPython interpreter) and get rolling. See http://ipython.org/ for more information on iPython if you're not already using it or viewing this file in iPython Notebook.
+# Once installed, you should be able to open up a Python interpreter (or better yet, your IPython interpreter) and get rolling. See http://ipython.org/ for more information on IPython if you're not already using it or viewing this file in IPython Notebook.
 
 # <codecell>
 
@@ -82,7 +82,7 @@ print world_trends
 
 # <markdowncell>
 
-# iPython Notebook didn't display the output because the result of the API call was captured as a variable.  Here's how you could print a readable version of the response.
+# IPython Notebook didn't display the output because the result of the API call was captured as a variable.  Here's how you could print a readable version of the response.
 
 # <codecell>
 
@@ -128,7 +128,7 @@ for _ in range(5):
 # <codecell>
 
 import json
-print json.dumps(statuses[0:2], indent=1) # Only print a couple of tweets here in iPython Notebook
+print json.dumps(statuses[0:2], indent=1) # Only print a couple of tweets here in IPython Notebook
 
 # <markdowncell>
 

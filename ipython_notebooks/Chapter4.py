@@ -7,7 +7,7 @@
 # 
 # If you only have 10 seconds...
 # 
-# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this iPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests illustrated in this chapter. It is highly recommended that you read the iPython Notebook file for Chapter 1 before attempting the examples in this chapter if you haven't already.
+# Twitter's new API will prevent you from running much of the code from _Mining the Social Web_, and this IPython Notebook shows you how to roll with the changes and adapt as painlessly as possible until an updated printing is available. In particular, it shows you how to authenticate before executing any API requests illustrated in this chapter. It is highly recommended that you read the IPython Notebook file for Chapter 1 before attempting the examples in this chapter if you haven't already.
 # 
 # If you have a couple of minutes...
 # 
@@ -15,9 +15,9 @@
 # 
 # The latest printing of Mining the Social Web (2012-02-22, Third release) reflects v1.0 of the API, and this document is intended to provide readers with updated examples from Chapter 4 of the book until a new printing provides updates.
 # 
-# Unlike the iPython Notebook for Chapter 1, there is no filler in this notebook at this time. See the Chapter 1 notebook for a good introduction to using the Twitter API and all that it entails.
+# Unlike the IPython Notebook for Chapter 1, there is no filler in this notebook at this time. See the Chapter 1 notebook for a good introduction to using the Twitter API and all that it entails.
 # 
-# I'm working through updates to the sample source code for the remaining Twitter-related chapter (Chapter 5) and expect to have the GitHub repository updated by the end of March 2013. Thank you for your patience while I get this all sorted out. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that iPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
+# I'm working through updates to the sample source code for the remaining Twitter-related chapter (Chapter 5) and expect to have the GitHub repository updated by the end of March 2013. Thank you for your patience while I get this all sorted out. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that IPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
 # 
 # Regards - Matthew A. Russell
 # 
@@ -77,7 +77,7 @@ import time
 import cPickle
 import twitter
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 friends_limit = 10000
 
@@ -141,8 +141,8 @@ import cPickle
 import twitter
 from twitter__util import makeTwitterRequest 
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
-FRIENDS_LIMIT = 10000 # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
+FRIENDS_LIMIT = 10000 # XXX: IPython Notebook cannot prompt for input
 
 def getFriendIds(screen_name=None, user_id=None, friends_limit=10000):
 
@@ -195,7 +195,7 @@ from twitter__util import _getFriendsOrFollowersUsingFunc
 # Creates a consistent key value for a user given a screen name
 from twitter__util import getRedisIdByScreenName
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 MAXINT = 10000 #sys.maxint
 
@@ -278,7 +278,7 @@ import redis
 from twitter__util import getUserInfo
 
 if __name__ == "__main__":
-    # XXX: iPython Notebook cannot prompt for input
+    # XXX: IPython Notebook cannot prompt for input
     screen_names = ['timoreilly', 'socialwebmining', 'ptwobrussell']
 
     r = redis.Redis()
@@ -331,7 +331,7 @@ def friendsFollowersInCommon(screen_names):
 # supplying have already been added to Redis.
 # See friends_followers__get_friends__refactored.py (Example 4-3)
 
-# XXX: iPython Notebook cannot prompt for input
+# XXX: IPython Notebook cannot prompt for input
 friendsFollowersInCommon(['timoreilly', 'socialwebmining'])
 
 # <markdowncell>
@@ -346,7 +346,7 @@ import functools
 from twitter__util import getUserInfo
 from twitter__util import _getFriendsOrFollowersUsingFunc
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 r = redis.Redis()
 
@@ -422,7 +422,7 @@ from twitter__util import pp
 from twitter__util import getRedisIdByScreenName 
 from twitter__util import getRedisIdByUserId
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -490,7 +490,7 @@ import redis
 from twitter__util import getRedisIdByScreenName
 from twitter__util import getRedisIdByUserId
 
-SCREEN_NAME = 'timoreilly' # XXX: iPython Notebook cannot prompt for input
+SCREEN_NAME = 'timoreilly' # XXX: IPython Notebook cannot prompt for input
 
 g = nx.Graph()
 r = redis.Redis()
@@ -553,7 +553,7 @@ import sys
 import json
 import networkx as nx
 
-G = 'out/timoreilly.gpickle' # iPython Notebook cannot prompt for input
+G = 'out/timoreilly.gpickle' # IPython Notebook cannot prompt for input
 
 g = nx.read_gpickle(G)
 
