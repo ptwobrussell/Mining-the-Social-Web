@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from prettytable import PrettyTable
 import sys
 import nltk
 import csv
-from prettytable import PrettyTable
 
 CSV_FILE = sys.argv[1]
 
@@ -20,8 +20,9 @@ for i in range(len(companies)):
     for transform in transforms:
         companies[i] = companies[i].replace(*transform)
 
-pt = PrettyTable(fields=['Company', 'Freq'])
-pt.set_field_align('Company', 'l')
+pt = PrettyTable(['Company', 'Freq'])
+
+pt.align['Company'] = 'l'
 fdist = nltk.FreqDist(companies)
 [pt.add_row([company, freq]) for (company, freq) in fdist.items() if freq > 1]
-pt.printt()
+print(pt)
