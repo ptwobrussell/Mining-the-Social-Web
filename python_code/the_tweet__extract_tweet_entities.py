@@ -60,7 +60,7 @@ def getEntities(tweet):
 
 # Fetch a tweet using an API method of your choice and mixin the entities
 
-t = twitter.Twitter(domain='api.twitter.com', api_version='1.1')
+t = login()
 
 tweet = t.statuses.show(id=TWEET_ID)
 
