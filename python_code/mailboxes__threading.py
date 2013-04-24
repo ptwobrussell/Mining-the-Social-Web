@@ -56,10 +56,10 @@ stats = sorted(zip([result[1] for result in results], [len(t) for t in threads])
                key=lambda x: x[1])
 
 fields = ['Thread Id', 'Thread Length']
-pt = PrettyTable(fields=fields)
-[pt.set_field_align(f, 'l') for f in fields]
+pt = PrettyTable(field_names = fields)
+pt.align='l'
 
 for stat in stats:
     pt.add_row(stat)
 
-pt.printt()
+print pt.get_string()
