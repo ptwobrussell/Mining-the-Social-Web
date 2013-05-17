@@ -4,19 +4,11 @@ import sys
 import mailbox
 import email
 import quopri
+import json
 from BeautifulSoup import BeautifulSoup
 
-try:
-    import jsonlib2 as json  # much faster then Python 2.6.x's stdlib
-except ImportError:
-    import json
-
 MBOX = sys.argv[1]
-OUT_FILE = None
-try:
-    OUT_FILE = sys.argv[2]
-except Exception, e:
-    pass
+OUT_FILE = sys.argv[2]
 
 def cleanContent(msg):
 
@@ -55,21 +47,22 @@ def jsonifyMessage(msg):
 
             json_msg['parts'].append(json_part)
     except Exception, e:
-        sys.stderr.write('Skipping message - error encountered (%s)' % (str(e), ))
+        sys.stderr.write('Skipping message - error encountered (%s)\n' % (str(e), ))
     finally:
         return json_msg
 
- #Note: opening in binary mode is recommended
- 
- mbox = mailbox.UnixMailbox(open(MBOX, 'rb'), email.message_from_file)  
- def gen_json_msgs(m_box):
+# There's a lot of data to process, so use a generator to do it. See http://wiki.python.org/moin/Generators
+# Using a generator requires a trivial custom encoder be passed to json for serialization of objects
+class Encoder(json.JSONEncoder):
+    def default(self, o): return  list(o)
+
+# The generator itself...
+def gen_json_msgs(mb):
     while 1:
-        msg = m_box.next()
+        msg = mb.next()
         if msg is None:
             break
         yield jsonifyMessage(msg)
         
-if OUT_FILE:
-    json.dump(gen_json_msgs(mbox),open(OUT_FILE, 'wb'), indent=4)
-else:
-    print json.dumps(gen_json_msgs(mbox), indent=4)
+mbox = mailbox.UnixMailbox(open(MBOX, 'rb'), email.message_from_file)
+json.dump(gen_json_msgs(mbox),open(OUT_FILE, 'wb'), indent=4, cls=Encoder)
