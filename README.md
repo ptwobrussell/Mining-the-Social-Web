@@ -1,6 +1,6 @@
 # Overview
 
-This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A) (1st Edition). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. The [eBook is available for purchase from its publisher](http://oreil.ly/clJYaY), and [Amazon has it in stock](http://amzn.to/d1Ci8A); new copies are reasonably priced at around $25 USD.
+This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A) (1st Edition). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. The [eBook is available for purchase from its publisher](http://bit.ly/13G2u8V), and [Amazon has it in stock](http://amzn.to/d1Ci8A); new copies are reasonably priced at around $25 USD.
 
 # Important Update - May 2013
 
