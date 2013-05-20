@@ -1,8 +1,14 @@
 # Overview
 
-This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. The [eBook is available for purchase from its publisher](http://oreil.ly/clJYaY), and [Amazon has it in stock](http://amzn.to/d1Ci8A); new copies are reasonably priced at around $25 USD. 
+This respository contains the latest definitive bug fixed source code for examples from [Mining the Social Web](http://amzn.to/d1Ci8A) (1st Edition). This code is available for you to hack on, fork, and discuss regardless of whether or not you have any interest in the book. Feel free to do whatever you'd like with it. However, it is almost definitely the case that if you find this code even mildly interesting, you'll really benefit from picking up a *non-pirated* copy of the book. The [eBook is available for purchase from its publisher](http://oreil.ly/clJYaY), and [Amazon has it in stock](http://amzn.to/d1Ci8A); new copies are reasonably priced at around $25 USD.
 
-# Important Update - March 2013
+# Important Update - May 2013
+
+[Mining the Social Web, 2nd Edition](http://bit.ly/135dHfs) is well underway and currently available for purchase through O'Reilly's Early Access program. Although the source code in this repository and readers of the 1st Edition will continue to receive great support from both me as the author and O'Reilly as the publisher, the future of Mining the Social Web lies with the 2nd Edition, and you are highly encouraged to migrate in that direction or [purchase the 2nd Edition as an ebook directly from O'Reilly](http://bit.ly/135dHfs) if you are interested in sharpening your social web mining skills. 
+
+The source code for the 2nd Edition is available in a separate GitHub repository at XXX, is significantly simpler, heavily leans on IPython Notebook for a much better user experience, and comes with a turn-key virtual machine that trivializes installation and configuration issues that so many readers encountered with this 1st Edition. Feel free to ask qny question you might have by reaching out on Facebook or Twitter. Enjoy!
+
+# Update - March 2013
 
 Twitter is retiring v1 of its API that the examples in this book were based upon. The (print and ebook) copies that are in circulation are not updated to reflect the new v1.1 Twitter API, but as a stop-gap measure, iPython Notebooks and standard Python exports of those notebooks are now checked in for chapters 1, 4, and 5, which feature Twitter data.
 
