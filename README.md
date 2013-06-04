@@ -6,7 +6,7 @@ This respository contains the latest definitive bug fixed source code for exampl
 
 [Mining the Social Web, 2nd Edition](http://bit.ly/135dHfs) is well underway and currently available for purchase through O'Reilly's Early Access program. Although the source code in this repository and readers of the 1st Edition will continue to receive great support from both me as the author and O'Reilly as the publisher, the future of Mining the Social Web lies with the 2nd Edition, and you are highly encouraged to migrate in that direction or [purchase the 2nd Edition as an ebook directly from O'Reilly](http://bit.ly/135dHfs) if you are interested in sharpening your social web mining skills. 
 
-The source code for the 2nd Edition is available in a separate GitHub repository at XXX, is significantly simpler, heavily leans on IPython Notebook for a much better user experience, and comes with a turn-key virtual machine that trivializes installation and configuration issues that so many readers encountered with this 1st Edition. Feel free to ask qny question you might have by reaching out on Facebook or Twitter. Enjoy!
+The source code for the 2nd Edition is available in [a separate GitHub repository](https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition), is significantly simpler, heavily leans on IPython Notebook for a much better user experience, and comes with a turn-key virtual machine that trivializes installation and configuration issues that so many readers encountered with this 1st Edition. Feel free to ask qny question you might have by reaching out on Facebook or Twitter. Enjoy!
 
 # Update - March 2013
 
