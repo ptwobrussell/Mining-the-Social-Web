@@ -81,8 +81,7 @@ for screen_name in screen_names:
     cursor = -1
     while cursor != 0:
         try:
-            response = makeTwitterRequest(t, 
-                                          t.friends.ids, 
+            response = makeTwitterRequest(t.friends.ids, 
                                           screen_name=screen_name, 
                                           cursor=cursor)
             ids += response['ids']
@@ -111,8 +110,7 @@ while len(screen_names) > 0:
     (screen_names_str, screen_names) = (','.join(screen_names[:100]),
                                         screen_names[100:])
 
-    response = makeTwitterRequest(t,
-                                  t.users.lookup,
+    response = makeTwitterRequest(t.users.lookup,
                                   screen_name=screen_names_str)
 
     if type(response) is dict:  # Handle api quirk

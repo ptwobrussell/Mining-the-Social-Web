@@ -4,7 +4,6 @@ import sys
 import twitter
 import couchdb
 from couchdb.design import ViewDefinition
-from twitter__util import makeTwitterRequest
 from twitter__login import login
 
 Q = sys.argv[1]

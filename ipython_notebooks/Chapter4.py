@@ -155,7 +155,7 @@ def getFriendIds(screen_name=None, user_id=None, friends_limit=10000):
         else:
             params['user_id'] = user_id
 
-        response = makeTwitterRequest(t, t.friends.ids, **params)
+        response = makeTwitterRequest(t.friends.ids, **params)
 
         ids.extend(response['ids'])
         cursor = response['next_cursor']

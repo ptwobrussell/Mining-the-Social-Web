@@ -116,7 +116,7 @@ twitter_api = twitter.Twitter(domain='api.twitter.com',
 search_results = twitter_api.search.tweets(q=Q, count=100)
 tweets = search_results['statuses']
 
-for _ in range(1): # Get 5 more pages
+for _ in range(5): # Get 5 more pages
     next_results = search_results['search_metadata']['next_results']
 
     # Create a dictionary from the query string params

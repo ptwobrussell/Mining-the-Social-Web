@@ -186,7 +186,7 @@ except couchdb.http.PreconditionFailed, e:
     KW['since_id'] = int([_id for _id in db.view('index/max_tweet_id')][0].value)
 
 api_call = getattr(t.statuses, TIMELINE_NAME + '_timeline')
-tweets = makeTwitterRequest(t, api_call, **KW)
+tweets = makeTwitterRequest(api_call, **KW)
 db.update(tweets, all_or_nothing=True)
 print 'Fetched %i tweets' % len(tweets)
 
@@ -198,7 +198,7 @@ while page_num < MAX_PAGES and len(tweets) > 0:
     KW['max_id'] = getNextQueryMaxIdParam(tweets)
 
     api_call = getattr(t.statuses, TIMELINE_NAME + '_timeline')
-    tweets = makeTwitterRequest(t, api_call, **KW)
+    tweets = makeTwitterRequest(api_call, **KW)
     db.update(tweets, all_or_nothing=True)
     print 'Fetched %i tweets' % len(tweets)
     page_num += 1
@@ -511,8 +511,7 @@ reply_tweets = []
 results = []
 page = 1
 while True:
-    results = makeTwitterRequest(t, 
-        t.statuses.user_timeline,
+    results = makeTwitterRequest(t.statuses.user_timeline,
         count=200,
         # Per <http://dev.twitter.com/doc/get/statuses/user_timeline>, some
         # caveats apply with the oldest id you can fetch using "since_id"
@@ -534,7 +533,7 @@ for (doc_id, in_reply_to_id) in conversation:
         print [rt for rt in reply_tweets if rt['id'] == in_reply_to_id][0]['text']
     except Exception, e:
         print >> sys.stderr, 'Refetching <<tweet %s>>' % (in_reply_to_id, )
-        results = makeTwitterRequest(t, t.statuses.show, id=in_reply_to_id)
+        results = makeTwitterRequest(t.statuses.show, id=in_reply_to_id)
         print results['text']
 
     # These tweets are already on hand

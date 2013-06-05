@@ -57,8 +57,7 @@ reply_tweets = []
 results = []
 page = 1
 while True:
-    results = makeTwitterRequest(t, 
-        t.statuses.user_timeline,
+    results = makeTwitterRequest(t.statuses.user_timeline,
         count=200,
         # Per <http://dev.twitter.com/doc/get/statuses/user_timeline>, some
         # caveats apply with the oldest id you can fetch using "since_id"
@@ -80,7 +79,7 @@ for (doc_id, in_reply_to_id) in conversation:
         print [rt for rt in reply_tweets if rt['id'] == in_reply_to_id][0]['text']
     except Exception, e:
         print >> sys.stderr, 'Refetching <<tweet %s>>' % (in_reply_to_id, )
-        results = makeTwitterRequest(t, t.statuses.show, id=in_reply_to_id)
+        results = makeTwitterRequest(t.statuses.show, id=in_reply_to_id)
         print results['text']
 
     # These tweets are already on hand
