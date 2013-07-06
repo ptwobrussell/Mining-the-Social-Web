@@ -18,8 +18,10 @@ dd = \
                         }'''},
      'by_content': {'index': '''function(doc) { 
                             var ret=new Document(); 
-                            for (var i=0; i < doc.parts.length; i++) {
-                                ret.add(doc.parts[i].content); 
+                            if (doc.parts) {
+                                for (var i=0; i < doc.parts.length; i++) {
+                                    ret.add(doc.parts[i].content); 
+                                }
                             }
                             return ret 
                         }'''}}}
