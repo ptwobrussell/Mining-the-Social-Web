@@ -117,7 +117,10 @@ search_results = twitter_api.search.tweets(q=Q, count=100)
 tweets = search_results['statuses']
 
 for _ in range(5): # Get 5 more pages
-    next_results = search_results['search_metadata']['next_results']
+    try:
+        next_results = search_results['search_metadata']['next_results']
+    except KeyError, e: # No more results when next_results doesn't exist
+        break
 
     # Create a dictionary from the query string params
     kwargs = dict([ kv.split('=') for kv in next_results[1:].split("&") ]) 
