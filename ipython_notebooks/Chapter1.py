@@ -13,11 +13,11 @@
 # 
 # Twitter is officially retiring v1.0 of their API as of March 2013 with v1.1 of the API being the new status quo. There are a few fundamental differences that social web miners that should consider (see Twitter's blog at https://dev.twitter.com/blog/changes-coming-to-twitter-api and https://dev.twitter.com/docs/api/1.1/overview) with the two changes that are most likely to affect an existing workflow being that authentication is now mandatory for *all* requests, rate-limiting being on a per resource basis (as opposed to an overall rate limit based on a fixed number of requests per unit time), various platform objects changing (for the better), and search semantics changing to a "pageless" approach. All in all, the v1.1 API looks much cleaner and more consistent, and it should be a good thing longer-term although it may cause interim pains for folks migrating to it.
 # 
-# The latest printing of Mining the Social Web (2012-02-22, Third release) reflects v1.0 of the API, and this document is intended to provide readers with updated information and examples that specifically related to Twitter requests from Chapter 1 of the book until a new printing provides updates, which are likely to become available in the early April 2013 timeframe. (If you're an O'Reilly ebook customer, you'll get an updated version of the book automatically added to your account when the revisions are ready.)
+# The latest printing of Mining the Social Web (2012-02-22, Third release) reflects v1.0 of the API, and this document is intended to provide readers with updated information and examples that specifically related to Twitter requests from Chapter 1 of the book until a new printing provides updates.
 # 
 # I've tried to add some filler in between the examples below so that they flow and are easy to follow along; however, they'll make a lot more sense to you if you are following along with the text. The great news is that you can download the sample chapter that corresponds to this IPython Notebook at http://shop.oreilly.com/product/0636920010203.do free of charge!
 # 
-# I'm working through updates to the sample source code for other Twitter-related content (Chapters 4 and 5) as quickly as possible and expect to have the GitHub repository updated by the end of March 2013. Thank you for your patience while I get this all sorted out. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that IPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
+# IPython Notebooks are also available for Chapters 4 and 5. As a reader of my book, I want you to know that I'm committed to helping you in any way that I can, so please reach out on Facebook at https://www.facebook.com/MiningTheSocialWeb or on Twitter at http://twitter.com/SocialWebMining if you have any questions or concerns in the meanwhile. I'd also love your feedback on whether or not you think that IPython Notebook is a good tool for tinkering with the source code for the book, because I'm strongly considering it as a supplement for each chapter.
 # 
 # Regards - Matthew A. Russell
 
@@ -77,7 +77,7 @@ WORLD_WOE_ID = 1
 
 # Prefix id with the underscore for query string parameterization.
 # Without the underscore, it's appended to the URL itself
-world_trends = twitter_api.trends.place(_id=WORLD_WOE_ID) 
+world_trends = twitter_api.trends.place(_id=WORLD_WOE_ID)
 print world_trends
 
 # <markdowncell>
@@ -87,7 +87,7 @@ print world_trends
 # <codecell>
 
 import json
-json.dumps(world_trends, indent=1)
+print json.dumps(world_trends, indent=1)
 
 # <markdowncell>
 
@@ -116,7 +116,11 @@ statuses = search_results['statuses']
 
 # Here's how you would grab five more batches of results and collect the statuses as a list
 for _ in range(5): 
-    next_results = search_results['search_metadata']['next_results']
+    try:
+        next_results = search_results['search_metadata']['next_results']
+    except KeyError, e: # No more results when next_results doesn't exist
+        break
+
     kwargs = dict([ kv.split('=') for kv in next_results[1:].split("&") ]) # Create a dictionary from the query string params
     search_results = twitter_api.search.tweets(**kwargs)
     statuses += search_results['statuses']
