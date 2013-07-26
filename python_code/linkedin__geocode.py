@@ -16,24 +16,24 @@ K = int(sys.argv[1])
 # Use your own API key here if you use a geocoding service
 # such as Google or Yahoo!
 
-GEOCODING_API_KEY = sys.argv[2]
-
-CONNECTIONS_DATA = sys.argv[3]
+CONNECTIONS_DATA = sys.argv[2]
+if len(sys.argv) > 3:
+    GEOCODING_API_KEY = sys.argv[3]
 
 OUT = "clusters.kmeans.kml"
 
 # Open up your saved connections with extended profile information
 
 extended_connections = cPickle.load(open(CONNECTIONS_DATA))
-locations = [ec.location for ec in extended_connections]
-g = geocoders.Yahoo(GEOCODING_API_KEY)
+locations = [ec['location']['name'] for ec in extended_connections]
+g = geocoders.GoogleV3()
 
 # Some basic transforms may be necessary for geocoding services to function properly
 # Here are a few examples that seem to cause problems for Yahoo. You'll probably need
 # to add your own.
 
 transforms = [('Greater ', ''), (' Area', ''), ('San Francisco Bay',
-              'San Francisco')]
+                                                'San Francisco')]
 
 # Tally the frequency of each location
 
@@ -49,6 +49,7 @@ for location in locations:
 
     for transform in transforms:
         transformed_location = transformed_location.replace(*transform)
+        results = []
         while True:
             num_errors = 0
             try:
@@ -64,7 +65,6 @@ for location in locations:
                 print >> sys.stderr, e
                 print >> sys.stderr, 'Encountered an urllib2 error. Trying again...'
         for result in results:
-
             # Each result is of the form ("Description", (X,Y))
 
             coords_freqs[location] = [result[1], 1]
@@ -83,17 +83,17 @@ for label in coords_freqs:
 # No need to clutter the map with unnecessary placemarks...
 
 kml_items = [{'label': label, 'coords': '%s,%s' % coords[0]} for (label,
-             coords) in expanded_coords]
+                                                                  coords) in expanded_coords]
 
 # It could also be interesting to include names of your contacts on the map for display
 
 for item in kml_items:
     item['contacts'] = '\n'.join(['%s %s.' % (ec.first_name, ec.last_name[0])
-                                 for ec in extended_connections if ec.location
-                                 == item['label']])
+                                  for ec in extended_connections if ec['location']
+                                                                    == item['label']])
 
 cl = KMeansClustering([coords for (label, coords_list) in expanded_coords
-                      for coords in coords_list])
+                       for coords in coords_list])
 
 centroids = [{'label': 'CENTROID', 'coords': '%s,%s' % centroid(c)} for c in
              cl.getclusters(K)]

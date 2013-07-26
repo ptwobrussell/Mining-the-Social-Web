@@ -9,8 +9,8 @@ CSV_FILE = sys.argv[1]
 DISTANCE_THRESHOLD = 0.34
 DISTANCE = masi_distance
 
-def cluster_contacts_by_title(csv_file):
 
+def cluster_contacts_by_title(csv_file):
     transforms = [
         ('Sr.', 'Senior'),
         ('Sr', 'Senior'),
@@ -21,15 +21,15 @@ def cluster_contacts_by_title(csv_file):
         ('CTO', 'Chief Technology Officer'),
         ('CFO', 'Chief Finance Officer'),
         ('VP', 'Vice President'),
-        ]
+    ]
 
-    seperators = ['/', 'and', '&']
+    separators = ['/', 'and', '&']
 
     csvReader = csv.DictReader(open(csv_file), delimiter=',', quotechar='"')
     contacts = [row for row in csvReader]
 
-# Normalize and/or replace known abbreviations
-# and build up list of common titles
+    # Normalize and/or replace known abbreviations
+    # and build up list of common titles
 
     all_titles = []
     for i in range(len(contacts)):
@@ -38,11 +38,11 @@ def cluster_contacts_by_title(csv_file):
             continue
         titles = [contacts[i]['Job Title']]
         for title in titles:
-            for seperator in seperators:
+            for seperator in separators:
                 if title.find(seperator) >= 0:
                     titles.remove(title)
                     titles.extend([title.strip() for title in title.split(seperator)
-                                  if title.strip() != ''])
+                                   if title.strip() != ''])
 
         for transform in transforms:
             titles = [title.replace(*transform) for title in titles]
@@ -62,11 +62,11 @@ def cluster_contacts_by_title(csv_file):
             if distance < DISTANCE_THRESHOLD:
                 clusters[title1].append(title2)
 
-# Flatten out clusters
+            # Flatten out clusters
 
     clusters = [clusters[title] for title in clusters if len(clusters[title]) > 1]
 
-# Round up contacts who are in these clusters and group them together
+    # Round up contacts who are in these clusters and group them together
 
     clustered_contacts = {}
     for cluster in clusters:
@@ -75,9 +75,10 @@ def cluster_contacts_by_title(csv_file):
             for title in contact['Job Titles']:
                 if title in cluster:
                     clustered_contacts[tuple(cluster)].append('%s %s.'
-                            % (contact['First Name'], contact['Last Name'][0]))
+                                                              % (contact['First Name'], contact['Last Name'][0]))
 
     return clustered_contacts
+
 
 if __name__ == '__main__':
     clustered_contacts = cluster_contacts_by_title(CSV_FILE)
@@ -90,7 +91,7 @@ if __name__ == '__main__':
         for title in titles:
             descriptive_terms.intersection_update(set(title.split()))
         descriptive_terms_heading = 'Descriptive Terms: ' \
-            + ', '.join(descriptive_terms)
+                                    + ', '.join(descriptive_terms)
         print descriptive_terms_heading
         print '-' * max(len(descriptive_terms_heading), len(common_titles_heading))
         print '\n'.join(clustered_contacts[titles])

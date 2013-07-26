@@ -40,20 +40,20 @@ for i in range(len(titles)):
 
 # Print out a table of titles sorted by frequency
 
-pt = PrettyTable(fields=['Title', 'Freq'])
-pt.set_field_align('Title', 'l')
+pt = PrettyTable(['Title', 'Freq'])
+pt.align['Title'] = 'l'
 titles_fdist = nltk.FreqDist(titles)
 [pt.add_row([title, freq]) for (title, freq) in titles_fdist.items() if freq > 1]
-pt.printt()
+print(pt)
 
 # Print out a table of tokens sorted by frequency
 
 tokens = []
 for title in titles:
     tokens.extend([t.strip(',') for t in title.split()])
-pt = PrettyTable(fields=['Token', 'Freq'])
-pt.set_field_align('Token', 'l')
+pt = PrettyTable(['Token', 'Freq'])
+pt.align['Token'] =  'l'
 tokens_fdist = nltk.FreqDist(tokens)
 [pt.add_row([token, freq]) for (token, freq) in tokens_fdist.items() if freq > 1
  and len(token) > 2]
-pt.printt()
+print(pt)
