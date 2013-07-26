@@ -12,8 +12,9 @@ from geopy import geocoders
 # Use your own API key here if you use a geocoding service
 # such as Google or Yahoo!
 
-GEOCODING_API_KEY = sys.argv[1]
-CONNECTIONS_PICKLE = sys.argv[2]
+CONNECTIONS_PICKLE = sys.argv[1]
+if len(sys.argv) > 2:
+    GEOCODING_API_KEY = sys.argv[2]
 
 # An HTML page that we'll inject Protovis consumable data into
 HTML_TEMPLATE = '../web_code/protovis/dorling_cartogram/dorling_cartogram.html'
@@ -22,9 +23,9 @@ OUT = os.path.basename(HTML_TEMPLATE)
 # Open up your saved connections with extended profile information
 
 extended_connections = cPickle.load(open(CONNECTIONS_PICKLE))
-locations = [ec.location for ec in extended_connections]
+locations = [ec['location']['name'] for ec in extended_connections]
 
-g = geocoders.Yahoo(GEOCODING_API_KEY)
+g = geocoders.GoogleV3()
 
 # Some basic transforms may be necessary for geocoding services to function properly
 
@@ -46,6 +47,7 @@ for location in locations:
     for transform in transforms:
         transformed_location = transformed_location.replace(*transform)
 
+    results = []
     while True:
         num_errors = 0
         try:

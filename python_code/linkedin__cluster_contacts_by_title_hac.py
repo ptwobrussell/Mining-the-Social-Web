@@ -16,7 +16,6 @@ HTML_TEMPLATE = '../web_code/protovis/linkedin_dendogram.html'
 
 OUT = os.path.basename(HTML_TEMPLATE)
 
-
 CSV_FILE = sys.argv[1]
 DISTANCE_THRESHOLD = 0.34
 
@@ -32,7 +31,7 @@ transforms = [
     ('CTO', 'Chief Technology Officer'),
     ('CFO', 'Chief Finance Officer'),
     ('VP', 'Vice President'),
-    ]
+]
 
 seperators = ['/', 'and', '&']
 
@@ -53,7 +52,7 @@ for i in range(len(contacts)):
             if title.find(seperator) >= 0:
                 titles.remove(title)
                 titles.extend([title.strip() for title in title.split(seperator)
-                              if title.strip() != ''])
+                               if title.strip() != ''])
 
     for transform in transforms:
         titles = [title.replace(*transform) for title in titles]
@@ -93,7 +92,7 @@ for cluster in clusters:
         for title in contact['Job Titles']:
             if title in cluster:
                 clustered_contacts[tuple(cluster)].append('%s %s.'
-                        % (contact['First Name'], contact['Last Name'][0]))
+                                                          % (contact['First Name'], contact['Last Name'][0]))
 
 json_output = {}
 for titles in clustered_contacts:
@@ -103,7 +102,7 @@ for titles in clustered_contacts:
         descriptive_terms.intersection_update(set(title.split()))
 
     json_output[', '.join(descriptive_terms)[:30]] = dict([(c, None) for c in
-            clustered_contacts[titles]])
+                                                           clustered_contacts[titles]])
 
 if not os.path.isdir('out'):
     os.mkdir('out')

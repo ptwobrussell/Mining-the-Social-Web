@@ -2,52 +2,33 @@
 
 import os
 import sys
-import webbrowser
 import cPickle
 from linkedin import linkedin
+from linkedin.exceptions import LinkedInError
 
-KEY = sys.argv[1]
-SECRET = sys.argv[2]
+CONSUMER_KEY = sys.argv[1]
+CONSUMER_SECRET = sys.argv[2]
+USER_TOKEN = sys.argv[3]
+USER_SECRET = sys.argv[4]
 
 # Parses out oauth_verifier parameter from window.location.href and
 # displays it for the user
 
 RETURN_URL = 'http://miningthesocialweb.appspot.com/static/linkedin_oauth_helper.html'
 
+authentication = linkedin.LinkedInDeveloperAuthentication(CONSUMER_KEY, CONSUMER_SECRET,
+                                                          USER_TOKEN, USER_SECRET,
+                                                          RETURN_URL, linkedin.PERMISSIONS.enums.values())
+# Pass it in to the app...
 
-def oauthDance(key, secret, return_url):
-    api = linkedin.LinkedIn(key, secret, return_url)
-
-    result = api.requestToken()
-
-    if not result:
-        print >> sys.stderr, api.requestTokenError()
-        return None
-
-    authorize_url = api.getAuthorizeURL()
-
-    webbrowser.open(authorize_url)
-
-    oauth_verifier = raw_input('PIN number, bro: ')
-
-    result = api.accessToken(verifier=oauth_verifier)
-    if not result:
-        print >> sys.stderr, 'Error: %s\nAborting' % api.getRequestTokenError()
-        return None
-
-    return api
-
-
-# First, do the oauth_dance
-
-api = oauthDance(KEY, SECRET, RETURN_URL)
+api = linkedin.LinkedInApplication(authentication)
 
 # Now do something like get your connections:
 
 if api:
-    connections = api.GetConnections()
+    connections = api.get_connections()
 else:
-    print >> sys.stderr, 'Failed to aunthenticate. You need to learn to dance'
+    print >> sys.stderr, 'Failed to authenticate. You need to learn to dance'
     sys.exit(1)
 
 # Be careful - this type of API usage is "expensive".
@@ -55,19 +36,24 @@ else:
 
 print >> sys.stderr, 'Fetching extended connections...'
 
-extended_connections = [api.GetProfile(member_id=c.id, url=None, fields=[
-    'first-name',
-    'last-name',
-    'current-status',
-    'educations',
-    'specialties',
-    'interests',
-    'honors',
-    'positions',
-    'industry',
-    'summary',
-    'location',
-    ]) for c in connections]
+extended_connections = []
+try:
+    for c in connections['values']:
+        extended_connections.append(api.get_profile(member_id=c['id'], member_url=None, selectors=[
+            'first-name',
+            'last-name',
+            'current-status',
+            'educations',
+            'specialties',
+            'interests',
+            'honors',
+            'positions',
+            'industry',
+            'summary',
+            'location',
+        ]))
+except LinkedInError:
+    pass
 
 # Store the data
 
