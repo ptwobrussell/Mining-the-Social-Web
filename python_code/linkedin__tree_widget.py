@@ -8,7 +8,7 @@ CSV_FILE = sys.argv[1]
 
 HTML_TEMPLATE = '../web_code/dojo/dojo_tree.html'
 
-data = {"label" : "name", "temp_items" : {}, "items" : []}
+data = {"label": "name", "temp_items": {}, "items": []}
 
 clustered_contacts = cluster_contacts_by_title(CSV_FILE)
 
@@ -19,17 +19,17 @@ for titles in clustered_contacts:
     descriptive_terms = ', '.join(descriptive_terms)
 
     if data['temp_items'].has_key(descriptive_terms):
-        data['temp_items'][descriptive_terms].extend([{'name' : cc } for cc
-            in clustered_contacts[titles]])
+        data['temp_items'][descriptive_terms].extend([{'name': cc} for cc
+                                                      in clustered_contacts[titles]])
     else:
-        data['temp_items'][descriptive_terms] = [{'name' : cc } for cc
-            in clustered_contacts[titles]]
+        data['temp_items'][descriptive_terms] = [{'name': cc} for cc
+                                                 in clustered_contacts[titles]]
 
 for descriptive_terms in data['temp_items']:
-    data['items'].append({"name" : "%s (%s)" % (descriptive_terms,
-        len(data['temp_items'][descriptive_terms]),),
-            "children" : [i for i in
-                data['temp_items'][descriptive_terms]]})
+    data['items'].append({"name": "%s (%s)" % (descriptive_terms,
+                                               len(data['temp_items'][descriptive_terms]),),
+                          "children": [i for i in
+                                       data['temp_items'][descriptive_terms]]})
 
 del data['temp_items']
 
