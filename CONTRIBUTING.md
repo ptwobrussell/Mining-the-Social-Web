@@ -8,5 +8,5 @@ Given the imminent release of the 2nd Edition in Sept 2013 and all of the work t
 
 It is unlikely that this repository will continue to be maintained after the end of 2013.
 
-Thank you,
+Thank you,<br>
 Matthew A. Russell
