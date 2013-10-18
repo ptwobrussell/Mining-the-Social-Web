@@ -1,5 +1,5 @@
-# Breaking News - October 2013
-[Mining the Social Web, 2nd Edition](http://bit.ly/135dHfs) is now available for purchase, and you may find its (much improved) source code repository here on GitHub at [https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition](Mining-the-Social-Web-2nd-Edition). All readers and consumers of this source code are encouraged to use the 2nd Edition version of the book and source code.
+# Don't Use This Repository - October 2013
+[Mining the Social Web, 2nd Edition](http://bit.ly/135dHfs) is now available for purchase, and you may find its (much improved) source code repository here on GitHub at [https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition](https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition). All readers and consumers of this source code are encouraged to use the 2nd Edition version of the book and source code.
 
 If you're interested in a copy of the book, the recommended option is to purchase an [ebook directly from O'Reilly](http://bit.ly/135dHfs), because it entails automatically receiving free updates for the (hopefully, very long) life of the book. (If you prefer a [paperback or Kindle version from Amazon](http://amzn.to/GPd59m), that's a fine option as well.)
 
